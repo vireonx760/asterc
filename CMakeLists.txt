@@ -1102,10 +1102,21 @@ if(BUILD_TESTING)
                 --compiler $<TARGET_FILE:asterc>
                 --cc "${CMAKE_C_COMPILER}")
         set_tests_properties(compiler_division_abi_preservation PROPERTIES TIMEOUT 240)
+        set(_aster_fault_runner_args)
+        if(WIN32)
+            add_executable(aster-division-fault-runner tests/division_fault_runner.c)
+            asterasm_enable_warnings(aster-division-fault-runner)
+            if(MINGW)
+                target_link_options(aster-division-fault-runner PRIVATE -municode)
+            endif()
+            # Intentional CPU faults are observed before unwinding. Keep the
+            # native probe independent of Python FFI and sanitizer handlers.
+            list(APPEND _aster_fault_runner_args --native-runner $<TARGET_FILE:aster-division-fault-runner>)
+        endif()
         add_test(NAME compiler_division_fault_contract
             COMMAND "${Python3_EXECUTABLE}"
                 "${CMAKE_CURRENT_SOURCE_DIR}/tests/compiler_division_fault_contract.py"
-                --compiler $<TARGET_FILE:asterc>)
+                --compiler $<TARGET_FILE:asterc> ${_aster_fault_runner_args})
         set_tests_properties(compiler_division_fault_contract PROPERTIES TIMEOUT 120)
         add_test(NAME compiler_division_policy_environment
             COMMAND "${Python3_EXECUTABLE}"

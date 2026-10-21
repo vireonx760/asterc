@@ -1,0 +1,3 @@
+module guide.bit_scan;
+export fn leading(value:u32)->u32 @abi(c) { return clz(value); }
+export fn trailing(value:u32)->u32 @abi(c) { return ctz(value); }

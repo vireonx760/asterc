@@ -1,0 +1,4 @@
+module sema.signed_min_literal_success;
+const min: i8 = -128;
+static_assert(min == -128);
+fn f() -> i8 { return -128; }

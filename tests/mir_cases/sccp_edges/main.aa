@@ -1,0 +1,40 @@
+module mir.sccp_edges;
+
+export fn constant_true(a: u64) -> u64 @abi(c) {
+    let flag: bool = true;
+    if flag { return 17; } else { return 29; }
+}
+
+export fn constant_false(a: u64) -> u64 @abi(c) {
+    let flag: bool = false;
+    if flag { return 17; } else { return 29; }
+}
+
+export fn common_phi(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if flag { result = 42; } else { result = 42; }
+    return result;
+}
+
+export fn conflict_phi(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if flag { result = 42; } else { result = 43; }
+    return result;
+}
+
+export fn loop_phi(limit: u64) -> u64 @abi(c) {
+    let counter: u64 = 0;
+    while counter < limit { counter = counter + 1; }
+    return counter;
+}
+
+export fn memory_effect(pointer: ptr<u64>, flag: bool) -> u64 @abi(c) {
+    if flag { store.u64 [pointer] = 7; } else { store.u64 [pointer] = 8; }
+    return load.u64 [pointer];
+}
+
+export fn simple_math() -> u64 @abi(c) {
+    let x: u64 = 55;
+    let y: u64 = 87;
+    return ((x + y) << 2) ^ 17;
+}

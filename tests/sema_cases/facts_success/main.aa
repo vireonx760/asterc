@@ -1,0 +1,32 @@
+module sema.facts_success;
+const K: u32 = 7;
+
+fn id<T: type>(x: T) -> T {
+    return x;
+}
+
+fn f(a: u32) -> u32 {
+    let x: u32 = a + K;
+    let spare: ptr<const u16>;
+    return x;
+}
+
+fn generic_call(a: u16) -> u16 {
+    return id(a);
+}
+
+fn compile_time_facts() {
+    comptime for i in 0..2 {
+        static_assert(i < 2);
+    }
+}
+
+extern fn touch(p: ptr<u32>) -> u32;
+
+fn effect_probe(p: ptr<u32>, d: u32) -> u32 {
+    let a: u32 = load.u32 [p] @volatile;
+    let b: u32 = atomic.load.u32 [p] @acquire;
+    let c: u32 = touch(p);
+    let q: u32 = a / d;
+    return q + b + c;
+}

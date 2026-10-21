@@ -1,0 +1,5 @@
+module sema.intrinsic_const_select_success;
+const a: u8 = select(true, 7, 9);
+const b: u8 = select(false, 7, 9);
+static_assert(a == 7);
+static_assert(b == 9);

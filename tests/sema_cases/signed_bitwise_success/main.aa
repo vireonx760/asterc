@@ -1,0 +1,8 @@
+module sema.signed_bitwise_success;
+const all: i8 = -1;
+const zero: i8 = ~all;
+const masked: i8 = -2 & 0x7f;
+const toggled: i8 = -1 ^ 0x7f;
+static_assert(zero == 0);
+static_assert(masked == 126);
+static_assert(toggled == -128);

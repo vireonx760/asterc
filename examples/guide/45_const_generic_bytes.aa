@@ -1,0 +1,4 @@
+module guide.const_generic_bytes;
+type Bytes<N:const usize> = [u8;N];
+static_assert(sizeof(Bytes<32>)==32);
+export fn size()->usize @abi(c) { return sizeof(Bytes<32>); }

@@ -1,0 +1,8 @@
+module main;
+fn f(p: ptr<const u8>) -> ptr<u8> {
+    let out: ptr<u8>;
+    unsafe {
+        out = ptrcast<ptr<u8>>(p);
+    }
+    return out;
+}

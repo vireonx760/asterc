@@ -1,0 +1,2 @@
+module main;
+fn f(p: ptr<ptr<const u8>>) -> ptr<ptr<u8>> { return p; }

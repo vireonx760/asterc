@@ -1,0 +1,4 @@
+module sema.fence_missing_order_bad;
+fn f() {
+    fence;
+}

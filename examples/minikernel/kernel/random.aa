@@ -1,0 +1,7 @@
+module kernel.random;
+
+section ".data" @writable { global rng_state: u32 = 0x41c64e6d; }
+export fn rng_next() -> u32 @abi(c) {
+    rng_state = rng_state * 1664525 + 1013904223;
+    return rng_state;
+}

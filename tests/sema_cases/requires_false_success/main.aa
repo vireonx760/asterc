@@ -1,0 +1,7 @@
+module sema.requires_false_success;
+export fn f() -> u64 {
+    requires false {
+        let x: u64 = does_not_exist;
+    }
+    return 1;
+}

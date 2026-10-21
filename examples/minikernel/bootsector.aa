@@ -1,0 +1,29 @@
+module boot.real;
+
+// BIOS enters 16-bit mode. Only mode-independent instructions use native forms.
+// The short bytes groups below spell the missing real-mode operand forms.
+export fn boot_sector() -> void @naked {
+    unsafe exact x86_64 {
+        cli; cld;
+        // XOR AX,AX; MOV DS/ES/SS,AX; MOV SP,0x7c00.
+        bytes {0x31,0xc0, 0x8e,0xd8, 0x8e,0xc0, 0x8e,0xd0, 0xbc,0x00,0x7c};
+        // Fast A20 gate: enable bit 1 without asserting reset (bit 0).
+        in {dst: al, port: 0x92};
+        or {dst: al, src: 2}; and {dst: al, src: 0xfe};
+        out {src: al, port: 0x92};
+        // MOV SI,0x7da8 selects the DAP; DL remains the BIOS boot drive.
+        bytes {0xbe,0xa8,0x7d};
+        mov {dst: ah, src: 0x42};
+        sti;
+        bytes {0xcd,0x13}; // INT 13h: extended disk read.
+        cli;
+        // JNC +4; on failure halt forever instead of jumping into stale memory.
+        bytes {0x73,0x04}; hlt; bytes {0xeb,0xfd}; nop;
+        // LGDT [0x7da0]; MOV EAX,CR0.
+        bytes {0x0f,0x01,0x16,0xa0,0x7d, 0x0f,0x20,0xc0};
+        bytes {0x66}; or {dst: eax, src: 1}; // Operand-size override in real mode.
+        bytes {0x0f,0x22,0xc0}; // MOV CR0,EAX.
+        // Far JMP 0x08:0x10000, with a 32-bit offset, enters protected mode.
+        bytes {0x66,0xea,0x00,0x00,0x01,0x00,0x08,0x00};
+    }
+}

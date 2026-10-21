@@ -1,0 +1,5 @@
+module sema.labeled_break_success;
+fn f() {
+    block done:
+    break done;
+}

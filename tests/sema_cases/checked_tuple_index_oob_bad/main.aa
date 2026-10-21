@@ -1,0 +1,5 @@
+module sema.checked_tuple_index_oob_bad;
+fn f(a: u32, b: u32) -> u32 {
+    let r: (u32, bool) = add.checked(a, b);
+    return r[2];
+}

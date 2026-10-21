@@ -1,0 +1,10 @@
+module compiler.inline_qualified_pointer;
+section ".data" @writable {
+    global byte: u8 = 42;
+    global pointer: ptr<u8> = &byte;
+}
+export fn run() -> u64 @abi(c) {
+    return zext<u64>(read(fetch()));
+}
+fn fetch() -> ptr<u8> @inline { return pointer; }
+fn read(p: ptr<const u8>) -> u8 { return load.u8 [p]; }

@@ -1,0 +1,3 @@
+module compiler.nullary_call;
+export fn run() -> u64 @abi(c) { return leaf(); }
+fn leaf() -> u64 @abi(c) { return 42; }

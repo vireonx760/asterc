@@ -1,0 +1,15 @@
+module guide.bitset;
+
+// Bitset membership and removal across word boundaries.
+export fn run() -> u32 @abi(c) {
+    insert(3); insert(35);
+    if !contains(3) || !contains(35) || contains(34) { return 1; }
+    remove(3);
+    if contains(3) || !contains(35) { return 2; }
+    return 42;
+}
+section ".bss" @writable { global words: [u32; 2]; }
+// The public bound check prevents out-of-range shifts and memory access.
+fn insert(bit: u32) { if bit < 64 { let p = &words[cast<usize>(bit >> 5)]; store.u32 [p] = load.u32 [p] | (cast<u32>(1) << (bit & 31)); } }
+fn remove(bit: u32) { if bit < 64 { let p = &words[cast<usize>(bit >> 5)]; store.u32 [p] = load.u32 [p] & (0xffffffff ^ (cast<u32>(1) << (bit & 31))); } }
+fn contains(bit: u32) -> bool { if bit >= 64 { return false; } return (load.u32 [&words[cast<usize>(bit >> 5)]] & (cast<u32>(1) << (bit & 31))) != 0; }

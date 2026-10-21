@@ -1,0 +1,6 @@
+module sema.vector_compare_mask_success;
+fn cmp(a: vec<8,i32>, b: vec<8,i32>) -> mask<8> {
+    let lt: mask<8> = a < b;
+    let eq: mask<8> = a == b;
+    return lt & !eq;
+}

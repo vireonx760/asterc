@@ -1,0 +1,5 @@
+module target.dup_feature;
+target "x86_64-unknown-linux-gnu" {
+    feature + "avx2";
+    feature - "avx2";
+}

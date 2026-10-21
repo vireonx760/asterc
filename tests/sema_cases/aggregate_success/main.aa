@@ -1,0 +1,5 @@
+module sema.aggregate_success;
+export type Pair = struct { x: u32; y: u32; };
+section ".data" @writable {
+    global pairs: [Pair; 2] = { { 1, 2 }, { 3, 4 } };
+}

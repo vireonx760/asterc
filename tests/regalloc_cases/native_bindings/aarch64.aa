@@ -1,0 +1,24 @@
+module bindings.aarch64;
+export fn run(a:u64,b:u64,c:u64)->u64 {
+    let live:u64=a*17+b+c;
+    let out:u64;
+    exact aarch64 inputs(a,b) outputs(out) {
+        mov {dst:x19,src:a};
+        add {dst:out,lhs:x19,rhs:b};
+    }
+    return live+out;
+}
+export fn narrow(a:u8,b:u8)->u8 {
+    let out:u8;
+    native aarch64 inputs(a,b) outputs(out) { add {dst:out,lhs:a,rhs:b}; }
+    return out;
+}
+export fn vector(a:vec<4,u32>,b:vec<4,u32>)->vec<4,u32> {
+    let out:vec<4,u32>;
+    unsafe exact aarch64 inputs(a,b) outputs(out) {
+        mov {dst:q0,src:a}; mov {dst:q1,src:b};
+        add {dst:v8,lhs:v0,rhs:v1,bits:32};
+        mov {dst:out,src:q8};
+    }
+    return out;
+}

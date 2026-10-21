@@ -1,0 +1,2 @@
+module sema.unknown_name;
+fn f() -> u64 { return missing; }

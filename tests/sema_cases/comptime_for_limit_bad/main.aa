@@ -1,0 +1,7 @@
+module main;
+
+fn verify() {
+    comptime for i in 0..65537 {
+        static_assert(i < 65537);
+    }
+}

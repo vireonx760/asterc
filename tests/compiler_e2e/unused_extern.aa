@@ -1,0 +1,8 @@
+module compiler.unused_extern;
+extern fn missing_unused(x: u64) -> u64 @abi(c);
+extern fn needed_external(x: u64) -> u64 @abi(c);
+extern fn address_external(x: u64) -> u64 @abi(c);
+export fn use_external(x: u64) -> u64 @abi(c) { return needed_external(x) + 1; }
+export fn take_address() -> usize @abi(c) {
+    unsafe { return ptr_to_int(&address_external); }
+}

@@ -1,0 +1,2 @@
+module regalloc.native_stack_bad;
+export fn raw() -> void { native x86_64 { mov { dst: rsp, src: rax }; } }

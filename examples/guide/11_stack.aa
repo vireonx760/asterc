@@ -1,0 +1,7 @@
+module guide.stack;
+export fn address_taken(x: u64) -> u64 @abi(c) {
+    let slot: u64 = x;
+    let pointer: ptr<u64> = &slot;
+    store.u64 [pointer] = x + 1;
+    return load.u64 [pointer];
+}

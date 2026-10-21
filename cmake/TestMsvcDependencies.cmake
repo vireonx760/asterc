@@ -1,0 +1,33 @@
+if(NOT DEFINED ASTER_SOURCE OR NOT DEFINED ASTER_PROBE OR NOT DEFINED ASTER_COMPILER OR NOT DEFINED ASTER_NINJA)
+    message(FATAL_ERROR "Dependency regression requires source, probe, compiler and Ninja paths.")
+endif()
+file(MAKE_DIRECTORY "${ASTER_PROBE}/src" "${ASTER_PROBE}/build")
+set(ENV{VSLANG} "1049")
+file(WRITE "${ASTER_PROBE}/src/CMakeLists.txt"
+    "cmake_minimum_required(VERSION 3.20)\nproject(DependencyProbe C)\ninclude(\"${ASTER_SOURCE}/cmake/MsvcNinjaDependencies.cmake\")\nadd_executable(probe main.c)\ntarget_compile_options(probe PRIVATE /utf-8)\n")
+file(WRITE "${ASTER_PROBE}/src/main.c" "#include <stdio.h>\n#include \"outer.h\"\nint main(void) { printf(\"%d\\n\", DEPENDENCY_VALUE); return 0; }\n")
+file(WRITE "${ASTER_PROBE}/src/outer.h" "#include \"вложенный.h\"\n")
+file(WRITE "${ASTER_PROBE}/src/вложенный.h" "#define DEPENDENCY_VALUE 11\n")
+execute_process(COMMAND "${CMAKE_COMMAND}" -S "${ASTER_PROBE}/src" -B "${ASTER_PROBE}/build" -G Ninja
+    "-DCMAKE_C_COMPILER=${ASTER_COMPILER}" "-DCMAKE_MAKE_PROGRAM=${ASTER_NINJA}"
+    TIMEOUT 45 RESULT_VARIABLE configured OUTPUT_VARIABLE output ERROR_VARIABLE error)
+if(NOT configured STREQUAL "0")
+    message(FATAL_ERROR "Dependency probe configuration failed: ${output}\n${error}")
+endif()
+foreach(expected 11 29)
+    if(expected EQUAL 29)
+        execute_process(COMMAND "${CMAKE_COMMAND}" -E sleep 1)
+        # Change only a transitive header with a non-ASCII path.
+        file(WRITE "${ASTER_PROBE}/src/вложенный.h" "#define DEPENDENCY_VALUE 29\n")
+    endif()
+    execute_process(COMMAND "${CMAKE_COMMAND}" --build "${ASTER_PROBE}/build"
+        TIMEOUT 45 RESULT_VARIABLE built OUTPUT_VARIABLE output ERROR_VARIABLE error)
+    if(NOT built STREQUAL "0")
+        message(FATAL_ERROR "Dependency probe build failed: ${output}\n${error}")
+    endif()
+    execute_process(COMMAND "${ASTER_PROBE}/build/probe.exe" TIMEOUT 10 RESULT_VARIABLE ran OUTPUT_VARIABLE value OUTPUT_STRIP_TRAILING_WHITESPACE)
+    if(NOT ran STREQUAL "0" OR NOT value STREQUAL "${expected}")
+        message(FATAL_ERROR "Stale object after header change: expected ${expected}, got '${value}'.")
+    endif()
+endforeach()
+message(STATUS "Localized MSVC + Ninja rebuilt after a transitive Unicode header changed.")

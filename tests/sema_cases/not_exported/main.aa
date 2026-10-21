@@ -1,0 +1,3 @@
+module sema.not_exported;
+import hidden.lib;
+fn f() -> u64 { return hidden.lib.secret; }

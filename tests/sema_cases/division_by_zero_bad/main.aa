@@ -1,0 +1,2 @@
+module sema.division_by_zero_bad;
+const bad: u32 = 10 / 0;

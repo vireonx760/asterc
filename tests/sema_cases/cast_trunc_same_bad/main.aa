@@ -1,0 +1,2 @@
+module main;
+fn f(x: u32) -> u32 { return trunc<u32>(x); }

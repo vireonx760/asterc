@@ -1,0 +1,12 @@
+module guide.fixed_point;
+
+// Signed Q8 fixed-point arithmetic with explicit scaling.
+export fn run() -> u32 @abi(c) {
+    // 1.5 * 2.0 = 3.0, and -1.5 * 2.0 = -3.0.
+    if multiply(384, 512) != 768 || multiply(-384, 512) != -768 { return 1; }
+    return 42;
+}
+fn multiply(a: i32, b: i32) -> i32 {
+    let wide: i64 = sext<i64>(a) * sext<i64>(b);
+    return cast<i32>(wide / 256);
+}

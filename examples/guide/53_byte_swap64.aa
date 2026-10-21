@@ -1,0 +1,2 @@
+module guide.byte_swap64;
+export fn swap(value:u64)->u64 @abi(c) { return bswap(value); }

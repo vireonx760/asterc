@@ -1,0 +1,85 @@
+module abi.core;
+
+export type Pair = struct @layout(c) {
+    a: u64;
+    b: u64;
+};
+
+export type Triple = struct @layout(c) {
+    a: u64;
+    b: u64;
+    c: u64;
+};
+
+export type HFA2 = struct @layout(c) {
+    a: f64;
+    b: f64;
+};
+
+export type HFA4Aligned = struct @layout(c) @align(32) {
+    a: f32;
+    b: f32;
+    c: f32;
+    d: f32;
+};
+
+export type MixedFI = struct @layout(c) {
+    f: f32;
+    i: u32;
+};
+
+fn many9(a: u64, b: u64, c: u64, d: u64, e: u64, f: u64, g: u64, h: u64, i: u64) -> u64 @abi(c) {
+    return a;
+}
+
+fn wide_after7(a: u64, b: u64, c: u64, d: u64, e: u64, f: u64, g: u64, wide: u128) -> u128 @abi(c) {
+    return wide;
+}
+
+fn pair_after7(a: u64, b: u64, c: u64, d: u64, e: u64, f: u64, g: u64, pair: Pair) -> Pair @abi(c) {
+    return pair;
+}
+
+fn pair_passthru(pair: Pair) -> Pair @abi(c) {
+    return pair;
+}
+
+fn triple_passthru(value: Triple) -> Triple @abi(c) {
+    return value;
+}
+
+fn hfa_passthru(value: HFA2) -> HFA2 @abi(c) {
+    return value;
+}
+
+fn hfa_aligned(value: HFA4Aligned) -> HFA4Aligned @abi(c) {
+    return value;
+}
+
+fn fp_mix(a: u64, b: f64, c: u64, d: f32, e: u64) -> f64 @abi(c) {
+    return b;
+}
+
+fn small_ints(a: u8, b: i16, c: u32) -> u64 @abi(c) {
+    return 0;
+}
+
+fn wide_after1(a: u64, wide: u128) -> u128 @abi(c) {
+    return wide;
+}
+
+fn hfa_after8(a: f64, b: f64, c: f64, d: f64, e: f64, f: f64, g: f64, h: f64, value: HFA2) -> HFA2 @abi(c) {
+    return value;
+}
+
+fn mixed_fi(value: MixedFI) -> MixedFI @abi(c) {
+    return value;
+}
+
+fn callee(a: u64, b: u64, c: u64) -> u64 @abi(c) {
+    return a + b + c;
+}
+
+fn caller(a: u64, b: u64, c: u64) -> u64 @abi(c) {
+    return callee(a, b, c);
+}

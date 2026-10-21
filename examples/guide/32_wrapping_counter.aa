@@ -1,0 +1,2 @@
+module guide.wrapping_counter;
+export fn next(value:u32)->u32 @abi(c) { return add.wrap(value,1); }

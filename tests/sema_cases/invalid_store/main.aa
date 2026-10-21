@@ -1,0 +1,4 @@
+module sema.invalid_store;
+fn f(p: ptr<const u64>) {
+    store.u64 [p] = 1;
+}

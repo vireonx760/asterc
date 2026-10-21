@@ -1,0 +1,6 @@
+module compiler.indirect_pointer;
+export fn run()->u32 @abi(c) {
+    let pointer=&increment;
+    return (*pointer)(41);
+}
+fn increment(value:u32)->u32 @abi(c) { return value+1; }

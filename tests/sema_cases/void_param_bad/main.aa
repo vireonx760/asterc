@@ -1,0 +1,2 @@
+module sema.void_param_bad;
+fn bad(x: void) { }

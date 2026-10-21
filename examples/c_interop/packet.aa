@@ -1,0 +1,26 @@
+module examples.c_interop;
+
+// Byte-wise access needs no alignment promise. A zero length permits NULL.
+export fn packet_checksum(bytes: ptr<const u8>, count: usize) -> u32 @abi(c) {
+    let checksum: u32 = 0; let i: usize = 0;
+    while i < count {
+        checksum = checksum + zext<u32>(load.u8 [&bytes[i]]);
+        i = i + 1;
+    }
+    return checksum;
+}
+
+// The returned pointer refers to immutable static storage, not a stack local.
+export fn greeting() -> ptr<const u8> @abi(c) {
+    return c"hello from AsterASM 1.2.1";
+}
+
+// Read the length field only after checking the complete six-byte header.
+// Zero indicates an invalid header or an empty payload in this small interface.
+export fn payload_length(bytes: ptr<const u8>, available: usize) -> u32 @abi(c) {
+    if available < 6 { return 0; }
+    if load.u8 [&bytes[0]] != 65 || load.u8 [&bytes[1]] != 83 { return 0; }
+    let count: u32 = (zext<u32>(load.u8 [&bytes[4]]) << 8) | zext<u32>(load.u8 [&bytes[5]]);
+    if zext<usize>(count) > available - 6 { return 0; }
+    return count;
+}

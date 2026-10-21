@@ -1,0 +1,8 @@
+module sema.branch_forward_success;
+export fn f() -> u64 {
+    br done;
+    block dead:
+    br done;
+    block done:
+    return 7;
+}

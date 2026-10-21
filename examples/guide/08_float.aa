@@ -1,0 +1,2 @@
+module guide.floating;
+export fn scale(x: f64) -> f64 @abi(c) { return x * 1.5 + 2.0; }

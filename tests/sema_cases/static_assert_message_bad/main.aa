@@ -1,0 +1,2 @@
+module sema.static_assert_message_bad;
+static_assert(true, 123);

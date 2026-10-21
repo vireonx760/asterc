@@ -1,0 +1,3073 @@
+module hir.parallel_stress;
+fn f0000(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0001(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0002(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0003(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0004(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0005(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0006(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0007(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0008(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0009(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0010(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0011(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0012(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0013(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0014(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0015(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0016(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0017(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0018(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0019(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0020(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0021(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0022(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0023(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0024(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0025(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0026(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0027(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0028(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0029(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0030(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0031(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0032(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0033(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0034(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0035(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0036(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0037(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0038(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0039(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0040(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0041(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0042(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0043(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0044(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0045(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0046(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0047(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0048(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0049(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0050(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0051(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0052(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0053(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0054(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0055(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0056(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0057(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0058(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0059(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0060(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0061(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0062(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0063(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0064(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0065(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0066(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0067(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0068(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0069(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0070(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0071(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0072(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0073(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0074(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0075(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0076(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0077(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0078(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0079(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0080(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0081(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0082(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0083(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0084(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0085(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0086(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0087(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0088(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0089(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0090(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0091(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0092(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0093(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0094(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0095(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0096(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0097(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0098(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0099(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0100(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0101(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0102(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0103(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0104(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0105(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0106(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0107(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0108(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0109(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0110(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0111(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0112(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0113(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0114(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0115(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0116(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0117(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0118(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0119(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0120(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0121(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0122(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0123(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0124(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0125(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0126(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0127(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0128(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0129(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0130(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0131(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0132(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0133(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0134(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0135(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0136(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0137(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0138(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0139(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0140(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0141(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0142(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0143(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0144(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0145(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0146(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0147(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0148(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0149(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0150(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0151(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0152(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0153(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0154(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0155(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0156(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0157(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0158(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0159(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0160(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0161(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0162(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0163(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0164(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0165(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0166(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0167(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0168(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0169(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0170(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0171(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0172(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0173(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0174(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0175(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0176(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0177(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0178(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0179(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0180(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0181(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0182(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0183(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0184(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0185(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0186(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0187(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0188(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0189(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0190(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0191(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0192(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0193(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0194(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0195(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0196(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0197(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0198(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0199(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0200(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0201(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0202(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0203(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0204(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0205(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0206(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0207(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0208(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0209(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0210(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0211(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0212(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0213(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0214(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0215(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0216(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0217(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0218(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0219(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0220(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0221(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0222(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0223(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0224(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0225(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0226(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0227(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0228(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0229(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0230(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0231(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0232(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0233(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0234(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0235(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0236(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0237(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0238(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0239(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0240(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0241(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0242(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0243(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0244(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0245(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0246(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0247(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0248(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0249(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0250(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0251(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0252(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0253(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0254(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0255(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0256(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0257(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0258(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0259(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0260(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0261(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0262(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0263(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0264(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0265(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0266(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0267(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0268(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0269(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0270(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0271(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0272(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0273(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0274(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0275(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0276(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0277(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0278(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0279(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0280(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0281(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0282(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0283(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0284(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0285(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0286(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0287(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0288(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0289(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0290(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0291(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0292(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0293(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0294(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0295(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0296(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0297(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0298(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0299(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0300(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0301(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0302(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0303(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0304(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0305(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0306(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0307(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0308(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0309(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0310(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0311(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0312(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0313(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0314(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0315(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0316(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0317(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0318(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0319(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0320(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0321(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0322(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0323(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0324(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0325(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0326(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0327(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0328(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0329(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0330(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0331(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0332(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0333(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0334(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0335(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0336(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0337(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0338(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0339(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0340(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0341(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0342(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0343(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0344(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0345(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0346(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0347(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0348(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0349(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0350(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0351(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0352(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0353(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0354(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0355(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0356(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0357(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0358(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0359(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0360(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0361(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0362(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0363(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0364(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0365(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0366(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0367(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0368(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0369(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0370(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0371(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0372(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0373(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0374(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0375(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0376(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0377(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0378(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0379(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0380(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0381(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0382(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0383(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0384(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0385(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0386(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0387(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0388(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0389(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0390(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0391(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0392(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0393(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0394(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0395(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0396(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0397(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0398(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0399(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0400(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0401(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0402(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0403(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0404(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0405(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0406(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0407(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0408(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0409(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0410(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0411(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0412(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0413(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0414(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0415(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0416(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0417(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0418(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0419(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0420(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0421(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0422(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0423(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0424(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0425(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0426(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0427(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0428(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0429(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0430(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0431(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0432(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0433(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0434(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0435(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0436(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0437(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0438(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0439(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0440(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0441(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0442(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0443(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0444(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0445(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0446(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0447(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0448(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0449(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0450(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0451(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0452(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0453(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0454(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0455(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0456(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0457(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0458(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0459(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0460(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0461(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0462(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0463(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0464(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0465(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0466(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0467(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0468(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0469(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0470(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0471(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0472(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0473(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0474(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0475(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0476(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0477(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0478(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0479(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0480(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0481(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0482(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0483(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0484(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0485(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0486(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0487(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0488(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0489(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0490(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0491(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0492(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0493(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0494(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0495(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 3;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0496(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 4;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0497(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 5;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0498(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 6;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0499(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 7;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0500(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 8;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0501(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 9;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0502(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 10;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0503(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 11;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0504(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 12;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0505(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 13;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0506(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 14;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0507(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 15;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0508(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 16;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0509(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 17;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0510(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 1;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}
+fn f0511(x: u64, flag: bool) -> u64 {
+    let y: u64 = x + 2;
+    if flag { y = y * 3; } else { y = y + 7; }
+    while y < 100 { y = y + 1; }
+    return y;
+}

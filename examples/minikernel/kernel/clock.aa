@@ -1,0 +1,18 @@
+module kernel.clock;
+import kernel.io;
+
+// PIT channel 2 runs without interrupts. Polling its output survives optimization
+// and avoids using an arbitrary CPU-speed-dependent empty loop.
+export fn wait_ms(milliseconds: u32) @abi(c) {
+    let ms: u32 = 0;
+    while ms < milliseconds {
+        let gate: u8 = kernel.io.io_in8(0x61) & 0xfc;
+        kernel.io.io_out8(0x61, gate);
+        kernel.io.io_out8(0x43, 0xb0);
+        kernel.io.io_out8(0x42, 0xa9);
+        kernel.io.io_out8(0x42, 0x04);
+        kernel.io.io_out8(0x61, gate | 1);
+        while (kernel.io.io_in8(0x61) & 0x20) == 0 { }
+        ms = ms + 1;
+    }
+}

@@ -1,0 +1,2 @@
+module sema.literal_overflow;
+const x: u8 = 256;

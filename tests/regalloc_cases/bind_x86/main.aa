@@ -1,0 +1,2 @@
+module regalloc.bind_x86;
+export fn bound(x: u64) -> u64 @abi(c) { bind x to x86.r12; return x + 1; }

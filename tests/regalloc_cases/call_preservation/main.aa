@@ -1,0 +1,6 @@
+module regalloc.call_preservation;
+fn callee(a: u64) -> u64 @abi(c) { return a + 3; }
+export fn preserve(live: u64, a: u64) -> u64 @abi(c) {
+    bind live to reg("arg0");
+    return callee(a) + live;
+}

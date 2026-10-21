@@ -1,0 +1,4 @@
+module sema.intrinsic_bswap_width_bad;
+fn f(x: bits<12>) -> bits<12> {
+    return bswap(x);
+}

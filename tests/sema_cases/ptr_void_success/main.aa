@@ -1,0 +1,3 @@
+module sema.ptr_void_success;
+extern fn malloc(n: usize) -> ptr<void> @abi(c);
+fn pass(p: ptr<void>) -> ptr<void> { return p; }

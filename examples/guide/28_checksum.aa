@@ -1,0 +1,11 @@
+module guide.checksum;
+// Stable modulo-2^32 checksum, useful for validating a loaded payload.
+export fn checksum(data:ptr<const u8>,length:usize)->u32 @abi(c) {
+    let sum:u32=0;
+    let index:usize=0;
+    while index<length {
+        sum=add.wrap(sum,zext<u32>(load.u8 [&data[index]]));
+        index=index+1;
+    }
+    return sum;
+}

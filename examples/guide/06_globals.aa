@@ -1,0 +1,8 @@
+module guide.globals;
+section ".data" @writable @align(8) { global counter: u64 = 7; }
+section ".bss" @writable @align(8) { global last: u64; }
+export fn increment() -> u64 @abi(c) {
+    counter = counter + 1;
+    last = counter;
+    return last;
+}

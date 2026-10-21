@@ -1,0 +1,15 @@
+module hir.canonical_text;
+target "x86_64-\u{6c}inux" {
+    cpu = "base\nline";
+    feature + "ss\u{65}2";
+}
+extern fn ext() @abi(c) @link_name("ext\\alias");
+section ".ro\u{64}ata" @readonly {
+    const x: u32 = 1;
+}
+fn raw() @naked {
+    exact x86_64 {
+        mov { dst: rax, src: "a\n\u{03bb}" };
+        ret;
+    }
+}

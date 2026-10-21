@@ -1,0 +1,7 @@
+module sema.vector_arithmetic_success;
+fn add8(a: vec<8,u32>, b: vec<8,u32>) -> u32 {
+    let c: vec<8,u32> = a + b;
+    let d: vec<8,u32> = c * b;
+    let e: vec<8,u32> = d << 33;
+    return e[3];
+}

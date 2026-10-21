@@ -1,0 +1,13 @@
+module compiler.macro_runtime;
+macro add_to($destination:ident,$value:expr) {
+    let temporary:u32=$value;
+    $destination=add.wrap($destination,temporary);
+}
+section ".data" @writable { global bias:u32=2; }
+export fn run()->u32 @abi(c) {
+    let temporary:u32=2;
+    let result:u32=0;
+    add_to!(result,30);
+    add_to!(result,8);
+    return result+temporary+bias;
+}

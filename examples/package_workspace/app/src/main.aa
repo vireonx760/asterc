@@ -1,0 +1,6 @@
+module workspace_demo;
+import sample.math;
+
+export fn answer() -> u64 @abi(c) {
+    return sample.math.add(17, 25);
+}

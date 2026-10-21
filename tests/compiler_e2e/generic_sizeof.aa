@@ -1,0 +1,6 @@
+module regression.generic_sizeof;
+fn size_of_type<T: type>(value: T) -> usize { return sizeof(T); }
+fn size_of_value<T: type>(value: T) -> usize { return sizeof(value); }
+export fn generic_sizeof_sum() -> usize @abi(c) {
+    return size_of_type(cast<u32>(7)) + size_of_value(cast<u64>(9));
+}

@@ -1,0 +1,4 @@
+module guide.array_sum;
+export fn sum4(values:ptr<const u32>)->u32 @abi(c) {
+    return load.u32 [&values[0]] + load.u32 [&values[1]] + load.u32 [&values[2]] + load.u32 [&values[3]];
+}

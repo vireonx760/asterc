@@ -1,0 +1,2 @@
+module main;
+fn f() -> f16 { return 1e100; }

@@ -1,0 +1,3 @@
+module compiler.extern_case;
+extern fn ext(x: u64) -> u64 @abi(c);
+export fn call_ext(x: u64) -> u64 @abi(c) { return ext(x) + 1; }

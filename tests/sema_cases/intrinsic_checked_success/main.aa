@@ -1,0 +1,5 @@
+module sema.intrinsic_checked_success;
+fn f(a: u32, b: u32) -> (u32, bool) {
+    let r: (u32, bool) = add.checked(a, b);
+    return r;
+}

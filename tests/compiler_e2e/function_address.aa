@@ -1,0 +1,5 @@
+module compiler.function_address;
+export fn address() -> usize @abi(c) {
+    unsafe { return ptr_to_int(&leaf); }
+}
+fn leaf() -> u64 @abi(c) { return 42; }

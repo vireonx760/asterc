@@ -1,0 +1,4 @@
+module guide.generic_layout;
+type Box<T:type> = struct { value:T; };
+static_assert(sizeof(Box<u32>)==4);
+export fn read_box(p:ptr<Box<u32>>)->u32 @abi(c) { return load.u32 [&p.value]; }

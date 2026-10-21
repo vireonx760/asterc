@@ -1,0 +1,7 @@
+module regalloc.overaligned;
+export type Wide32 = struct @layout(c) @align(32) { a: u64; b: u64; c: u64; d: u64; };
+export type Wide64 = struct @layout(c) @align(64) { a: u64; b: u64; c: u64; d: u64; e: u64; f: u64; g: u64; h: u64; };
+fn identity32(value: Wide32) -> Wide32 @abi(c) { return value; }
+fn identity64(value: Wide64) -> Wide64 @abi(c) { return value; }
+export fn forward32(value: Wide32) -> Wide32 @abi(c) { return identity32(value); }
+export fn forward64(value: Wide64) -> Wide64 @abi(c) { return identity64(value); }

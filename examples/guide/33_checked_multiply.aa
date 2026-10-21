@@ -1,0 +1,2 @@
+module guide.checked_multiply;
+export fn multiply_checked(a:u32,b:u32)->(u32,bool) @abi(c) { return mul.checked(a,b); }

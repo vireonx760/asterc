@@ -1,0 +1,3 @@
+module sema.remainder_min_success;
+const x: i8 = cast<i8>(-128) % cast<i8>(-1);
+static_assert(x == 0);

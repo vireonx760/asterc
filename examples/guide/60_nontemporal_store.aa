@@ -1,0 +1,2 @@
+module guide.nontemporal_store;
+export fn stream_word(destination:ptr<u64>,value:u64) @abi(c) { store.u64 [destination]=value @nontemporal; }

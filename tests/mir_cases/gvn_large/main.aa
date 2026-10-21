@@ -1,0 +1,188 @@
+module mir.gvn_large;
+
+export fn repeated(a: u64, b: u64) -> u64 @abi(c) {
+    let first: u64 = a * b;
+    let second: u64 = a * b;
+    let third: u64 = a * b;
+    return first + second + third;
+}
+
+export fn across_blocks(a: u64, b: u64, flag: bool) -> u64 @abi(c) {
+    let first: u64 = a + b;
+    if flag {
+        let second: u64 = a + b;
+        return first + second;
+    }
+    return first;
+}
+
+export fn different_ops(a: u64, b: u64) -> u64 @abi(c) {
+    let first: u64 = a + b;
+    let second: u64 = a - b;
+    return first ^ second;
+}
+
+export fn division_effects(a: u64, b: u64) -> u64 @abi(c) {
+    let first: u64 = a / b;
+    let second: u64 = a / b;
+    return first + second;
+}
+
+export fn identities(a: u64) -> u64 @abi(c) {
+    let p: u64 = a + 0;
+    let q: u64 = p * 1;
+    let r: u64 = q ^ 0;
+    let s: u64 = r - 0;
+    return s | 0;
+}
+
+export fn sibling_paths(a: u64, b: u64, flag: bool) -> u64 @abi(c) {
+    if flag {
+        let left: u64 = a + b;
+        return left;
+    } else {
+        let right: u64 = a + b;
+        return right;
+    }
+}
+
+export fn stress(a: u64, b: u64) -> u64 @abi(c) {
+    let m0: u64 = a * b;
+    let m1: u64 = a * b;
+    let m2: u64 = a * b;
+    let m3: u64 = a * b;
+    let m4: u64 = a * b;
+    let m5: u64 = a * b;
+    let m6: u64 = a * b;
+    let m7: u64 = a * b;
+    let m8: u64 = a * b;
+    let m9: u64 = a * b;
+    let m10: u64 = a * b;
+    let m11: u64 = a * b;
+    let m12: u64 = a * b;
+    let m13: u64 = a * b;
+    let m14: u64 = a * b;
+    let m15: u64 = a * b;
+    let m16: u64 = a * b;
+    let m17: u64 = a * b;
+    let m18: u64 = a * b;
+    let m19: u64 = a * b;
+    let m20: u64 = a * b;
+    let m21: u64 = a * b;
+    let m22: u64 = a * b;
+    let m23: u64 = a * b;
+    let m24: u64 = a * b;
+    let m25: u64 = a * b;
+    let m26: u64 = a * b;
+    let m27: u64 = a * b;
+    let m28: u64 = a * b;
+    let m29: u64 = a * b;
+    let m30: u64 = a * b;
+    let m31: u64 = a * b;
+    let m32: u64 = a * b;
+    let m33: u64 = a * b;
+    let m34: u64 = a * b;
+    let m35: u64 = a * b;
+    let m36: u64 = a * b;
+    let m37: u64 = a * b;
+    let m38: u64 = a * b;
+    let m39: u64 = a * b;
+    let m40: u64 = a * b;
+    let m41: u64 = a * b;
+    let m42: u64 = a * b;
+    let m43: u64 = a * b;
+    let m44: u64 = a * b;
+    let m45: u64 = a * b;
+    let m46: u64 = a * b;
+    let m47: u64 = a * b;
+    let m48: u64 = a * b;
+    let m49: u64 = a * b;
+    let m50: u64 = a * b;
+    let m51: u64 = a * b;
+    let m52: u64 = a * b;
+    let m53: u64 = a * b;
+    let m54: u64 = a * b;
+    let m55: u64 = a * b;
+    let m56: u64 = a * b;
+    let m57: u64 = a * b;
+    let m58: u64 = a * b;
+    let m59: u64 = a * b;
+    let m60: u64 = a * b;
+    let m61: u64 = a * b;
+    let m62: u64 = a * b;
+    let m63: u64 = a * b;
+    let result: u64 = m0;
+    result = result + m1;
+    result = result + m2;
+    result = result + m3;
+    result = result + m4;
+    result = result + m5;
+    result = result + m6;
+    result = result + m7;
+    result = result + m8;
+    result = result + m9;
+    result = result + m10;
+    result = result + m11;
+    result = result + m12;
+    result = result + m13;
+    result = result + m14;
+    result = result + m15;
+    result = result + m16;
+    result = result + m17;
+    result = result + m18;
+    result = result + m19;
+    result = result + m20;
+    result = result + m21;
+    result = result + m22;
+    result = result + m23;
+    result = result + m24;
+    result = result + m25;
+    result = result + m26;
+    result = result + m27;
+    result = result + m28;
+    result = result + m29;
+    result = result + m30;
+    result = result + m31;
+    result = result + m32;
+    result = result + m33;
+    result = result + m34;
+    result = result + m35;
+    result = result + m36;
+    result = result + m37;
+    result = result + m38;
+    result = result + m39;
+    result = result + m40;
+    result = result + m41;
+    result = result + m42;
+    result = result + m43;
+    result = result + m44;
+    result = result + m45;
+    result = result + m46;
+    result = result + m47;
+    result = result + m48;
+    result = result + m49;
+    result = result + m50;
+    result = result + m51;
+    result = result + m52;
+    result = result + m53;
+    result = result + m54;
+    result = result + m55;
+    result = result + m56;
+    result = result + m57;
+    result = result + m58;
+    result = result + m59;
+    result = result + m60;
+    result = result + m61;
+    result = result + m62;
+    result = result + m63;
+    return result;
+}
+
+export fn folded_u64(a: u64) -> u64 @abi(c) {
+    let x: u64 = 131;
+    let y: u64 = 17;
+    let p: u64 = x * y;
+    let q: u64 = p + 97;
+    let r: u64 = q ^ 27;
+    return r + a;
+}

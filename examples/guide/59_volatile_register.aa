@@ -1,0 +1,2 @@
+module guide.volatile_register;
+export fn read_status(address:ptr<volatile u32>)->u32 @abi(c) { return load.u32 [address] @volatile; }

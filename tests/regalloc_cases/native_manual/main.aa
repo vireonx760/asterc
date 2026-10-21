@@ -1,0 +1,4 @@
+module regalloc.native_manual;
+export fn raw() -> void @frame(validate) {
+    exact x86_64 { mov { dst: rax, src: 7 }; ret; }
+}

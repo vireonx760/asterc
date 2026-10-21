@@ -1,0 +1,8 @@
+module sema.generics_success;
+export type Box<T: type> = struct { value: T; };
+export type Buffer<T: type, N: const usize> = struct { data: [T; N]; };
+export type Node = struct { next: ptr<Node>; value: u64; };
+static_assert(sizeof(Box<u64>) == 8);
+static_assert(sizeof(Buffer<u16, 4>) == 8);
+static_assert(sizeof(Node) == 16);
+export fn use(p: ptr<Box<u64>>) -> u64 { return load.u64 [&p.value]; }

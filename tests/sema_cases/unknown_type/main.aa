@@ -1,0 +1,2 @@
+module sema.unknown_type;
+fn f(x: Missing) { return; }

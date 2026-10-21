@@ -1,0 +1,9 @@
+module main;
+
+fn tail<T: type, N: const usize>(x: [T; N + 1]) -> T {
+    return x[0];
+}
+
+fn run(x: [u8; 5]) -> u8 {
+    return tail(x);
+}

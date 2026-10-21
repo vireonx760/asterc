@@ -1,0 +1,6 @@
+module regalloc.bind_address;
+export fn bound(x: u64) -> u64 @abi(c) {
+    bind x to reg("arg0");
+    let p = &x;
+    return load.u64 [p];
+}

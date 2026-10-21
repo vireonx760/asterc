@@ -1,0 +1,2 @@
+module regression.semantic_failure;
+fn broken() -> u32 { return unknown_name; }

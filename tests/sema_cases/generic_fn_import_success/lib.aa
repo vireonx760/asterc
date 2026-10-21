@@ -1,0 +1,5 @@
+module lib;
+
+export fn identity<T: type>(x: T) -> T {
+    return x;
+}

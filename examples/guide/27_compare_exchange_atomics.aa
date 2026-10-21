@@ -1,0 +1,11 @@
+module guide.compare_exchange;
+// expected is a value. A failed CAS does not modify it.
+export fn increment(counter:ptr<u64>)->u64 @abi(c) {
+    loop {
+        let previous:u64=atomic.load.u64 [counter] @relaxed;
+        let next:u64=add.wrap(previous,1);
+        if atomic.cas.u64 [counter],previous,next @success(acq_rel) @failure(acquire) {
+            return previous;
+        }
+    }
+}

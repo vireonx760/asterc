@@ -1,0 +1,5 @@
+module compiler.atomic_threads;
+export fn ast_add(p:ptr<u64>)->u64 @abi(c) { return atomic.rmw.add.u64 [p],1 @relaxed; }
+export fn ast_cas(p:ptr<u64>,e:u64,v:u64)->bool @abi(c) { return atomic.cas.u64 [p],e,v @acq_rel; }
+export fn ast_load(p:ptr<u64>)->u64 @abi(c) { return atomic.load.u64 [p] @acquire; }
+export fn ast_store(p:ptr<u64>,v:u64) @abi(c) { atomic.store.u64 [p]=v @release; }

@@ -1,0 +1,4 @@
+module sema.vector_select_success;
+fn choose(m: mask<4>, a: vec<4,f32>, b: vec<4,f32>) -> vec<4,f32> {
+    return select(m, a, b);
+}

@@ -1,0 +1,3 @@
+module guide.generic_box;
+type Box<T:type> = struct { value:T; };
+export fn read(value:ptr<Box<u64>>)->u64 @abi(c) { return load.u64 [&value.value]; }

@@ -1,0 +1,4 @@
+module sema.pred_select_mismatch_bad;
+fn f(p: pred<u32>, a: svec<u64>, b: svec<u64>) -> svec<u64> {
+    return select(p, a, b);
+}

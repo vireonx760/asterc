@@ -1,0 +1,4 @@
+module regalloc.native_memory_bad;
+export fn raw(p: ptr<u64>, q: ptr<u64>) -> void {
+    native x86_64 inputs(p, q) { mov { dst: mem<u64>[p], src: mem<u64>[q] }; }
+}

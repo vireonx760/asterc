@@ -1,0 +1,30 @@
+[package]
+name = "workspace-demo"
+version = "0.1.0"
+kind = "bin"
+root = "src/main.aa"
+source-roots = ["src"]
+
+[build]
+target = "x86_64"
+abi = "sysv"
+emit = "bin"
+base = "0x100000"
+
+[dependencies]
+sample-math = { path = "../mathlib" }
+
+[[matrix]]
+name = "x86-64-sysv"
+target = "x86_64"
+abi = "sysv"
+
+[[matrix]]
+name = "aarch64-aapcs64"
+target = "aarch64"
+abi = "aapcs64"
+
+[[matrix]]
+name = "riscv64-lp64"
+target = "riscv64"
+abi = "lp64"

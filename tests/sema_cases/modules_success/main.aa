@@ -1,0 +1,4 @@
+module sema.modules_success;
+import lib.math;
+static_assert(sizeof(lib.math.Pair) == 16);
+export fn go(x: u64) -> u64 { return lib.math.twice(x) + lib.math.factor; }

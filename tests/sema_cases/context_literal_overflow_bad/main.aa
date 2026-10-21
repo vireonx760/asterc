@@ -1,0 +1,5 @@
+module sema.context_literal_overflow_bad;
+fn f() -> u8 {
+    let x: u8 = 256 + 1;
+    return x;
+}

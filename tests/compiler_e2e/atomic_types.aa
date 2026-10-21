@@ -1,0 +1,26 @@
+module compiler.atomic_types;
+section ".data" @writable {
+    global signed_byte:i8=-1;
+    global first:u8=1;
+    global second:u8=2;
+    global cursor:ptr<u8> = &first;
+}
+export fn run()->u32 @abi(c) {
+    let old:i8=atomic.rmw.add.i8 [&signed_byte],1 @relaxed;
+    if sext<i64>(old)!=-1 { return 1; }
+    if atomic.load.i8 [&signed_byte] @acquire != 0 { return 2; }
+    let previous:ptr<u8> = atomic.rmw.xchg.ptr<u8> [&cursor],&second @seq_cst;
+    if previous!=&first { return 3; }
+    if !(atomic.cas.ptr<u8> [&cursor],&second,&first @success(seq_cst) @failure(acquire)) { return 4; }
+    if atomic.load.ptr<u8> [&cursor] @relaxed != &first { return 5; }
+    // An unused RMW result must not remove its memory effect.
+    atomic.rmw.add.i8 [&signed_byte],7 @release;
+    if atomic.load.i8 [&signed_byte] @seq_cst != 7 { return 6; }
+    atomic.store.i8 [&signed_byte] = -1 @release;
+    if atomic.load.i8 [&signed_byte] @acquire != -1 { return 7; }
+    atomic.store.i8 [&signed_byte] = 1 + 2 @seq_cst;
+    if atomic.load.i8 [&signed_byte] @relaxed != 3 { return 8; }
+    atomic.store.i8 [&signed_byte] = true ? 4 : 5 @relaxed;
+    if atomic.load.i8 [&signed_byte] @relaxed != 4 { return 9; }
+    return 42;
+}

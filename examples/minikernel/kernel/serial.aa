@@ -1,0 +1,24 @@
+module kernel.serial;
+import kernel.io;
+
+
+export fn serial_init() @abi(c) {
+    kernel.io.io_out8(0x3f9, 0);
+    kernel.io.io_out8(0x3fb, 0x80);
+    kernel.io.io_out8(0x3f8, 3);
+    kernel.io.io_out8(0x3f9, 0);
+    kernel.io.io_out8(0x3fb, 3);
+    kernel.io.io_out8(0x3fa, 0xc7);
+    kernel.io.io_out8(0x3fc, 0x0b);
+}
+
+export fn serial_put(value: u8) @abi(c) {
+    // Wait for THRE so bursts do not drop bytes on real UARTs.
+    while (kernel.io.io_in8(0x3fd) & 0x20) == 0 { }
+    kernel.io.io_out8(0x3f8, value);
+}
+
+export fn write(text: ptr<const u8>) @abi(c) {
+    let i: usize = 0;
+    while load.u8 [&text[i]] != 0 { serial_put(load.u8 [&text[i]]); i = i + 1; }
+}

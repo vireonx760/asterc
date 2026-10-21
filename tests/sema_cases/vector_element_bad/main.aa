@@ -1,0 +1,2 @@
+module sema.vector_element_bad;
+type Bad = vec<4,ptr<u8>>;

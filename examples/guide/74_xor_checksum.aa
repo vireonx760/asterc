@@ -1,0 +1,4 @@
+module guide.xor_checksum;
+export fn checksum(data:ptr<const u8>,count:usize)->u8 @abi(c) {
+    let value:u8=0; let i:usize=0; while i<count { value=value ^ load.u8 [&data[i]]; i=i+1; } return value;
+}

@@ -1,0 +1,12 @@
+module compiler.byte_mul;
+
+section ".data" @writable {
+    global unsigned_value: u8 = 25;
+    global signed_value: i8 = -13;
+}
+
+export fn run() -> u64 {
+    let u: u8 = unsigned_value * 10;
+    let s: i8 = signed_value * 7;
+    return zext<u64>(u) + zext<u64>(bitcast<u8>(s));
+}

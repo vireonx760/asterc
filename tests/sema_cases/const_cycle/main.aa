@@ -1,0 +1,3 @@
+module sema.const_cycle;
+const a: u64 = b + 1;
+const b: u64 = a + 1;

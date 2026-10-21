@@ -1,0 +1,2 @@
+module sema.return_type;
+fn f() -> u64 { return true; }

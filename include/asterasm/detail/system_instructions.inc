@@ -1,0 +1,118 @@
+/* name, mnemonic, architecture, operand schema, encoding, feature,
+   implicit GPR definitions/uses (x86 EAX/ECX/EDX/EBX), privileged precondition.
+   Numeric encodings are architecture-owned; no host assembler is used. */
+AST_SYSTEM_FORM(X86_CPUID, "cpuid", X86_64, IMPLICIT, 0xa20fu, 0, 15u, 3u, 0u)
+AST_SYSTEM_FORM(X86_RDTSC, "rdtsc", X86_64, IMPLICIT, 0x310fu, 0, 5u, 0u, 0u)
+AST_SYSTEM_FORM(X86_RDTSCP, "rdtscp", X86_64, IMPLICIT, 0xf9010fu,
+                AST_TARGET_FEATURE_X86_RDTSCP, 7u, 0u, 0u)
+AST_SYSTEM_FORM(X86_RDMSR, "rdmsr", X86_64, IMPLICIT, 0x320fu, 0, 5u, 2u, 1u)
+AST_SYSTEM_FORM(X86_WRMSR, "wrmsr", X86_64, IMPLICIT, 0x300fu, 0, 0u, 7u, 1u)
+AST_SYSTEM_FORM(X86_XGETBV, "xgetbv", X86_64, IMPLICIT, 0xd0010fu,
+                AST_TARGET_FEATURE_X86_XSAVE, 5u, 2u, 0u)
+AST_SYSTEM_FORM(X86_XSETBV, "xsetbv", X86_64, IMPLICIT, 0xd1010fu,
+                AST_TARGET_FEATURE_X86_XSAVE, 0u, 7u, 1u)
+AST_SYSTEM_FORM(X86_PAUSE, "pause", X86_64, FIXED, 0x90f3u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_LFENCE, "lfence", X86_64, FIXED, 0xe8ae0fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_MFENCE, "mfence", X86_64, FIXED, 0xf0ae0fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_SFENCE, "sfence", X86_64, FIXED, 0xf8ae0fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_CLTS, "clts", X86_64, FIXED, 0x60fu, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_INVD, "invd", X86_64, FIXED, 0x80fu, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_WBINVD, "wbinvd", X86_64, FIXED, 0x90fu, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_SWAPGS, "swapgs", X86_64, FIXED, 0xf8010fu, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_STAC, "stac", X86_64, FIXED, 0xcb010fu,
+                AST_TARGET_FEATURE_X86_SMAP, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_CLAC, "clac", X86_64, FIXED, 0xca010fu,
+                AST_TARGET_FEATURE_X86_SMAP, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_READ_CR, "mov", X86_64, X86_READ_SPECIAL, 0x20u, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(X86_WRITE_CR, "mov", X86_64, X86_WRITE_SPECIAL, 0x22u, 0, 0u,
+                0u, 1u)
+AST_SYSTEM_FORM(X86_READ_DR, "mov", X86_64, X86_READ_SPECIAL, 0x21u, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(X86_WRITE_DR, "mov", X86_64, X86_WRITE_SPECIAL, 0x23u, 0, 0u,
+                0u, 1u)
+AST_SYSTEM_FORM(X86_SGDT, "sgdt", X86_64, X86_ADDRESS, 0x0u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_SIDT, "sidt", X86_64, X86_ADDRESS, 0x1u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_INVLPG, "invlpg", X86_64, X86_ADDRESS, 0x7u, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(X86_SLDT, "sldt", X86_64, X86_SELECTOR_READ, 0x0u, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(X86_STR, "str", X86_64, X86_SELECTOR_READ, 0x1u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(X86_LLDT, "lldt", X86_64, X86_SELECTOR_WRITE, 0x2u, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(X86_LTR, "ltr", X86_64, X86_SELECTOR_WRITE, 0x3u, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(A64_MRS, "mrs", AARCH64, A64_READ_SYSREG, 0xd5200000u, 0, 0u,
+                0u, 0u)
+AST_SYSTEM_FORM(A64_MSR, "msr", AARCH64, A64_WRITE_SYSREG, 0xd5000000u, 0, 0u,
+                0u, 0u)
+AST_SYSTEM_FORM(A64_SYS, "sys", AARCH64, A64_SYS, 0xd5080000u, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(A64_SYSL, "sysl", AARCH64, A64_SYSL, 0xd5280000u, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(A64_DMB, "dmb", AARCH64, A64_BARRIER, 0xd50330bfu, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(A64_DSB, "dsb", AARCH64, A64_BARRIER, 0xd503309fu, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(A64_ISB, "isb", AARCH64, A64_BARRIER, 0xd50330dfu, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(A64_NOP, "nop", AARCH64, FIXED, 0xd503201fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_YIELD, "yield", AARCH64, FIXED, 0xd503203fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_WFE, "wfe", AARCH64, FIXED, 0xd503205fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_WFI, "wfi", AARCH64, FIXED, 0xd503207fu, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(A64_SEV, "sev", AARCH64, FIXED, 0xd503209fu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_SEVL, "sevl", AARCH64, FIXED, 0xd50320bfu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_SVC, "svc", AARCH64, A64_EXCEPTION, 0xd4000001u, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(A64_HVC, "hvc", AARCH64, A64_EXCEPTION, 0xd4000002u, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(A64_SMC, "smc", AARCH64, A64_EXCEPTION, 0xd4000003u, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(A64_BRK, "brk", AARCH64, A64_EXCEPTION, 0xd4200000u, 0, 0u, 0u,
+                0u)
+AST_SYSTEM_FORM(RV_CSRRW, "csrrw", RISCV64, RV_CSR_REG, 0x1073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_CSRRS, "csrrs", RISCV64, RV_CSR_REG, 0x2073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_CSRRC, "csrrc", RISCV64, RV_CSR_REG, 0x3073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_CSRRWI, "csrrwi", RISCV64, RV_CSR_IMM, 0x5073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_CSRRSI, "csrrsi", RISCV64, RV_CSR_IMM, 0x6073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_CSRRCI, "csrrci", RISCV64, RV_CSR_IMM, 0x7073u,
+                AST_TARGET_FEATURE_RV_ZICSR, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_FENCE, "fence", RISCV64, RV_FENCE, 0xfu, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_FENCE_I, "fence.i", RISCV64, FIXED, 0x100fu,
+                AST_TARGET_FEATURE_RV_ZIFENCEI, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_SFENCE_VMA, "sfence.vma", RISCV64, RV_FENCE_REG, 0x12000073u,
+                0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_WFI, "wfi", RISCV64, FIXED, 0x10500073u, 0, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_ECALL, "ecall", RISCV64, FIXED, 0x73u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(RV_EBREAK, "ebreak", RISCV64, FIXED, 0x100073u, 0, 0u, 0u, 0u)
+AST_SYSTEM_FORM(A64_ERET, "eret", AARCH64, EXCEPTION_RETURN, 0xd69f03e0u, 0, 0u,
+                0u, 1u)
+AST_SYSTEM_FORM(RV_MRET, "mret", RISCV64, EXCEPTION_RETURN, 0x30200073u, 0, 0u,
+                0u, 1u)
+AST_SYSTEM_FORM(RV_SRET, "sret", RISCV64, EXCEPTION_RETURN, 0x10200073u, 0, 0u,
+                0u, 1u)
+AST_SYSTEM_FORM(A64_DAIFSET, "msr", AARCH64, A64_PSTATE, 0xd50340dfu, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(A64_DAIFCLR, "msr", AARCH64, A64_PSTATE, 0xd50340ffu, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(A64_SPSEL, "msr", AARCH64, A64_PSTATE, 0xd50040bfu, 0, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(RV_HFENCE_VVMA, "hfence.vvma", RISCV64, RV_FENCE_REG,
+                0x22000073u, AST_TARGET_FEATURE_RV_H, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_HFENCE_GVMA, "hfence.gvma", RISCV64, RV_FENCE_REG,
+                0x62000073u, AST_TARGET_FEATURE_RV_H, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_SINVAL_VMA, "sinval.vma", RISCV64, RV_FENCE_REG, 0x16000073u,
+                AST_TARGET_FEATURE_RV_SVINVAL, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_SFENCE_W_INVAL, "sfence.w.inval", RISCV64, FIXED,
+                0x18000073u, AST_TARGET_FEATURE_RV_SVINVAL, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_SFENCE_INVAL_IR, "sfence.inval.ir", RISCV64, FIXED,
+                0x18100073u, AST_TARGET_FEATURE_RV_SVINVAL, 0u, 0u, 1u)
+AST_SYSTEM_FORM(RV_HINVAL_VVMA, "hinval.vvma", RISCV64, RV_FENCE_REG,
+                0x26000073u,
+                AST_TARGET_FEATURE_RV_H | AST_TARGET_FEATURE_RV_SVINVAL, 0u, 0u,
+                1u)
+AST_SYSTEM_FORM(RV_HINVAL_GVMA, "hinval.gvma", RISCV64, RV_FENCE_REG,
+                0x66000073u,
+                AST_TARGET_FEATURE_RV_H | AST_TARGET_FEATURE_RV_SVINVAL, 0u, 0u,
+                1u)

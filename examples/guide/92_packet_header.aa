@@ -1,0 +1,14 @@
+module guide.packet_header;
+
+// Bounded network-header decoding without alignment assumptions.
+export fn run() -> u32 @abi(c) {
+    if payload_size(8) != 42 || payload_size(3) != 0 { return 1; }
+    return 42;
+}
+section ".rodata" @readonly { const packet: [u8; 8] = {65,83,1,0,0,42,0,0}; }
+fn payload_size(available: usize) -> u16 {
+    if available < 8 { return 0; }
+    if load.u8 [&packet[0]] != 65 || load.u8 [&packet[1]] != 83 { return 0; }
+    if load.u8 [&packet[2]] != 1 { return 0; }
+    return (zext<u16>(load.u8 [&packet[4]]) << 8) | zext<u16>(load.u8 [&packet[5]]);
+}

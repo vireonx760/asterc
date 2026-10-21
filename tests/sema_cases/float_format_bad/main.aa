@@ -1,0 +1,2 @@
+module main;
+fn f(x: f16) -> bf16 { return x; }

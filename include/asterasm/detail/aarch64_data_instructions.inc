@@ -1,0 +1,21 @@
+/* Base A64 data processing with shifted/extended operands or conditions.
+   Forms with existing unmodified native packets keep those packets. */
+/* id, mnemonic, shape, W root, X root */
+AST_A64_DATA(ADD, "add", ADD, 0x0b000000u, 0x8b000000u)
+AST_A64_DATA(SUB, "sub", ADD, 0x4b000000u, 0xcb000000u)
+AST_A64_DATA(ADDS, "adds", ADD, 0x2b000000u, 0xab000000u)
+AST_A64_DATA(SUBS, "subs", ADD, 0x6b000000u, 0xeb000000u)
+AST_A64_DATA(AND, "and", LOGIC, 0x0a000000u, 0x8a000000u)
+AST_A64_DATA(ORR, "orr", LOGIC, 0x2a000000u, 0xaa000000u)
+AST_A64_DATA(EOR, "eor", LOGIC, 0x4a000000u, 0xca000000u)
+AST_A64_DATA(ANDS, "ands", LOGIC, 0x6a000000u, 0xea000000u)
+AST_A64_DATA(BIC, "bic", LOGIC, 0x0a200000u, 0x8a200000u)
+AST_A64_DATA(ORN, "orn", LOGIC, 0x2a200000u, 0xaa200000u)
+AST_A64_DATA(EON, "eon", LOGIC, 0x4a200000u, 0xca200000u)
+AST_A64_DATA(BICS, "bics", LOGIC, 0x6a200000u, 0xea200000u)
+AST_A64_DATA(CSEL, "csel", SELECT, 0x1a800000u, 0x9a800000u)
+AST_A64_DATA(CSINC, "csinc", SELECT, 0x1a800400u, 0x9a800400u)
+AST_A64_DATA(CSINV, "csinv", SELECT, 0x5a800000u, 0xda800000u)
+AST_A64_DATA(CSNEG, "csneg", SELECT, 0x5a800400u, 0xda800400u)
+AST_A64_DATA(CCMN, "ccmn", COMPARE, 0x3a400000u, 0xba400000u)
+AST_A64_DATA(CCMP, "ccmp", COMPARE, 0x7a400000u, 0xfa400000u)

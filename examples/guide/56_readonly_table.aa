@@ -1,0 +1,8 @@
+module guide.readonly_table;
+section ".rodata" @readonly @align(8) { const table:[u32;4]={10,20,30,40}; }
+export fn third()->u32 @abi(c) {
+    unsafe {
+        let p:ptr<const u32> = int_to_ptr(ptr_to_int(&table)+8);
+        return load.u32 [p];
+    }
+}

@@ -1,0 +1,4 @@
+module sema.intrinsic_bitops_bad;
+fn f(x: f32) -> u32 {
+    return popcnt(x);
+}

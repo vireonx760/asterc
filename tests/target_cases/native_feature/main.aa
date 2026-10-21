@@ -1,0 +1,7 @@
+module tnative.feature;
+export fn f() -> u64 @naked {
+    exact x86_64 {
+        mov { dst: ymm0, src: ymm1 };
+        ret;
+    }
+}

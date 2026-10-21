@@ -1,0 +1,15 @@
+module app;
+import math.fast;
+import core.bits as bits;
+
+export type Header = struct @layout(c) {
+    magic: u32;
+    flags: u32;
+};
+
+static_assert(sizeof(Header) == 8);
+
+export fn run(x: u64) -> u64 @abi(c) {
+    let y: u64 = math.fast.double(x);
+    return y;
+}

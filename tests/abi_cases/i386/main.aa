@@ -1,0 +1,31 @@
+module abi.i386;
+
+export type Triple = struct @layout(c) {
+    a: u32;
+    b: u32;
+    c: u32;
+};
+
+fn many9(a:u64,b:u64,c:u64,d:u64,e:u64,f:u64,g:u64,h:u64,i:u64)->u64 @abi(c) {
+    return a;
+}
+
+fn small_ints(a:u8,b:i16,c:u32)->u64 @abi(c) {
+    return zext<u64>(a) + cast<u64>(b) + zext<u64>(c);
+}
+
+fn fp_mix(a:u64,b:f64,c:u64,d:f32,e:u64)->f64 @abi(c) {
+    return b;
+}
+
+fn triple_passthru(value:Triple)->Triple @abi(c) {
+    return value;
+}
+
+fn callee(a:u32,b:u64,c:u8)->u64 @abi(c) {
+    return zext<u64>(a) + b + zext<u64>(c);
+}
+
+fn caller(a:u32,b:u64,c:u8)->u64 @abi(c) {
+    return callee(a,b,c);
+}

@@ -1,0 +1,13 @@
+module mir.nested_continue;
+
+export fn spin(pointer: ptr<u64>, inner_done: bool) {
+    loop {
+        store.u64 [pointer] = 1;
+        loop {
+            if inner_done {
+                break;
+            }
+            store.u64 [pointer] = 2;
+        }
+    }
+}

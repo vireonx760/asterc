@@ -1,0 +1,14 @@
+module compiler.immediate_ops;
+
+section ".data" @writable {
+    global seed: u64 = 37;
+}
+
+export fn run() -> u64 @abi(c) {
+    let value: u64 = seed;
+    value = value + 5;
+    value = value * 3;
+    value = value << 2;
+    value = value ^ 7;
+    return value;
+}

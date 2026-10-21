@@ -1,0 +1,14 @@
+module guide.memory;
+// Both pointers must reference at least n accessible bytes. No overlapping buffers.
+export fn copy_bytes(destination: ptr<u8>, source: ptr<const u8>, n: usize) @abi(c) {
+    let i: usize = 0;
+    unsafe {
+        loop {
+            if i == n { break; }
+            let src: ptr<const u8> = int_to_ptr(ptr_to_int(source) + i);
+            let dst: ptr<u8> = int_to_ptr(ptr_to_int(destination) + i);
+            store.u8 [dst] = load.u8 [src];
+            i = i + 1;
+        }
+    }
+}

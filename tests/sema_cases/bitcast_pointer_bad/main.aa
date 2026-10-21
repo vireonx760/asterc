@@ -1,0 +1,2 @@
+module main;
+fn f(p: ptr<u8>) -> u64 { return bitcast<u64>(p); }

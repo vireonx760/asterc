@@ -1,0 +1,7 @@
+module main;
+
+fn verify() {
+    comptime for i in 0..8 {
+        static_assert(i < 8);
+    }
+}

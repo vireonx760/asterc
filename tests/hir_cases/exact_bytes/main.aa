@@ -1,0 +1,6 @@
+module hir.exact_bytes;
+fn raw() -> void @naked {
+    unsafe exact x86_64 {
+        bytes { 0x90, 0xc3 };
+    }
+}

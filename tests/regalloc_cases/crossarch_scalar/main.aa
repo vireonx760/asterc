@@ -1,0 +1,24 @@
+module regalloc.crossarch_scalar;
+export fn signed_to_float(a: i8) -> f32 @abi(c) { return cast<f32>(a); }
+export fn unsigned_to_double(a: u64) -> f64 @abi(c) { return cast<f64>(a); }
+export fn unsigned_to_float(a: u64) -> f32 @abi(c) { return cast<f32>(a); }
+export fn float_to_unsigned(a: f32) -> u64 @abi(c) { return cast<u64>(a); }
+export fn unsigned32_to_float(a: u32) -> f32 @abi(c) { return cast<f32>(a); }
+export fn double_to_unsigned32(a: f64) -> u32 @abi(c) { return cast<u32>(a); }
+export fn extend_unsigned_signed(a: u8) -> i64 @abi(c) { return sext<i64>(bitcast<i8>(a)); }
+export fn extend_signed_unsigned(a: i8) -> u64 @abi(c) { return zext<u64>(bitcast<u8>(a)); }
+export fn double_to_signed(a: f64) -> i64 @abi(c) { return cast<i64>(a); }
+export fn double_to_unsigned(a: f64) -> u64 @abi(c) { return cast<u64>(a); }
+export fn widen_float(a: f32) -> f64 @abi(c) { return cast<f64>(a); }
+export fn narrow_float(a: f64) -> f32 @abi(c) { return cast<f32>(a); }
+export fn bits_to_float(a: u32) -> f32 @abi(c) { return bitcast<f32>(a); }
+export fn double_to_bits(a: f64) -> u64 @abi(c) { return bitcast<u64>(a); }
+export fn float_less(a: f64, b: f64) -> bool @abi(c) { return a < b; }
+export fn float_not_equal(a: f64, b: f64) -> bool @abi(c) { return a != b; }
+export fn float_greater_equal(a: f32, b: f32) -> bool @abi(c) { return a >= b; }
+export fn select_integer(flag: bool, a: u64, b: u64) -> u64 @abi(c) { return select(flag, a, b); }
+export fn select_float(flag: bool, a: f32, b: f32) -> f32 @abi(c) { return select(flag, a, b); }
+export fn float_less_equal(a: f64, b: f64) -> bool @abi(c) { return a <= b; }
+export fn float_equal(a: f32, b: f32) -> bool @abi(c) { return a == b; }
+fn add_float(a: f32, b: f32) -> f32 @abi(c) { return a + b; }
+export fn float_call_live(a: f32, b: f32, live: f32) -> f32 @abi(c) { return add_float(a, b) + live; }

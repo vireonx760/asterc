@@ -1,0 +1,5 @@
+module sema.align_layout_success;
+export type Aligned = struct @align(16) {
+    x: u8;
+};
+static_assert(sizeof(Aligned) == 16);

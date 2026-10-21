@@ -1,0 +1,13 @@
+module main;
+
+type Buffer<T: type, N: const usize> = struct {
+    data: [T; N];
+};
+
+fn id<T: type, N: const usize>(x: Buffer<T, N>) -> Buffer<T, N> {
+    return x;
+}
+
+fn run(x: Buffer<u8, 4>) -> Buffer<u8, 4> {
+    return id(x);
+}

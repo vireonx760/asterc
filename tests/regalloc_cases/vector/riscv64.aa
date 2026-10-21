@@ -1,0 +1,15 @@
+module vector.proof;
+export fn run() @naked {
+    exact riscv64 {
+        vsetvli {dst:a0,avl:a1,vtype:208};
+        vsetivli {dst:a0,avl:7,vtype:192};
+        vsetvl {dst:a0,avl:a1,vtype:a2};
+        vle32.v {dst:v1,addr:a0};
+        vadd.vv {dst:v3,lhs:v1,rhs:v2,vm:0};
+        vadd.vx {dst:v3,lhs:v1,rhs:a1};
+        vadd.vi {dst:v3,lhs:v1,rhs:-16};
+        vsll.vi {dst:v3,lhs:v1,rhs:31};
+        vse32.v {src:v3,addr:a0};
+        ret;
+    }
+}

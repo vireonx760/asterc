@@ -1,0 +1,3 @@
+module sema.attribute_leaf_bad;
+fn g() -> u64 { return 1; }
+export fn f() -> u64 @leaf { return g(); }

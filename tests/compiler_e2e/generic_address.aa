@@ -1,0 +1,11 @@
+module regression.generic_address;
+type Fixed<T: type, N: const usize> = struct {
+    tag: u32;
+    data: [T; N];
+};
+fn at_ptr<T: type, N: const usize>(value: ptr<Fixed<T, N>>, index: usize) -> ptr<T> {
+    return &value.data[index];
+}
+export fn at_u16_4(value: ptr<Fixed<u16, 4>>, index: usize) -> ptr<u16> @abi(c) {
+    return at_ptr(value, index);
+}

@@ -1,0 +1,5 @@
+module guide.comptime_loop;
+export fn answer()->u32 @abi(c) {
+    comptime for index in 0..16 { static_assert(index < 16); }
+    return 16;
+}

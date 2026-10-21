@@ -1,0 +1,9 @@
+module main;
+
+fn same<T: type>(a: T, b: T) -> T {
+    return a;
+}
+
+fn run(a: u32, b: u64) -> u32 {
+    return same(a, b);
+}

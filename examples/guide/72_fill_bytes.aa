@@ -1,0 +1,5 @@
+module guide.fill_bytes;
+// The caller provides at least count writable bytes; count == 0 performs no access.
+export fn fill(data:ptr<u8>,count:usize,value:u8) @abi(c) {
+    let i:usize=0; while i<count { store.u8 [&data[i]]=value; i=i+1; }
+}

@@ -1,0 +1,2 @@
+module guide.fixed_vector_add;
+export fn lane3(a:vec<4,u32>,b:vec<4,u32>)->u32 @abi(c) { let c:vec<4,u32> = a+b; return c[3]; }

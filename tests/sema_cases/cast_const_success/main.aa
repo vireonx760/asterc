@@ -1,0 +1,13 @@
+module sema.cast_const_success;
+const wide: u16 = 511;
+const low: u8 = trunc<u8>(wide);
+const exact_value: u8 = cast<u8>(255);
+const extended: u32 = zext<u32>(low);
+const neg8: i8 = cast<i8>(-1);
+const neg32: i32 = sext<i32>(neg8);
+const as_float: f32 = cast<f32>(exact_value);
+static_assert(low == 255);
+static_assert(exact_value == 255);
+static_assert(extended == 255);
+static_assert(neg32 == -1);
+static_assert(as_float == 255.0);

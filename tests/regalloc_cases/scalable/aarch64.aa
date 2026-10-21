@@ -1,0 +1,24 @@
+module scalable.proof;
+export fn run() @naked {
+    native aarch64 {
+        sub {dst:sp,lhs:sp,rhs:64};
+        str {src:d8,addr:sp,offset:0}; str {src:d9,addr:sp,offset:8};
+        str {src:d10,addr:sp,offset:16}; str {src:d11,addr:sp,offset:24};
+        str {src:d12,addr:sp,offset:32}; str {src:d13,addr:sp,offset:40};
+        str {src:d14,addr:sp,offset:48}; str {src:d15,addr:sp,offset:56};
+        smstart;
+        ptrue {dst:p0,bits:32}; dup {dst:z0,rhs:7,bits:32};
+        movprfx {dst:z1,src:z0}; add {dst:z1,pred:p0,rhs:z2,bits:32};
+        saddlb {dst:z2,lhs:z3,rhs:z4,bits:32,input_bits:16};
+        zero {imm:255}; fmopa {dst:za0,rows:p0,cols:p0,lhs:z0,rhs:z1,bits:32};
+        mova {dst:z2,pred:p0,zan:za0h,index:w12,imm:0,bits:32};
+        st1w {src:z2,pred:p0,addr:x1,offset:0,bits:32};
+        cntp {dst:x0,pred:p0,pn:p0,bits:32};
+        smstop;
+        ldr {dst:d8,addr:sp,offset:0}; ldr {dst:d9,addr:sp,offset:8};
+        ldr {dst:d10,addr:sp,offset:16}; ldr {dst:d11,addr:sp,offset:24};
+        ldr {dst:d12,addr:sp,offset:32}; ldr {dst:d13,addr:sp,offset:40};
+        ldr {dst:d14,addr:sp,offset:48}; ldr {dst:d15,addr:sp,offset:56};
+        add {dst:sp,lhs:sp,rhs:64}; ret;
+    }
+}

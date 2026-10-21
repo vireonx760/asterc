@@ -1,0 +1,3 @@
+module guide.function_pointer;
+fn double(value:u32)->u32 { return value*2; }
+export fn call(value:u32)->u32 @abi(c) { let function=&double; return (*function)(value); }

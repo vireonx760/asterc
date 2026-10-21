@@ -1,0 +1,3 @@
+module guide.macro_increment;
+macro increment($place:ident) { $place=$place+1; }
+export fn twice(value:u32)->u32 @abi(c) { let result:u32=value; increment!(result); increment!(result); return result; }

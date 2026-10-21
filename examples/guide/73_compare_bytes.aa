@@ -1,0 +1,6 @@
+module guide.compare_bytes;
+// Both ranges must contain count readable bytes; empty ranges compare equal.
+export fn equal(a:ptr<const u8>,b:ptr<const u8>,count:usize)->bool @abi(c) {
+    let i:usize=0; while i<count { if load.u8 [&a[i]] != load.u8 [&b[i]] { return false; } i=i+1; }
+    return true;
+}

@@ -1,0 +1,4 @@
+module guide.bits;
+export fn network_order(value:u32)->u32 @abi(c) { return bswap(value); }
+export fn count_bits(value:u32)->u32 @abi(c) { return popcnt(value); }
+export fn rotate(value:u32, amount:u32)->u32 @abi(c) { return rol(value,amount); }

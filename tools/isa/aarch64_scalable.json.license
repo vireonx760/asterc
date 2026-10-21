@@ -1,0 +1,5 @@
+SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+SPDX-FileCopyrightText: LLVM Project contributors
+
+Normalized LLVM llvmorg-18.1.8 scalable encoding records.
+Retain LICENSES/third-party/LLVM-AARCH64.txt.

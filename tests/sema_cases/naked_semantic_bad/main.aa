@@ -1,0 +1,4 @@
+module main;
+fn f() -> u64 @naked {
+    return 1;
+}

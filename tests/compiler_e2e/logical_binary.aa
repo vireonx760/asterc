@@ -1,0 +1,14 @@
+module compiler.logical_binary;
+export fn run()->u32 @abi(c) {
+    if evaluate(false,false)!=0 { return 1; }
+    if evaluate(false,true)!=2 { return 2; }
+    if evaluate(true,false)!=2 { return 3; }
+    if evaluate(true,true)!=3 { return 4; }
+    return 42;
+}
+fn evaluate(a:bool,b:bool)->u32 {
+    let value:u32=0;
+    if a&&b { value=value+1; }
+    if a||b { value=value+2; }
+    return value;
+}

@@ -1,0 +1,3 @@
+module guide.external;
+extern fn host_add(a: u64, b: u64) -> u64 @abi(c);
+export fn call_host() -> u64 @abi(c) { return host_add(17, 25); }

@@ -1,0 +1,9 @@
+module sema.intrinsic_ptr_int_unsafe_success;
+fn f(p: ptr<u8>) -> ptr<u8> {
+    let out: ptr<u8>;
+    unsafe {
+        let raw: usize = ptr_to_int(p);
+        out = int_to_ptr(raw + 16);
+    }
+    return out;
+}

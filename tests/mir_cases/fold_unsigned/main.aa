@@ -1,0 +1,176 @@
+module mir.fold_unsigned;
+
+export fn folded_u32(a: u32) -> u32 @abi(c) {
+    let x: u32 = 2000000000;
+    let y: u32 = 2000000000;
+    let sum: u32 = x + y;
+    let diff: u32 = sum - 1234;
+    return diff ^ a;
+}
+
+export fn folded_u16(a: u16) -> u16 @abi(c) {
+    let x: u16 = 65000;
+    let y: u16 = 4000;
+    let z: u16 = x + y;
+    return z ^ a;
+}
+
+export fn folded_u8(a: u8) -> u8 @abi(c) {
+    let x: u8 = 250;
+    let y: u8 = 19;
+    let z: u8 = x + y;
+    return z ^ a;
+}
+
+export fn and_same(a: u64, b: u64) -> u64 @abi(c) {
+    return a & a;
+}
+export fn and_pair(a: u64, b: u64) -> u64 @abi(c) {
+    return a & b;
+}
+export fn or_pair(a: u64, b: u64) -> u64 @abi(c) {
+    return a | b;
+}
+
+export fn const_div_mod_u64(a: u64) -> u64 @abi(c) {
+    let x: u64 = 1234567890123456789;
+    let y: u64 = 37;
+    let q: u64 = x / y;
+    let r: u64 = x % y;
+    let result: u64 = q + r;
+    return result ^ a;
+}
+
+export fn const_shift_u16(a: u16) -> u16 @abi(c) {
+    let x: u16 = 60000;
+    let y: u16 = 3;
+    let z: u16 = x << y;
+    let q: u16 = x >> y;
+    return (z ^ q) ^ a;
+}
+
+export fn const_shift_u64(a: u64) -> u64 @abi(c) {
+    let x: u64 = 1234567890123456789;
+    let y: u64 = 15;
+    let z: u64 = x << y;
+    let q: u64 = x >> y;
+    return (z ^ q) ^ a;
+}
+
+export fn fold_stress_u8_0(a: u8) -> u8 @abi(c) {
+    let x: u8 = 250;
+    let y: u8 = 17;
+    let k: u8 = 7;
+    let p: u8 = x + y;
+    let q: u8 = p ^ x;
+    let r: u8 = q << k;
+    let s: u8 = x >> k;
+    return (r | s) ^ a;
+}
+
+export fn fold_stress_u8_1(a: u8) -> u8 @abi(c) {
+    let x: u8 = 255;
+    let y: u8 = 17;
+    let p: u8 = x * y;
+    let q: u8 = p - 5;
+    let r: u8 = q & x;
+    return r ^ a;
+}
+
+export fn fold_stress_u8_2(a: u8) -> u8 @abi(c) {
+    let x: u8 = 1;
+    let k: u8 = 7;
+    let r: u8 = x << k;
+    let s: u8 = r >> k;
+    return (r ^ s) ^ a;
+}
+
+export fn fold_stress_u16_0(a: u16) -> u16 @abi(c) {
+    let x: u16 = 65530;
+    let y: u16 = 17;
+    let k: u16 = 15;
+    let p: u16 = x + y;
+    let q: u16 = p ^ x;
+    let r: u16 = q << k;
+    let s: u16 = x >> k;
+    return (r | s) ^ a;
+}
+
+export fn fold_stress_u16_1(a: u16) -> u16 @abi(c) {
+    let x: u16 = 65535;
+    let y: u16 = 17;
+    let p: u16 = x * y;
+    let q: u16 = p - 5;
+    let r: u16 = q & x;
+    return r ^ a;
+}
+
+export fn fold_stress_u16_2(a: u16) -> u16 @abi(c) {
+    let x: u16 = 1;
+    let k: u16 = 15;
+    let r: u16 = x << k;
+    let s: u16 = r >> k;
+    return (r ^ s) ^ a;
+}
+
+export fn fold_stress_u32_0(a: u32) -> u32 @abi(c) {
+    let x: u32 = 4294967290;
+    let y: u32 = 17;
+    let k: u32 = 31;
+    let p: u32 = x + y;
+    let q: u32 = p ^ x;
+    let r: u32 = q << k;
+    let s: u32 = x >> k;
+    return (r | s) ^ a;
+}
+
+export fn fold_stress_u32_1(a: u32) -> u32 @abi(c) {
+    let x: u32 = 4294967295;
+    let y: u32 = 17;
+    let p: u32 = x * y;
+    let q: u32 = p - 5;
+    let r: u32 = q & x;
+    return r ^ a;
+}
+
+export fn fold_stress_u32_2(a: u32) -> u32 @abi(c) {
+    let x: u32 = 1;
+    let k: u32 = 31;
+    let r: u32 = x << k;
+    let s: u32 = r >> k;
+    return (r ^ s) ^ a;
+}
+
+export fn fold_stress_u64_0(a: u64) -> u64 @abi(c) {
+    let x: u64 = 18446744073709551610;
+    let y: u64 = 17;
+    let k: u64 = 63;
+    let p: u64 = x + y;
+    let q: u64 = p ^ x;
+    let r: u64 = q << k;
+    let s: u64 = x >> k;
+    return (r | s) ^ a;
+}
+
+export fn fold_stress_u64_1(a: u64) -> u64 @abi(c) {
+    let x: u64 = 18446744073709551615;
+    let y: u64 = 17;
+    let p: u64 = x * y;
+    let q: u64 = p - 5;
+    let r: u64 = q & x;
+    return r ^ a;
+}
+
+export fn fold_stress_u64_2(a: u64) -> u64 @abi(c) {
+    let x: u64 = 1;
+    let k: u64 = 63;
+    let r: u64 = x << k;
+    let s: u64 = r >> k;
+    return (r ^ s) ^ a;
+}
+
+export fn a64_add_4095(a: u32) -> u32 @abi(c) { return a + 4095; }
+export fn a64_add_4096(a: u32) -> u32 @abi(c) { return a + 4096; }
+export fn a64_add_4097(a: u32) -> u32 @abi(c) { return a + 4097; }
+export fn a64_add_16773120(a: u32) -> u32 @abi(c) { return a + 16773120; }
+export fn a64_add_2000000000(a: u32) -> u32 @abi(c) { return a + 2000000000; }

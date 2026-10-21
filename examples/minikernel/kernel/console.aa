@@ -1,0 +1,54 @@
+module kernel.console;
+
+
+export fn vga_put(row: usize, col: usize, ch: u8, attr: u8) @abi(c) {
+    unsafe {
+        let address: usize = 0xb8000 + ((row * 80 + col) * 2);
+        let cell: ptr<volatile u16> = int_to_ptr(address);
+        let word: u16 = zext<u16>(ch) | (zext<u16>(attr) << 8);
+        store.u16 [cell] = word @volatile;
+    }
+}
+
+export fn clear(attr: u8) @abi(c) {
+    let row: usize = 0;
+    while row < 25 {
+        let col: usize = 0;
+        while col < 80 {
+            vga_put(row, col, 32, attr);
+            col = col + 1;
+        }
+        row = row + 1;
+    }
+}
+
+export fn draw_text(row: usize, col: usize, data: ptr<const u8>, len: usize, attr: u8) @abi(c) {
+    let i: usize = 0;
+    while i < len {
+        vga_put(row, col + i, load.u8 [&data[i]], attr);
+        i = i + 1;
+    }
+}
+
+export fn draw_frame(left: usize, top: usize, width: usize, height: usize, attr: u8) @abi(c) {
+    let x: usize = 0;
+    while x < width {
+        vga_put(top, left + x, 35, attr);
+        vga_put(top + height - 1, left + x, 35, attr);
+        x = x + 1;
+    }
+    let y: usize = 0;
+    while y < height {
+        vga_put(top + y, left, 35, attr);
+        vga_put(top + y, left + width - 1, 35, attr);
+        y = y + 1;
+    }
+}
+
+// NUL-terminated literals remove manual text lengths and numeric ASCII arrays.
+export fn text(row: usize, col: usize, value: ptr<const u8>, attr: u8) @abi(c) {
+    let i: usize = 0;
+    while load.u8 [&value[i]] != 0 && col+i < 80 {
+        vga_put(row, col+i, load.u8 [&value[i]], attr); i = i + 1;
+    }
+}

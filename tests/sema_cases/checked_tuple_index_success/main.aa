@@ -1,0 +1,8 @@
+module sema.checked_tuple_index_success;
+fn f(a: u32, b: u32) -> u32 {
+    let r: (u32, bool) = add.checked(a, b);
+    let value: u32 = r[0];
+    let overflow: bool = r[1];
+    if overflow { return 0; }
+    return value;
+}

@@ -1,0 +1,5 @@
+module regalloc.bind_invalid;
+export fn bound(x: u64) -> u64 @abi(c) {
+    bind x to reg("missing_register");
+    return x;
+}

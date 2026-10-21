@@ -1,0 +1,4 @@
+module sema.attribute_conflict_bad;
+export fn f() @naked @frame(auto) {
+    exact x86_64 { ret; }
+}

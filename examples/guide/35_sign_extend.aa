@@ -1,0 +1,2 @@
+module guide.sign_extend;
+export fn widen(value:i8)->i64 @abi(c) { return sext<i64>(value); }

@@ -1,0 +1,13 @@
+[package]
+name = "aster-minikernel"
+version = "0.2.0"
+kind = "bin"
+root = "kernel.aa"
+source-roots = ["."]
+
+[build]
+target = "x86_64"
+abi = "sysv"
+emit = "bin"
+base = "0x11000"
+no-red-zone = true

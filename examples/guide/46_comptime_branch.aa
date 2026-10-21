@@ -1,0 +1,4 @@
+module guide.comptime_branch;
+export fn pointer_bytes()->usize @abi(c) {
+    comptime if sizeof(usize)==8 { return 8; } else { return 4; }
+}

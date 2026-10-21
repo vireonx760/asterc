@@ -1,0 +1,8 @@
+module sema.native_success;
+export fn bridge(x: u64) -> u64 {
+    let out: u64;
+    native x86_64 inputs(x) outputs(out) {
+        mov { dst: out, src: x };
+    }
+    return out;
+}

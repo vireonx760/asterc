@@ -1,0 +1,246 @@
+/* id, spelling, architecture, shape, encoding, base feature, wide feature.
+   x86 encoding: opcode | map<<8 | mandatory-prefix-code<<10 | store-opcode<<16.
+   VEX is selected by the shape, never by an optimizer or host assembler. */
+#define AST_VECTOR_PAIR(id, text, code, feature, wide)                         \
+  AST_VECTOR_FORM(X86_##id, text, X86_64, X86_BINARY, code, feature, 0)        \
+  AST_VECTOR_FORM(X86_V##id, "v" text, X86_64, X86_VBINARY, code,              \
+                  AST_TARGET_FEATURE_X86_AVX, wide)
+AST_VECTOR_PAIR(ADDPS, "addps", 0x158u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ADDPD, "addpd", 0x558u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(SUBPS, "subps", 0x15cu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(SUBPD, "subpd", 0x55cu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MULPS, "mulps", 0x159u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MULPD, "mulpd", 0x559u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(DIVPS, "divps", 0x15eu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(DIVPD, "divpd", 0x55eu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MINPS, "minps", 0x15du, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MINPD, "minpd", 0x55du, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MAXPS, "maxps", 0x15fu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(MAXPD, "maxpd", 0x55fu, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ANDPS, "andps", 0x154u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ANDPD, "andpd", 0x554u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ANDNPS, "andnps", 0x155u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ANDNPD, "andnpd", 0x555u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ORPS, "orps", 0x156u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(ORPD, "orpd", 0x556u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(XORPS, "xorps", 0x157u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(XORPD, "xorpd", 0x557u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(UNPCKLPS, "unpcklps", 0x114u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(UNPCKLPD, "unpcklpd", 0x514u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(UNPCKHPS, "unpckhps", 0x115u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_PAIR(UNPCKHPD, "unpckhpd", 0x515u, AST_TARGET_FEATURE_X86_SSE2,
+                AST_TARGET_FEATURE_X86_AVX)
+#define AST_VECTOR_INTEGER(id, text, opcode)                                   \
+  AST_VECTOR_PAIR(id, text, (0x500u | opcode), AST_TARGET_FEATURE_X86_SSE2,    \
+                  AST_TARGET_FEATURE_X86_AVX2)
+AST_VECTOR_INTEGER(PADDB, "paddb", 0xfcu)
+AST_VECTOR_INTEGER(PADDW, "paddw", 0xfdu)
+AST_VECTOR_INTEGER(PADDD, "paddd", 0xfeu)
+AST_VECTOR_INTEGER(PADDQ, "paddq", 0xd4u)
+AST_VECTOR_INTEGER(PSUBB, "psubb", 0xf8u)
+AST_VECTOR_INTEGER(PSUBW, "psubw", 0xf9u)
+AST_VECTOR_INTEGER(PSUBD, "psubd", 0xfau)
+AST_VECTOR_INTEGER(PSUBQ, "psubq", 0xfbu)
+AST_VECTOR_INTEGER(PADDSB, "paddsb", 0xecu)
+AST_VECTOR_INTEGER(PADDSW, "paddsw", 0xedu)
+AST_VECTOR_INTEGER(PADDUSB, "paddusb", 0xdcu)
+AST_VECTOR_INTEGER(PADDUSW, "paddusw", 0xddu)
+AST_VECTOR_INTEGER(PSUBSB, "psubsb", 0xe8u)
+AST_VECTOR_INTEGER(PSUBSW, "psubsw", 0xe9u)
+AST_VECTOR_INTEGER(PSUBUSB, "psubusb", 0xd8u)
+AST_VECTOR_INTEGER(PSUBUSW, "psubusw", 0xd9u)
+AST_VECTOR_INTEGER(PAND, "pand", 0xdbu)
+AST_VECTOR_INTEGER(PANDN, "pandn", 0xdfu)
+AST_VECTOR_INTEGER(POR, "por", 0xebu)
+AST_VECTOR_INTEGER(PXOR, "pxor", 0xefu)
+AST_VECTOR_INTEGER(PCMPEQB, "pcmpeqb", 0x74u)
+AST_VECTOR_INTEGER(PCMPEQW, "pcmpeqw", 0x75u)
+AST_VECTOR_INTEGER(PCMPEQD, "pcmpeqd", 0x76u)
+AST_VECTOR_INTEGER(PCMPGTB, "pcmpgtb", 0x64u)
+AST_VECTOR_INTEGER(PCMPGTW, "pcmpgtw", 0x65u)
+AST_VECTOR_INTEGER(PCMPGTD, "pcmpgtd", 0x66u)
+AST_VECTOR_INTEGER(PMULLW, "pmullw", 0xd5u)
+AST_VECTOR_INTEGER(PMULHW, "pmulhw", 0xe5u)
+AST_VECTOR_INTEGER(PMULHUW, "pmulhuw", 0xe4u)
+AST_VECTOR_INTEGER(PMULUDQ, "pmuludq", 0xf4u)
+AST_VECTOR_INTEGER(PMADDWD, "pmaddwd", 0xf5u)
+AST_VECTOR_INTEGER(PSADBW, "psadbw", 0xf6u)
+AST_VECTOR_INTEGER(PAVGB, "pavgb", 0xe0u)
+AST_VECTOR_INTEGER(PAVGW, "pavgw", 0xe3u)
+AST_VECTOR_INTEGER(PMINUB, "pminub", 0xdau)
+AST_VECTOR_INTEGER(PMINSW, "pminsw", 0xeau)
+AST_VECTOR_INTEGER(PMAXUB, "pmaxub", 0xdeu)
+AST_VECTOR_INTEGER(PMAXSW, "pmaxsw", 0xeeu)
+AST_VECTOR_INTEGER(PUNPCKLBW, "punpcklbw", 0x60u)
+AST_VECTOR_INTEGER(PUNPCKLWD, "punpcklwd", 0x61u)
+AST_VECTOR_INTEGER(PUNPCKLDQ, "punpckldq", 0x62u)
+AST_VECTOR_INTEGER(PUNPCKLQDQ, "punpcklqdq", 0x6cu)
+AST_VECTOR_INTEGER(PUNPCKHBW, "punpckhbw", 0x68u)
+AST_VECTOR_INTEGER(PUNPCKHWD, "punpckhwd", 0x69u)
+AST_VECTOR_INTEGER(PUNPCKHDQ, "punpckhdq", 0x6au)
+AST_VECTOR_INTEGER(PUNPCKHQDQ, "punpckhqdq", 0x6du)
+AST_VECTOR_INTEGER(PACKSSWB, "packsswb", 0x63u)
+AST_VECTOR_INTEGER(PACKSSDW, "packssdw", 0x6bu)
+AST_VECTOR_INTEGER(PACKUSWB, "packuswb", 0x67u)
+#undef AST_VECTOR_INTEGER
+#define AST_VECTOR_EXT(id, text, opcode)                                       \
+  AST_VECTOR_PAIR(id, text, (0x600u | opcode), AST_TARGET_FEATURE_X86_SSE41,   \
+                  AST_TARGET_FEATURE_X86_AVX2)
+AST_VECTOR_EXT(PMULLD, "pmulld", 0x40u)
+AST_VECTOR_EXT(PMULDQ, "pmuldq", 0x28u)
+AST_VECTOR_EXT(PCMPEQQ, "pcmpeqq", 0x29u)
+AST_VECTOR_EXT(PACKUSDW, "packusdw", 0x2bu)
+AST_VECTOR_EXT(PMINSB, "pminsb", 0x38u)
+AST_VECTOR_EXT(PMINSD, "pminsd", 0x39u)
+AST_VECTOR_EXT(PMINUW, "pminuw", 0x3au)
+AST_VECTOR_EXT(PMINUD, "pminud", 0x3bu)
+AST_VECTOR_EXT(PMAXSB, "pmaxsb", 0x3cu)
+AST_VECTOR_EXT(PMAXSD, "pmaxsd", 0x3du)
+AST_VECTOR_EXT(PMAXUW, "pmaxuw", 0x3eu)
+AST_VECTOR_EXT(PMAXUD, "pmaxud", 0x3fu)
+#undef AST_VECTOR_EXT
+#undef AST_VECTOR_PAIR
+#define AST_VECTOR_UNARY(id, text, code)                                       \
+  AST_VECTOR_FORM(X86_##id, text, X86_64, X86_UNARY, code,                     \
+                  AST_TARGET_FEATURE_X86_SSE2, 0)                              \
+  AST_VECTOR_FORM(X86_V##id, "v" text, X86_64, X86_VUNARY, code,               \
+                  AST_TARGET_FEATURE_X86_AVX, AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_UNARY(SQRTPS, "sqrtps", 0x151u)
+AST_VECTOR_UNARY(SQRTPD, "sqrtpd", 0x551u)
+AST_VECTOR_UNARY(RCPPS, "rcpps", 0x153u)
+AST_VECTOR_UNARY(RSQRTPS, "rsqrtps", 0x152u)
+#undef AST_VECTOR_UNARY
+#define AST_VECTOR_MOVE(id, text, code)                                        \
+  AST_VECTOR_FORM(X86_##id, text, X86_64, X86_MOVE, code,                      \
+                  AST_TARGET_FEATURE_X86_SSE2, 0)                              \
+  AST_VECTOR_FORM(X86_V##id, "v" text, X86_64, X86_VMOVE, code,                \
+                  AST_TARGET_FEATURE_X86_AVX, AST_TARGET_FEATURE_X86_AVX)
+AST_VECTOR_MOVE(MOVDQU, "movdqu", 0x7f096fu)
+AST_VECTOR_MOVE(MOVDQA, "movdqa", 0x7f056fu)
+AST_VECTOR_MOVE(MOVUPS, "movups", 0x110110u)
+AST_VECTOR_MOVE(MOVUPD, "movupd", 0x110510u)
+AST_VECTOR_MOVE(MOVAPS, "movaps", 0x290128u)
+AST_VECTOR_MOVE(MOVAPD, "movapd", 0x290528u)
+#undef AST_VECTOR_MOVE
+
+/* EVEX full-vector tuples. W is bit 24; compressed disp8 uses VL/8.
+   AVX-512VL is additionally required for the 128/256-bit encodings. */
+#define AST_VECTOR_EVEX(id, text, shape, code, feature)                        \
+  AST_VECTOR_FORM(X86_E##id, text, X86_64, X86_E##shape, code, feature,        \
+                  AST_TARGET_FEATURE_X86_AVX512VL)
+#define AST_VECTOR_EFLOAT(id, text, op)                                        \
+  AST_VECTOR_EVEX(id##PS, text "ps", BINARY, (0x100u | op),                    \
+                  AST_TARGET_FEATURE_X86_AVX512F)                              \
+  AST_VECTOR_EVEX(id##PD, text "pd", BINARY, (0x1000500u | op),                \
+                  AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EFLOAT(VADD, "vadd", 0x58u)
+AST_VECTOR_EFLOAT(VSUB, "vsub", 0x5cu)
+AST_VECTOR_EFLOAT(VMUL, "vmul", 0x59u)
+AST_VECTOR_EFLOAT(VDIV, "vdiv", 0x5eu)
+AST_VECTOR_EFLOAT(VMIN, "vmin", 0x5du)
+AST_VECTOR_EFLOAT(VMAX, "vmax", 0x5fu)
+AST_VECTOR_EFLOAT(VUNPCKL, "vunpckl", 0x14u)
+AST_VECTOR_EFLOAT(VUNPCKH, "vunpckh", 0x15u)
+#undef AST_VECTOR_EFLOAT
+AST_VECTOR_EVEX(VSQRTPS, "vsqrtps", UNARY, 0x151u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VSQRTPD, "vsqrtpd", UNARY, 0x1000551u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPADDD, "vpaddd", BINARY, 0x5feu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPADDQ, "vpaddq", BINARY, 0x10005d4u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPSUBD, "vpsubd", BINARY, 0x5fau,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPSUBQ, "vpsubq", BINARY, 0x10005fbu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPMULLD, "vpmulld", BINARY, 0x640u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPMULLQ, "vpmullq", BINARY, 0x1000640u,
+                AST_TARGET_FEATURE_X86_AVX512DQ)
+AST_VECTOR_EVEX(VPMULUDQ, "vpmuludq", BINARY, 0x10005f4u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPMULDQ, "vpmuldq", BINARY, 0x1000628u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPANDD, "vpandd", BINARY, 0x5dbu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPANDQ, "vpandq", BINARY, 0x10005dbu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPANDND, "vpandnd", BINARY, 0x5dfu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPANDNQ, "vpandnq", BINARY, 0x10005dfu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPORD, "vpord", BINARY, 0x5ebu, AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPORQ, "vporq", BINARY, 0x10005ebu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPXORD, "vpxord", BINARY, 0x5efu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VPXORQ, "vpxorq", BINARY, 0x10005efu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+#define AST_VECTOR_EBYTE(id, text, op)                                         \
+  AST_VECTOR_EVEX(id, text, BINARY, (0x500u | op),                             \
+                  AST_TARGET_FEATURE_X86_AVX512BW)
+AST_VECTOR_EBYTE(VPADDB, "vpaddb", 0xfcu)
+AST_VECTOR_EBYTE(VPADDW, "vpaddw", 0xfdu)
+AST_VECTOR_EBYTE(VPSUBB, "vpsubb", 0xf8u)
+AST_VECTOR_EBYTE(VPSUBW, "vpsubw", 0xf9u)
+AST_VECTOR_EBYTE(VPADDSB, "vpaddsb", 0xecu)
+AST_VECTOR_EBYTE(VPADDSW, "vpaddsw", 0xedu)
+AST_VECTOR_EBYTE(VPADDUSB, "vpaddusb", 0xdcu)
+AST_VECTOR_EBYTE(VPADDUSW, "vpaddusw", 0xddu)
+AST_VECTOR_EBYTE(VPSUBSB, "vpsubsb", 0xe8u)
+AST_VECTOR_EBYTE(VPSUBSW, "vpsubsw", 0xe9u)
+AST_VECTOR_EBYTE(VPSUBUSB, "vpsubusb", 0xd8u)
+AST_VECTOR_EBYTE(VPSUBUSW, "vpsubusw", 0xd9u)
+AST_VECTOR_EBYTE(VPMULLW, "vpmullw", 0xd5u)
+AST_VECTOR_EBYTE(VPMULHW, "vpmulhw", 0xe5u)
+AST_VECTOR_EBYTE(VPMULHUW, "vpmulhuw", 0xe4u)
+AST_VECTOR_EBYTE(VPAVGB, "vpavgb", 0xe0u)
+AST_VECTOR_EBYTE(VPAVGW, "vpavgw", 0xe3u)
+#undef AST_VECTOR_EBYTE
+AST_VECTOR_EVEX(VMOVUPS, "vmovups", MOVE, 0x110110u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVUPD, "vmovupd", MOVE, 0x1110510u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVAPS, "vmovaps", MOVE, 0x290128u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVAPD, "vmovapd", MOVE, 0x1290528u,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVDQA32, "vmovdqa32", MOVE, 0x7f056fu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVDQA64, "vmovdqa64", MOVE, 0x17f056fu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVDQU32, "vmovdqu32", MOVE, 0x7f096fu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVDQU64, "vmovdqu64", MOVE, 0x17f096fu,
+                AST_TARGET_FEATURE_X86_AVX512F)
+AST_VECTOR_EVEX(VMOVDQU8, "vmovdqu8", MOVE, 0x7f0d6fu,
+                AST_TARGET_FEATURE_X86_AVX512BW)
+AST_VECTOR_EVEX(VMOVDQU16, "vmovdqu16", MOVE, 0x17f0d6fu,
+                AST_TARGET_FEATURE_X86_AVX512BW)
+#undef AST_VECTOR_EVEX
+#include "asterasm/detail/aarch64_vector_instructions.inc"
+#include "asterasm/detail/riscv64_vector_instructions.inc"

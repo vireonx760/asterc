@@ -1,0 +1,21 @@
+module guide.memmove;
+
+// Overlap-safe byte copying in both directions.
+export fn run() -> u32 @abi(c) {
+    move(2, 0, 6);
+    if load.u8 [&buffer[7]] != 5 || load.u8 [&buffer[3]] != 1 { return 1; }
+    move(0, 2, 6);
+    if load.u8 [&buffer[5]] != 5 { return 2; }
+    return 42;
+}
+section ".data" @writable { global buffer: [u8; 8] = {0,1,2,3,4,5,6,7}; }
+// Offsets refer to this buffer; the caller guarantees offset + count <= 8.
+fn move(dst: usize, src: usize, count: usize) {
+    if dst > src {
+        let i: usize = count;
+        while i > 0 { i = i - 1; store.u8 [&buffer[dst+i]] = load.u8 [&buffer[src+i]]; }
+    } else {
+        let i: usize = 0;
+        while i < count { store.u8 [&buffer[dst+i]] = load.u8 [&buffer[src+i]]; i = i + 1; }
+    }
+}

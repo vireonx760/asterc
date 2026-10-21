@@ -1,0 +1,23 @@
+[package]
+name = "asterasm-object-writer"
+version = "1.2.1"
+edition = "2024"
+rust-version = "1.85"
+publish = false
+license = "Apache-2.0"
+
+[lib]
+name = "asterasm_object"
+crate-type = ["rlib", "staticlib", "cdylib"]
+
+[dependencies]
+object = { version = "=0.40.0", default-features = false, features = ["write_std", "read", "elf", "coff", "macho"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+opt-level = 3
+panic = "abort"
+
+[lints.rust]
+unsafe_op_in_unsafe_fn = "deny"

@@ -1,0 +1,49 @@
+module data.aarch64;
+export fn managed(a:u64,b:u64,c:u64)->u64 {
+    let live:u64=c*17+9; let out:u64; let flags:u64;
+    exact aarch64 inputs(a,b,c) outputs(out,flags) {
+        add {dst:out,lhs:a,rhs:b,extend:uxtx,amount:1};
+        sub {dst:out,lhs:a,rhs:b,shift:asr,amount:2};
+        adds {dst:out,lhs:a,rhs:b,extend:sxtw,amount:4};
+        subs {dst:out,lhs:a,rhs:b,shift:lsr,amount:63};
+        and {dst:out,lhs:a,rhs:0xff00ff00ff00ff00};
+        orr {dst:out,lhs:a,rhs:b,shift:ror,amount:17};
+        eor {dst:out,lhs:a,rhs:b,shift:lsl,amount:1};
+        ands {dst:out,lhs:a,rhs:0xffff};
+        bic {dst:out,lhs:a,rhs:b,shift:lsr,amount:31};
+        orn {dst:out,lhs:a,rhs:b,shift:ror,amount:13};
+        eon {dst:out,lhs:a,rhs:b,shift:asr,amount:7};
+        bics {dst:out,lhs:a,rhs:b,shift:lsl,amount:5};
+        csel {dst:out,lhs:a,rhs:b,cond:eq};
+        csinc {dst:out,lhs:a,rhs:b,cond:ne};
+        csinv {dst:out,lhs:a,rhs:b,cond:ge};
+        csneg {dst:out,lhs:a,rhs:b,cond:nv};
+        ccmn {lhs:a,rhs:31,nzcv:15,cond:hs};
+        ccmp {lhs:a,rhs:b,nzcv:0,cond:lo};
+        mrs {dst:flags,sys:nzcv};
+    }
+    return live^out^flags;
+}
+export fn manual() @naked { unsafe exact aarch64 {
+    add {dst:x0,lhs:sp,rhs:w1,extend:sxtw,amount:4};
+    sub {dst:w0,lhs:wsp,rhs:w1,extend:uxtw,amount:0};
+    adds {dst:xzr,lhs:x0,rhs:x1,shift:asr,amount:63};
+    subs {dst:wzr,lhs:w0,rhs:w1,extend:sxth,amount:3};
+    cmp {lhs:x0,rhs:x1,shift:lsr,amount:17};
+    cmn {lhs:w0,rhs:4096};
+    and {dst:x0,lhs:x1,rhs:0xff00ff00ff00ff00};
+    orr {dst:x0,lhs:x1,rhs:x2,shift:ror,amount:17};
+    eor {dst:w0,lhs:w1,rhs:w2,shift:lsl,amount:1};
+    ands {dst:xzr,lhs:x1,rhs:0xffff};
+    bic {dst:x0,lhs:x1,rhs:x2,shift:lsr,amount:31};
+    orn {dst:w0,lhs:w1,rhs:w2,shift:ror,amount:13};
+    eon {dst:x0,lhs:x1,rhs:x2,shift:asr,amount:7};
+    bics {dst:w0,lhs:w1,rhs:w2,shift:lsl,amount:5};
+    csel {dst:x0,lhs:x1,rhs:x2,cond:eq};
+    csinc {dst:w0,lhs:w1,rhs:w2,cond:ne};
+    csinv {dst:x0,lhs:x1,rhs:x2,cond:ge};
+    csneg {dst:w0,lhs:w1,rhs:w2,cond:nv};
+    ccmn {lhs:w0,rhs:31,nzcv:15,cond:hs};
+    ccmp {lhs:x0,rhs:x1,nzcv:0,cond:lo};
+    ret;
+} }

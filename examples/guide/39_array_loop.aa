@@ -1,0 +1,6 @@
+module guide.array_loop;
+export fn sum(data:ptr<const u32>,count:usize)->u32 @abi(c) {
+    let i:usize=0; let total:u32=0;
+    while i<count { total=add.wrap(total,load.u32 [&data[i]]); i=i+1; }
+    return total;
+}

@@ -1,0 +1,4 @@
+module sema.fence_invalid_attribute_bad;
+fn f() {
+    fence @volatile;
+}

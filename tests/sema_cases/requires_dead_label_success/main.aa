@@ -1,0 +1,14 @@
+module main;
+
+target "x86_64-unknown-linux-gnu" {
+    feature -"avx2";
+}
+
+fn f() {
+    block live:
+    requires feature("avx2") {
+        block live:
+        br missing_dead;
+    }
+    br live;
+}

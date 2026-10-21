@@ -1,0 +1,5 @@
+module mir.known_failures.and_same;
+
+export fn and_same(a: u64, b: u64) -> u64 @abi(c) {
+    return a & a;
+}

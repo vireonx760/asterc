@@ -1,0 +1,21 @@
+module abi.vectors;
+
+fn sve_data(value: svec<u32>) -> svec<u32> @abi(c) {
+    return value;
+}
+
+fn sve_predicate(value: pred<u32>) -> pred<u32> @abi(c) {
+    return value;
+}
+
+fn sve_mixed(data: svec<u64>, predicate: pred<u64>, second: svec<u32>) -> svec<u64> @abi(c) {
+    return data;
+}
+
+fn rvv_data(value: svec<u32>) -> svec<u32> @abi(c) {
+    return value;
+}
+
+fn rvv_predicate(first: pred<u32>, second: pred<u32>) -> pred<u32> @abi(c) {
+    return first;
+}

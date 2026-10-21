@@ -1,0 +1,4 @@
+module sema.load_pointee_bad;
+export fn f(p: ptr<u32>) -> u64 {
+    return load.u64 [p];
+}

@@ -1,0 +1,2 @@
+module guide.bit_reverse;
+export fn reverse(value:u32)->u32 @abi(c) { return bitrev(value); }

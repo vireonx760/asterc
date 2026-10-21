@@ -1,0 +1,4 @@
+module guide.array_zero;
+export fn zero4(values:ptr<u32>) @abi(c) {
+    store.u32 [&values[0]]=0; store.u32 [&values[1]]=0; store.u32 [&values[2]]=0; store.u32 [&values[3]]=0;
+}

@@ -1,0 +1,2 @@
+module lib.flags;
+export const FLAG: u16 = 2;

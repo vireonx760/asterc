@@ -1,0 +1,8 @@
+module sema.comptime_dead_branch_success;
+export fn f() -> u64 {
+    comptime if false {
+        return does_not_exist;
+    } else {
+        return 1;
+    }
+}

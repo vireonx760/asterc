@@ -1,0 +1,133 @@
+# Optional independent Rust component. Core-only C builds need no Rust runtime.
+option(ASTERASM_BUILD_OBJECT_WRITER "Build the Rust object/flat writer and C API" OFF)
+if(NOT ASTERASM_BUILD_OBJECT_WRITER)
+    return()
+endif()
+find_program(ASTERASM_CARGO cargo REQUIRED)
+find_program(ASTERASM_RUSTC rustc REQUIRED)
+
+# Match the Rust ABI to the actual C compiler target, not merely to CMake's
+# MSVC boolean.  Official Windows clang.exe commonly uses the MSVC ABI while
+# CMake still exposes GNU-style command-line flags; treating that compiler as
+# MinGW makes Cargo pass GNU linker options to link.exe.
+set(_aster_windows_msvc_abi FALSE)
+if(WIN32)
+    if(MSVC OR CMAKE_C_SIMULATE_ID STREQUAL "MSVC" OR CMAKE_C_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+        set(_aster_windows_msvc_abi TRUE)
+    elseif(CMAKE_C_COMPILER_ID MATCHES "Clang")
+        execute_process(
+            COMMAND "${CMAKE_C_COMPILER}" -dumpmachine
+            OUTPUT_VARIABLE _aster_c_target
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+            ERROR_QUIET)
+        if(_aster_c_target MATCHES "windows-msvc")
+            set(_aster_windows_msvc_abi TRUE)
+        endif()
+    endif()
+endif()
+
+set(ASTERASM_RUST_TARGET "" CACHE STRING "Rust target triple matching the C toolchain ABI")
+if(NOT ASTERASM_RUST_TARGET)
+    if(WIN32)
+        if(_aster_windows_msvc_abi)
+            set(ASTERASM_RUST_TARGET x86_64-pc-windows-msvc)
+        else()
+            set(ASTERASM_RUST_TARGET x86_64-pc-windows-gnu)
+        endif()
+    else()
+        execute_process(COMMAND "${ASTERASM_RUSTC}" -vV OUTPUT_VARIABLE _aster_rust_version COMMAND_ERROR_IS_FATAL ANY)
+        string(REGEX MATCH "host: ([^\n\r]+)" _aster_rust_host "${_aster_rust_version}")
+        set(ASTERASM_RUST_TARGET "${CMAKE_MATCH_1}")
+        if(CMAKE_CROSSCOMPILING)
+            message(FATAL_ERROR "Set ASTERASM_RUST_TARGET explicitly for cross builds")
+        endif()
+    endif()
+endif()
+
+set(_aster_rust_msvc_abi FALSE)
+if(ASTERASM_RUST_TARGET MATCHES "windows-msvc$")
+    set(_aster_rust_msvc_abi TRUE)
+endif()
+message(STATUS "AsterASM Rust object writer target: ${ASTERASM_RUST_TARGET}")
+set(_aster_cargo_dir "${CMAKE_CURRENT_BINARY_DIR}/rust-object")
+set(_aster_rust_output "${_aster_cargo_dir}/${ASTERASM_RUST_TARGET}/release")
+set(_aster_manifest "${CMAKE_CURRENT_SOURCE_DIR}/object-writer/Cargo.toml")
+string(TOUPPER "${ASTERASM_RUST_TARGET}" _aster_rust_env)
+string(REPLACE "-" "_" _aster_rust_env "${_aster_rust_env}")
+set(_aster_cargo_env "CARGO_TARGET_DIR=${_aster_cargo_dir}")
+if(NOT _aster_rust_msvc_abi)
+    list(APPEND _aster_cargo_env "CARGO_TARGET_${_aster_rust_env}_LINKER=${CMAKE_C_COMPILER}")
+    if(CMAKE_C_COMPILER_ID MATCHES "Clang" AND CMAKE_C_COMPILER_TARGET)
+        list(APPEND _aster_cargo_env "CARGO_TARGET_${_aster_rust_env}_RUSTFLAGS=-C link-arg=--target=${CMAKE_C_COMPILER_TARGET}")
+    endif()
+endif()
+if(WIN32)
+    set(_aster_rust_shared "${_aster_rust_output}/asterasm_object.dll")
+    if(_aster_rust_msvc_abi)
+        set(_aster_rust_static "${_aster_rust_output}/asterasm_object.lib")
+        set(_aster_rust_implib "${_aster_rust_output}/asterasm_object.dll.lib")
+    else()
+        set(_aster_rust_static "${_aster_rust_output}/libasterasm_object.a")
+        set(_aster_rust_implib "${_aster_rust_output}/libasterasm_object.dll.a")
+    endif()
+elseif(APPLE)
+    set(_aster_rust_shared "${_aster_rust_output}/libasterasm_object.dylib")
+    set(_aster_rust_static "${_aster_rust_output}/libasterasm_object.a")
+else()
+    set(_aster_rust_shared "${_aster_rust_output}/libasterasm_object.so")
+    set(_aster_rust_static "${_aster_rust_output}/libasterasm_object.a")
+endif()
+set(_aster_rust_sources
+    "${CMAKE_CURRENT_SOURCE_DIR}/object-writer/src/lib.rs"
+    "${CMAKE_CURRENT_SOURCE_DIR}/object-writer/src/relocations.rs"
+    "${CMAKE_CURRENT_SOURCE_DIR}/object-writer/src/flat.rs")
+add_custom_command(OUTPUT "${_aster_rust_shared}" "${_aster_rust_static}"
+    COMMAND "${CMAKE_COMMAND}" -E env ${_aster_cargo_env} "${ASTERASM_CARGO}" build
+        --manifest-path "${_aster_manifest}" --target "${ASTERASM_RUST_TARGET}" --release --locked
+    DEPENDS ${_aster_rust_sources} "${_aster_manifest}" "${CMAKE_CURRENT_SOURCE_DIR}/object-writer/Cargo.lock"
+    BYPRODUCTS ${_aster_rust_implib}
+    VERBATIM COMMENT "Building Rust object writer (batched C API)")
+add_custom_target(asterasm_object_build ALL DEPENDS "${_aster_rust_shared}" "${_aster_rust_static}")
+add_library(asterasm_object SHARED IMPORTED GLOBAL)
+set_target_properties(asterasm_object PROPERTIES IMPORTED_LOCATION "${_aster_rust_shared}"
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include")
+if(UNIX AND NOT APPLE)
+    # Rust cdylib has no DT_SONAME; link by -l so DT_NEEDED stays relocatable.
+    set_target_properties(asterasm_object PROPERTIES IMPORTED_NO_SONAME TRUE)
+endif()
+if(WIN32)
+    set_target_properties(asterasm_object PROPERTIES IMPORTED_IMPLIB "${_aster_rust_implib}")
+endif()
+add_dependencies(asterasm_object asterasm_object_build)
+add_library(AsterASM::object ALIAS asterasm_object)
+add_library(asterasm_object_static STATIC IMPORTED GLOBAL)
+set_target_properties(asterasm_object_static PROPERTIES IMPORTED_LOCATION "${_aster_rust_static}"
+    INTERFACE_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(ASTERASM_RUST_NATIVE_LIBRARIES "" CACHE STRING "Native dependencies reported by rustc --print native-static-libs")
+if(ASTERASM_RUST_NATIVE_LIBRARIES)
+    set_property(TARGET asterasm_object_static PROPERTY INTERFACE_LINK_LIBRARIES "${ASTERASM_RUST_NATIVE_LIBRARIES}")
+elseif(WIN32)
+    # Qualified for Rust 1.98 windows-gnu; the final MSVC gate also verifies it.
+    set_property(TARGET asterasm_object_static PROPERTY INTERFACE_LINK_LIBRARIES "kernel32;ntdll;userenv;ws2_32;dbghelp")
+elseif(UNIX AND NOT APPLE)
+    set_property(TARGET asterasm_object_static PROPERTY INTERFACE_LINK_LIBRARIES "pthread;dl;m;rt;util")
+endif()
+add_dependencies(asterasm_object_static asterasm_object_build)
+add_library(AsterASM::object_static ALIAS asterasm_object_static)
+get_filename_component(ASTERASM_INSTALL_OBJECT_SHARED "${_aster_rust_shared}" NAME)
+get_filename_component(ASTERASM_INSTALL_OBJECT_STATIC "${_aster_rust_static}" NAME)
+if(WIN32)
+    get_filename_component(ASTERASM_INSTALL_OBJECT_IMPLIB "${_aster_rust_implib}" NAME)
+endif()
+get_target_property(ASTERASM_INSTALL_OBJECT_NATIVE_LIBS asterasm_object_static INTERFACE_LINK_LIBRARIES)
+if(BUILD_TESTING)
+    add_test(NAME object_writer_rust COMMAND "${CMAKE_COMMAND}" -E env ${_aster_cargo_env}
+        "${ASTERASM_CARGO}" test --manifest-path "${_aster_manifest}" --target "${ASTERASM_RUST_TARGET}" --release --locked --offline)
+    set_tests_properties(object_writer_rust PROPERTIES TIMEOUT 120)
+endif()
+if(WIN32)
+    install(FILES "${_aster_rust_shared}" DESTINATION "${CMAKE_INSTALL_BINDIR}")
+else()
+    install(FILES "${_aster_rust_shared}" DESTINATION "${CMAKE_INSTALL_LIBDIR}")
+endif()
+install(FILES "${_aster_rust_static}" ${_aster_rust_implib} DESTINATION "${CMAKE_INSTALL_LIBDIR}")

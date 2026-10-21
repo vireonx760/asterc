@@ -1,0 +1,39 @@
+module strings.main;
+import strings.helper;
+
+section ".rodata" @readonly { const sentinel: u8 = 7; }
+
+export fn run() -> u8 @abi(c) {
+    if first_byte(c"hello") != 104 { return 1; }
+    if at(c"hello", 5) != 0 { return 2; }
+    if first_byte(c"") != 0 { return 3; }
+    if at(c"a\0b", 1) != 0 { return 4; }
+    if at(c"a\0b", 2) != 98 { return 5; }
+    if at(c"a\0b", 3) != 0 { return 6; }
+    if first_byte("plain") != 112 { return 7; }
+    if at(b"\x80\xff", 1) != 255 { return 8; }
+    if at(c"\u{3bb}", 0) != 206 { return 9; }
+    if at(c"\u{3bb}", 1) != 187 { return 10; }
+    if at(c"\u{3bb}", 2) != 0 { return 11; }
+    if at(c"\"\\\n\t\x41", 2) != 10 { return 12; }
+    if at(c"\"\\\n\t\x41", 4) != 65 { return 13; }
+    if first_byte(returned()) != 114 { return 14; }
+    if first_byte(generic_string(cast<u32>(1))) != 103 { return 15; }
+    if first_byte(generic_string(cast<u64>(2))) != 103 { return 16; }
+    if first_byte(helper.from_module()) != 105 { return 17; }
+    let empty: ptr<const u8> = "";
+    let empty_bytes: ptr<const u8> = b"";
+    unsafe {
+        if ptr_to_int(empty) == 0 { return 18; }
+        if ptr_to_int(empty_bytes) == 0 { return 19; }
+    }
+    if sentinel != 7 { return 20; }
+    return 42;
+}
+
+fn first_byte(p: ptr<const u8>) -> u8 @abi(c) { return load.u8 [p]; }
+fn at(p: ptr<const u8>, index: usize) -> u8 @abi(c) {
+    return load.u8 [&p[index]];
+}
+fn generic_string<T: type>(value: T) -> ptr<const u8> { return c"generic"; }
+fn returned() -> ptr<const u8> { return c"returned"; }

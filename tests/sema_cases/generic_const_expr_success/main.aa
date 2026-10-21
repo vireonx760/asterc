@@ -1,0 +1,5 @@
+module main;
+
+type PlusOne<N: const usize> = [u8; N + 1];
+const SIZE: usize = sizeof(PlusOne<3>);
+static_assert(SIZE == 4);

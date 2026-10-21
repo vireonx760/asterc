@@ -1,0 +1,3 @@
+module guide.bss_state;
+section ".bss" @writable @align(8) { global state:u64; }
+export fn set(value:u64)->u64 @abi(c) { state=value; return state; }

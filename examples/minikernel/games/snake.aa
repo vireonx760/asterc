@@ -1,0 +1,117 @@
+module games.snake;
+import kernel.console;
+import kernel.keyboard;
+import kernel.clock;
+import kernel.random;
+import kernel.serial;
+
+section ".bss" @writable @align(16) { global snake_x: [u8; 128]; global snake_y: [u8; 128]; }
+// Scan from a pseudo-random cell until an unoccupied interior cell is found.
+fn choose_food(length: usize) -> u32 @abi(c) {
+    let cell: u32 = (kernel.random.rng_next() >> 8) % 800;
+    while true {
+        let x: u8 = cast<u8>(3 + cell % 40);
+        let y: u8 = cast<u8>(3 + cell / 40);
+        let occupied: bool = false; let i: usize = 0;
+        while i < length {
+            if load.u8 [&snake_x[i]] == x && load.u8 [&snake_y[i]] == y { occupied = true; }
+            i = i + 1;
+        }
+        if !occupied { return cell; }
+        cell = (cell + 1) % 800;
+    }
+    return 0;
+}
+
+export fn snake_game() @abi(c) {
+    kernel.serial.write(c"SNAKE\n");
+    kernel.console.clear(0x07);
+    kernel.console.text(0, 2, c"SNAKE - WASD, Q=back", 0x0a);
+    kernel.console.draw_frame(2, 2, 42, 22, 0x08);
+    let length: usize = 5;
+    let i: usize = 0;
+    while i < length {
+        store.u8 [&snake_x[i]] = cast<u8>(20 - i);
+        store.u8 [&snake_y[i]] = 12;
+        i = i + 1;
+    }
+    let direction: u8 = 1;
+    let food: u32 = choose_food(length);
+    let food_x: u8 = cast<u8>(3 + food % 40);
+    let food_y: u8 = cast<u8>(3 + food / 40);
+    let alive: bool = true;
+    while alive {
+        let key: u8 = kernel.keyboard.keyboard_poll();
+        if key == 0x11 && direction != 2 {
+            direction = 0;
+        }
+        if key == 0x20 && direction != 3 {
+            direction = 1;
+        }
+        if key == 0x1f && direction != 0 {
+            direction = 2;
+        }
+        if key == 0x1e && direction != 1 {
+            direction = 3;
+        }
+        if key == 0x10 {
+            return;
+        }
+        let head_x: u8 = load.u8 [&snake_x[0]];
+        let head_y: u8 = load.u8 [&snake_y[0]];
+        let next_x: u8 = head_x;
+        let next_y: u8 = head_y;
+        if direction == 0 {
+            next_y = next_y - 1;
+        }
+        if direction == 1 {
+            next_x = next_x + 1;
+        }
+        if direction == 2 {
+            next_y = next_y + 1;
+        }
+        if direction == 3 {
+            next_x = next_x - 1;
+        }
+        if next_x <= 2 || next_x >= 43 || next_y <= 2 || next_y >= 23 {
+            alive = false;
+        }
+        let growing: bool = next_x == food_x && next_y == food_y && length < 128;
+        // The tail vacates its cell unless this step grows the snake.
+        let collision_count: usize = length;
+        if !growing { collision_count = length - 1; }
+        let c: usize = 0;
+        while c < collision_count {
+            if load.u8 [&snake_x[c]] == next_x && load.u8 [&snake_y[c]] == next_y {
+                alive = false;
+            }
+            c = c + 1;
+        }
+        if ! alive {
+            break;
+        }
+        let old_tail_x: u8 = load.u8 [&snake_x[length - 1]];
+        let old_tail_y: u8 = load.u8 [&snake_y[length - 1]];
+        if growing { length = length + 1; }
+        let j: usize = length - 1;
+        while j > 0 {
+            store.u8 [&snake_x[j]] = load.u8 [&snake_x[j - 1]];
+            store.u8 [&snake_y[j]] = load.u8 [&snake_y[j - 1]];
+            j = j - 1;
+        }
+        store.u8 [&snake_x[0]] = next_x;
+        store.u8 [&snake_y[0]] = next_y;
+        if !growing { kernel.console.vga_put(zext<usize>(old_tail_y), zext<usize>(old_tail_x), 32, 0x07); }
+        kernel.console.vga_put(zext<usize>(food_y), zext<usize>(food_x), 42, 0x0c);
+        kernel.console.vga_put(zext<usize>(next_y), zext<usize>(next_x), 79, 0x0a);
+        // The fixed buffer bounds growth; food never overlaps the body.
+        if next_x == food_x && next_y == food_y {
+            food = choose_food(length);
+            food_x = cast<u8>(3 + food % 40);
+            food_y = cast<u8>(3 + food / 40);
+        }
+        kernel.clock.wait_ms(100);
+    }
+    kernel.console.text(24, 2, c"Q - back    ESC - halt", 0x0c);
+    kernel.clock.wait_ms(400);
+}

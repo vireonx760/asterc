@@ -1,0 +1,77 @@
+module regalloc.native_scalar;
+export fn identity(x: u64) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(x) outputs(out) { mov { dst: out, src: x }; }
+    return out;
+}
+export fn arithmetic(a: u64, b: u64) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(a, b) outputs(out) {
+        mov { dst: out, src: a };
+        add { dst: out, src: b };
+        sub { dst: out, src: 3 };
+        imul { dst: out, src: b };
+        and { dst: out, src: 255 };
+        xor { dst: out, src: b };
+        or { dst: out, src: 1 };
+    }
+    return out;
+}
+export fn multiple_outputs(a: u64, b: u64) -> u64 @abi(c) {
+    let left: u64; let right: u64;
+    native x86_64 inputs(a, b) outputs(left, right) {
+        mov { dst: left, src: a }; add { dst: left, src: b };
+        mov { dst: right, src: b }; sub { dst: right, src: 1 };
+    }
+    return left * 17 + right;
+}
+export fn hard_clobber(x: u64) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(x) outputs(out) {
+        mov { dst: rax, src: x }; add { dst: rax, src: 7 };
+        mov { dst: out, src: rax }; mov { dst: rbx, src: 99 };
+    }
+    return out + x;
+}
+export fn exact_bridge(a: u64, b: u64) -> u64 @abi(c) {
+    let out: u64;
+    exact x86_64 inputs(a, b) outputs(out) {
+        mov { dst: out, src: a }; add { dst: out, src: b };
+    }
+    return out + a;
+}
+export fn byte_add(x: u8) -> u8 @abi(c) {
+    let out: u8;
+    native x86_64 inputs(x) outputs(out) { mov { dst: out, src: x }; add { dst: out, src: 1 }; }
+    return out;
+}
+export fn short_add(x: u16) -> u16 @abi(c) {
+    let out: u16;
+    native x86_64 inputs(x) outputs(out) { mov { dst: out, src: x }; add { dst: out, src: 1 }; }
+    return out;
+}
+export fn word_add(x: u32) -> u32 @abi(c) {
+    let out: u32;
+    native x86_64 inputs(x) outputs(out) { mov { dst: out, src: x }; add { dst: out, src: 1 }; }
+    return out;
+}
+export fn memory_read(p: ptr<u64>) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(p) outputs(out) { mov { dst: out, src: mem<u64>[p + 8] }; }
+    return out;
+}
+export fn memory_write(p: ptr<u64>, x: u64) -> u64 @abi(c) {
+    native x86_64 inputs(p, x) { mov { dst: mem<u64>[p], src: x }; }
+    return x + 1;
+}
+export fn population(x: u64) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(x) outputs(out) { popcnt { dst: out, src: x }; }
+    return out;
+}
+export fn consecutive(x: u64) -> u64 @abi(c) {
+    let first: u64; let out: u64;
+    native x86_64 inputs(x) outputs(first) { mov { dst: first, src: x }; add { dst: first, src: 7 }; }
+    native x86_64 inputs(first, x) outputs(out) { mov { dst: out, src: first }; imul { dst: out, src: x }; }
+    return out;
+}

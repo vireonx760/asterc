@@ -1,0 +1,5 @@
+module lib.leaf;
+section ".rodata" @readonly {
+    export const value: u64 = 39;
+}
+export fn init() -> u64 @abi(c) { return value; }

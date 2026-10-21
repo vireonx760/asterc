@@ -1,0 +1,7 @@
+module guide.control;
+export fn sum_below(n: u64) -> u64 @abi(c) {
+    let i: u64 = 0;
+    let sum: u64 = 0;
+    while i < n { sum = sum + i; i = i + 1; }
+    return sum;
+}

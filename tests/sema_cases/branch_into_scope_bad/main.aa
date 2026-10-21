@@ -1,0 +1,9 @@
+module sema.branch_into_scope_bad;
+export fn f() -> u64 {
+    br inner;
+    if true {
+        block inner:
+        return 1;
+    }
+    return 0;
+}

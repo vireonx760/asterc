@@ -1,0 +1,12 @@
+module sema.intrinsic_u128_wrap_sat_success;
+const umax: u128 = 0xffff_ffff_ffff_ffff_ffff_ffff_ffff_ffff;
+const uwrap: u128 = add.wrap(umax, 1);
+const umul: u128 = mul.wrap(0x8000_0000_0000_0000_0000_0000_0000_0000, 2);
+const smax: i128 = 0x7fff_ffff_ffff_ffff_ffff_ffff_ffff_ffff;
+const smin: i128 = -0x8000_0000_0000_0000_0000_0000_0000_0000;
+const shi: i128 = add.sat(smax, 1);
+const slo: i128 = sub.sat(smin, 1);
+static_assert(uwrap == 0);
+static_assert(umul == 0);
+static_assert(shi == smax);
+static_assert(slo == smin);

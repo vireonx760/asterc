@@ -1,0 +1,5 @@
+module sample.math;
+
+export fn add(x: u64, y: u64) -> u64 @abi(c) {
+    return x + y;
+}

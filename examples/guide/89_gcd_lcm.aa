@@ -1,0 +1,19 @@
+module guide.gcd_lcm;
+
+// Euclidean GCD and checked LCM.
+export fn run() -> u32 @abi(c) {
+    if gcd(48, 18) != 6 || gcd(0, 9) != 9 { return 1; }
+    if lcm(6, 14) != 42 || lcm(0xffffffff, 2) != 0 { return 2; }
+    return 42;
+}
+fn gcd(a: u32, b: u32) -> u32 {
+    let x: u32 = a; let y: u32 = b;
+    while y != 0 { let rest: u32 = x % y; x = y; y = rest; }
+    return x;
+}
+fn lcm(a: u32, b: u32) -> u32 {
+    if a == 0 || b == 0 { return 0; }
+    let small: u32 = a / gcd(a,b);
+    if small > 0xffffffff / b { return 0; }
+    return small * b;
+}

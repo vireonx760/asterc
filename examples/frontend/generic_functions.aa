@@ -1,0 +1,3 @@
+module guide.generic_functions;
+fn identity<T:type>(value:T)->T { return value; }
+export fn answer()->u32 @abi(c) { let value:u32=42; return identity(value); }

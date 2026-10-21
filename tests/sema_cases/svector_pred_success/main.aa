@@ -1,0 +1,6 @@
+module sema.svector_pred_success;
+fn cmp(a: svec<u32>, b: svec<u32>) -> pred<u32> {
+    let p: pred<u32> = a >= b;
+    let q: pred<u32> = !p;
+    return p | q;
+}

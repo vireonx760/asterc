@@ -1,0 +1,91 @@
+# Build trees and local release/qualification output
+/build*/
+/out/
+/install/
+/bin/
+/obj/
+/dist/
+/.cache/
+/object-writer/target/
+/CMakeUserPresets.json
+/compile_commands.json
+# Do not ignore target/ globally: src/target is compiler source.
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Testing/
+
+# Compiler/linker products
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.exp
+*.idb
+*.pch
+*.gcda
+*.gcno
+*.profraw
+*.profdata
+
+# User build-driver output
+.aster/
+aster-out/
+/hello.bin
+/hello.o
+/hello.obj
+/answer.bin
+/answer.o
+/answer.obj
+
+# IDE/user state (shared build and editor configuration can still be committed)
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/settings.json
+.vscode/launch.json
+
+# Python caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local credentials and OS/editor temporary files
+.env
+.env.*
+!.env.example
+!.env.sample
+id_rsa
+id_ed25519
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Per-example build output (keep all example sources)
+/examples/**/build/
+
+# Internal reports and archived publication material
+/docs/
+/bench/
+/reports/
+/qa/
+/*_REPORT.md
+/*.log

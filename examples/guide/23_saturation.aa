@@ -1,0 +1,3 @@
+module guide.saturation;
+export fn clamp_add(a:u8,b:u8)->u8 @abi(c) { return add.sat(a,b); }
+export fn floor_sub(a:u8,b:u8)->u8 @abi(c) { return sub.sat(a,b); }

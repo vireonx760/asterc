@@ -1,0 +1,15 @@
+module math.fast;
+import core.bits;
+
+export fn double(x: u64) -> u64 @abi(c) {
+    return x << 1;
+}
+
+fn native_add(x: u64, y: u64) -> u64 @abi(c) {
+    let out: u64;
+    native x86_64 inputs(x, y) outputs(out) {
+        add { dst: out, src: x };
+        add { dst: out, src: y };
+    }
+    return out;
+}

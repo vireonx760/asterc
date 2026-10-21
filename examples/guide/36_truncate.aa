@@ -1,0 +1,2 @@
+module guide.truncate;
+export fn low_word(value:u64)->u16 @abi(c) { return trunc<u16>(value); }

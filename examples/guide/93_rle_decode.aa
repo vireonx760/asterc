@@ -1,0 +1,24 @@
+module guide.rle_decode;
+
+// Run-length decoding with capacity and malformed-input checks.
+export fn run() -> u32 @abi(c) {
+    if decode(6, 8) != 6 || load.u8 [&output[5]] != 67 { return 1; }
+    if decode(5, 8) != 0 || decode(6, 2) != 0 { return 2; }
+    return 42;
+}
+section ".rodata" @readonly { const packed: [u8; 6] = {3,65,1,66,2,67}; }
+section ".bss" @writable { global output: [u8; 8]; }
+// Each input pair is {count, byte}; zero means failure or an empty result.
+fn decode(size: usize, capacity: usize) -> usize {
+    if (size & 1) != 0 { return 0; }
+    let src: usize = 0; let dst: usize = 0;
+    while src < size {
+        let count: usize = zext<usize>(load.u8 [&packed[src]]);
+        let value: u8 = load.u8 [&packed[src+1]];
+        if count > capacity - dst { return 0; }
+        let i: usize = 0;
+        while i < count { store.u8 [&output[dst]] = value; dst = dst + 1; i = i + 1; }
+        src = src + 2;
+    }
+    return dst;
+}

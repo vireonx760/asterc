@@ -1,0 +1,2 @@
+module guide.rotate_right;
+export fn rotate(value:u64,amount:u32)->u64 @abi(c) { return ror(value,amount); }

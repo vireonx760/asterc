@@ -1,0 +1,16 @@
+module hir.metadata;
+target "x86_64-unknown-linux-gnu" {
+    cpu = "baseline";
+    tune = 4;
+    feature + "sse2";
+}
+extern fn ext(x: u64) -> u64 @abi(c) @link_name("ext_alias");
+export fn f(x: u64) -> u64 @abi(c) @frame(auto) @stack_align(16) @leaf @no_unwind @target("x86_64") @requires("sse2") {
+    return x + 1;
+}
+fn fast(x: u64) -> u64 { return x + 1; }
+fn slow(x: u64) -> u64 { return x; }
+dispatch fn choose(x: u64) -> u64 {
+    when feature("sse2") => fast;
+    else => slow;
+}

@@ -1,0 +1,7 @@
+module main;
+
+fn verify(n: usize) {
+    comptime for i in 0..n {
+        static_assert(i >= 0);
+    }
+}

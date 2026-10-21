@@ -1,0 +1,4 @@
+module sema.intrinsic_rotate_bad;
+fn f(x: u64, n: f32) -> u64 {
+    return rol(x, n);
+}

@@ -1,0 +1,6 @@
+module guide.nested_loops;
+export fn rectangle_sum(width:u32,height:u32)->u32 @abi(c) {
+    let y:u32=0; let total:u32=0;
+    while y<height { let x:u32=0; while x<width { total=add.wrap(total,x+y); x=x+1; } y=y+1; }
+    return total;
+}

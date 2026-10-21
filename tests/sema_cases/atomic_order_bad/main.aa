@@ -1,0 +1,4 @@
+module sema.atomic_order_bad;
+fn f(p: ptr<u64>) -> u64 {
+    return atomic.load.u64 [p] @release;
+}

@@ -1,0 +1,29 @@
+module guide.utf8_scan;
+
+// Bounded UTF-8 validation including overlong and surrogate rejection.
+export fn run() -> u32 @abi(c) {
+    if !valid(c"A\u{20ac}\u{1f642}", 8) { return 1; }
+    if valid(c"\xC0\x80", 2) || valid(c"\xED\xA0\x80", 3) || valid(c"\xF4\x90\x80\x80", 4) { return 2; }
+    if valid(c"\xE2\x82", 2) { return 3; }
+    return 42;
+}
+fn valid(text: ptr<const u8>, count: usize) -> bool {
+    let i: usize = 0;
+    while i < count {
+        let first: u8 = load.u8 [&text[i]]; i = i + 1;
+        if first < 128 { continue; }
+        let extra: usize = 0; let value: u32 = 0; let minimum: u32 = 0;
+        if first >= 194 && first <= 223 { extra = 1; value = zext<u32>(first & 31); minimum = 128; }
+        else { if first >= 224 && first <= 239 { extra = 2; value = zext<u32>(first & 15); minimum = 2048; }
+        else { if first >= 240 && first <= 244 { extra = 3; value = zext<u32>(first & 7); minimum = 65536; } else { return false; } } }
+        if extra > count - i { return false; }
+        let j: usize = 0;
+        while j < extra {
+            let next: u8 = load.u8 [&text[i]];
+            if (next & 192) != 128 { return false; }
+            value = (value << 6) | zext<u32>(next & 63); i = i + 1; j = j + 1;
+        }
+        if value < minimum || value > 0x10ffff || (value >= 0xd800 && value <= 0xdfff) { return false; }
+    }
+    return true;
+}

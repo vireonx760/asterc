@@ -1,0 +1,5 @@
+module sema.intrinsic_const_rotate_success;
+const l: u8 = rol(0x81, 1);
+const r: u8 = ror(0x81, 1);
+static_assert(l == 0x03);
+static_assert(r == 0xc0);

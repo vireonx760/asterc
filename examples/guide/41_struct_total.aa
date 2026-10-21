@@ -1,0 +1,3 @@
+module guide.struct_total;
+type Pair=struct @layout(c) { left:u32; right:u32; };
+export fn total(pair:ptr<const Pair>)->u32 @abi(c) { return load.u32 [&pair.left] + load.u32 [&pair.right]; }

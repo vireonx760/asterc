@@ -1,0 +1,11 @@
+[package]
+name = "sample-math"
+version = "0.1.0"
+kind = "lib"
+root = "src/sample/math.aa"
+source-roots = ["src"]
+
+[build]
+target = "x86_64"
+abi = "sysv"
+emit = "bin"

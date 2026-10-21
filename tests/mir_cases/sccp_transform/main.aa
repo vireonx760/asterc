@@ -1,0 +1,1028 @@
+module mir.sccp_transform;
+
+export fn phi_arithmetic(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if flag { result = 42; } else { result = 42; }
+    return (result + 3) * 7;
+}
+
+export fn phi_arithmetic_u32(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if flag { result = 40; } else { result = 40; }
+    return (result + 2) << 2;
+}
+
+export fn divergent(flag: bool) -> u64 @abi(c) {
+    let value: u64 = 0;
+    if flag { value = 17; } else { value = 29; }
+    return value + 7;
+}
+
+export fn branch_path(flag: bool) -> u64 @abi(c) {
+    let value: u64 = 0;
+    if true { value = 91; } else { value = 44; }
+    return (value ^ 7) + 5;
+}
+
+export fn branch_false(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 777; } else { result = 29; }
+    return result;
+}
+
+export fn dynamic_with_div(value: u64, factor: u64) -> u64 @abi(c) {
+    return (value / factor) + ((23 + 4) * 5);
+}
+
+export fn loop_counter(limit: u64) -> u64 @abi(c) {
+    let counter: u64 = 0;
+    while counter < limit { counter = counter + 1; }
+    return counter;
+}
+
+// BEGIN GENERATED SCCP STRESS: deterministic CFG/PHI edge matrix.
+export fn generated_u64_00(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 7; } else { x = 8; }
+    return ((x + 1) * 2) ^ 9;
+}
+
+export fn generated_u64_01(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 1030; } else { x = 1030; }
+    return ((x + 8) * 3) ^ 46;
+}
+
+export fn generated_u64_02(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 2053; } else { x = 2053; }
+    return ((x + 15) * 4) ^ 83;
+}
+
+export fn generated_u64_03(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 3076; } else { x = 3076; }
+    return ((x + 22) * 5) ^ 120;
+}
+
+export fn generated_u64_04(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 4099; } else { x = 4099; }
+    return ((x + 29) * 6) ^ 157;
+}
+
+export fn generated_u64_05(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 5122; } else { x = 5123; }
+    return ((x + 36) * 7) ^ 194;
+}
+
+export fn generated_u64_06(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 6145; } else { x = 6145; }
+    return ((x + 43) * 8) ^ 231;
+}
+
+export fn generated_u64_07(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 7168; } else { x = 7168; }
+    return ((x + 50) * 9) ^ 268;
+}
+
+export fn generated_u64_08(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 8191; } else { x = 8191; }
+    return ((x + 57) * 10) ^ 305;
+}
+
+export fn generated_u64_09(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 9214; } else { x = 9214; }
+    return ((x + 64) * 11) ^ 342;
+}
+
+export fn generated_u64_10(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 10237; } else { x = 10238; }
+    return ((x + 71) * 12) ^ 379;
+}
+
+export fn generated_u64_11(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 11260; } else { x = 11260; }
+    return ((x + 78) * 13) ^ 416;
+}
+
+export fn generated_u64_12(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 12283; } else { x = 12283; }
+    return ((x + 85) * 14) ^ 453;
+}
+
+export fn generated_u64_13(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 13306; } else { x = 13306; }
+    return ((x + 92) * 2) ^ 490;
+}
+
+export fn generated_u64_14(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 14329; } else { x = 14329; }
+    return ((x + 2) * 3) ^ 527;
+}
+
+export fn generated_u64_15(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 15352; } else { x = 15353; }
+    return ((x + 9) * 4) ^ 564;
+}
+
+export fn generated_u64_16(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 16375; } else { x = 16375; }
+    return ((x + 16) * 5) ^ 601;
+}
+
+export fn generated_u64_17(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 17398; } else { x = 17398; }
+    return ((x + 23) * 6) ^ 638;
+}
+
+export fn generated_u64_18(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 18421; } else { x = 18421; }
+    return ((x + 30) * 7) ^ 675;
+}
+
+export fn generated_u64_19(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 19444; } else { x = 19444; }
+    return ((x + 37) * 8) ^ 712;
+}
+
+export fn generated_u64_20(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 20467; } else { x = 20468; }
+    return ((x + 44) * 9) ^ 749;
+}
+
+export fn generated_u64_21(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 21490; } else { x = 21490; }
+    return ((x + 51) * 10) ^ 786;
+}
+
+export fn generated_u64_22(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 22513; } else { x = 22513; }
+    return ((x + 58) * 11) ^ 823;
+}
+
+export fn generated_u64_23(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 23536; } else { x = 23536; }
+    return ((x + 65) * 12) ^ 860;
+}
+
+export fn generated_u64_24(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 24559; } else { x = 24559; }
+    return ((x + 72) * 13) ^ 897;
+}
+
+export fn generated_u64_25(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 25582; } else { x = 25583; }
+    return ((x + 79) * 14) ^ 934;
+}
+
+export fn generated_u64_26(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 26605; } else { x = 26605; }
+    return ((x + 86) * 2) ^ 971;
+}
+
+export fn generated_u64_27(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 27628; } else { x = 27628; }
+    return ((x + 93) * 3) ^ 1008;
+}
+
+export fn generated_u64_28(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 28651; } else { x = 28651; }
+    return ((x + 3) * 4) ^ 1045;
+}
+
+export fn generated_u64_29(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 29674; } else { x = 29674; }
+    return ((x + 10) * 5) ^ 1082;
+}
+
+export fn generated_u64_30(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 30697; } else { x = 30698; }
+    return ((x + 17) * 6) ^ 1119;
+}
+
+export fn generated_u64_31(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 31720; } else { x = 31720; }
+    return ((x + 24) * 7) ^ 1156;
+}
+
+export fn generated_u64_32(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 32743; } else { x = 32743; }
+    return ((x + 31) * 8) ^ 1193;
+}
+
+export fn generated_u64_33(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 33766; } else { x = 33766; }
+    return ((x + 38) * 9) ^ 1230;
+}
+
+export fn generated_u64_34(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 34789; } else { x = 34789; }
+    return ((x + 45) * 10) ^ 1267;
+}
+
+export fn generated_u64_35(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 35812; } else { x = 35813; }
+    return ((x + 52) * 11) ^ 1304;
+}
+
+export fn generated_u64_36(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 36835; } else { x = 36835; }
+    return ((x + 59) * 12) ^ 1341;
+}
+
+export fn generated_u64_37(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 37858; } else { x = 37858; }
+    return ((x + 66) * 13) ^ 1378;
+}
+
+export fn generated_u64_38(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 38881; } else { x = 38881; }
+    return ((x + 73) * 14) ^ 1415;
+}
+
+export fn generated_u64_39(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 39904; } else { x = 39904; }
+    return ((x + 80) * 2) ^ 1452;
+}
+
+export fn generated_u64_40(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 40927; } else { x = 40928; }
+    return ((x + 87) * 3) ^ 1489;
+}
+
+export fn generated_u64_41(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 41950; } else { x = 41950; }
+    return ((x + 94) * 4) ^ 1526;
+}
+
+export fn generated_u64_42(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 42973; } else { x = 42973; }
+    return ((x + 4) * 5) ^ 1563;
+}
+
+export fn generated_u64_43(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 43996; } else { x = 43996; }
+    return ((x + 11) * 6) ^ 1600;
+}
+
+export fn generated_u64_44(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 45019; } else { x = 45019; }
+    return ((x + 18) * 7) ^ 1637;
+}
+
+export fn generated_u64_45(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 46042; } else { x = 46043; }
+    return ((x + 25) * 8) ^ 1674;
+}
+
+export fn generated_u64_46(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 47065; } else { x = 47065; }
+    return ((x + 32) * 9) ^ 1711;
+}
+
+export fn generated_u64_47(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 48088; } else { x = 48088; }
+    return ((x + 39) * 10) ^ 1748;
+}
+
+export fn generated_u64_48(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 49111; } else { x = 49111; }
+    return ((x + 46) * 11) ^ 1785;
+}
+
+export fn generated_u64_49(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 50134; } else { x = 50134; }
+    return ((x + 53) * 12) ^ 1822;
+}
+
+export fn generated_u64_50(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 51157; } else { x = 51158; }
+    return ((x + 60) * 13) ^ 1859;
+}
+
+export fn generated_u64_51(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 52180; } else { x = 52180; }
+    return ((x + 67) * 14) ^ 1896;
+}
+
+export fn generated_u64_52(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 53203; } else { x = 53203; }
+    return ((x + 74) * 2) ^ 1933;
+}
+
+export fn generated_u64_53(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 54226; } else { x = 54226; }
+    return ((x + 81) * 3) ^ 1970;
+}
+
+export fn generated_u64_54(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 55249; } else { x = 55249; }
+    return ((x + 88) * 4) ^ 2007;
+}
+
+export fn generated_u64_55(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 56272; } else { x = 56273; }
+    return ((x + 95) * 5) ^ 2044;
+}
+
+export fn generated_u64_56(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 57295; } else { x = 57295; }
+    return ((x + 5) * 6) ^ 2081;
+}
+
+export fn generated_u64_57(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 58318; } else { x = 58318; }
+    return ((x + 12) * 7) ^ 2118;
+}
+
+export fn generated_u64_58(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 59341; } else { x = 59341; }
+    return ((x + 19) * 8) ^ 2155;
+}
+
+export fn generated_u64_59(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 60364; } else { x = 60364; }
+    return ((x + 26) * 9) ^ 2192;
+}
+
+export fn generated_u64_60(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 61387; } else { x = 61388; }
+    return ((x + 33) * 10) ^ 2229;
+}
+
+export fn generated_u64_61(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 62410; } else { x = 62410; }
+    return ((x + 40) * 11) ^ 2266;
+}
+
+export fn generated_u64_62(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 63433; } else { x = 63433; }
+    return ((x + 47) * 12) ^ 2303;
+}
+
+export fn generated_u64_63(flag: bool) -> u64 @abi(c) {
+    let x: u64 = 0;
+    if flag { x = 64456; } else { x = 64456; }
+    return ((x + 54) * 13) ^ 2340;
+}
+
+export fn generated_u32_00(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 7; } else { x = 8; }
+    return ((x + 1) * 2) ^ 9;
+}
+
+export fn generated_u32_01(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 1030; } else { x = 1030; }
+    return ((x + 8) * 3) ^ 46;
+}
+
+export fn generated_u32_02(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 2053; } else { x = 2053; }
+    return ((x + 15) * 4) ^ 83;
+}
+
+export fn generated_u32_03(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 3076; } else { x = 3076; }
+    return ((x + 22) * 5) ^ 120;
+}
+
+export fn generated_u32_04(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 4099; } else { x = 4099; }
+    return ((x + 29) * 6) ^ 157;
+}
+
+export fn generated_u32_05(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 5122; } else { x = 5123; }
+    return ((x + 36) * 7) ^ 194;
+}
+
+export fn generated_u32_06(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 6145; } else { x = 6145; }
+    return ((x + 43) * 8) ^ 231;
+}
+
+export fn generated_u32_07(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 7168; } else { x = 7168; }
+    return ((x + 50) * 9) ^ 268;
+}
+
+export fn generated_u32_08(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 8191; } else { x = 8191; }
+    return ((x + 57) * 10) ^ 305;
+}
+
+export fn generated_u32_09(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 9214; } else { x = 9214; }
+    return ((x + 64) * 11) ^ 342;
+}
+
+export fn generated_u32_10(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 10237; } else { x = 10238; }
+    return ((x + 71) * 12) ^ 379;
+}
+
+export fn generated_u32_11(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 11260; } else { x = 11260; }
+    return ((x + 78) * 13) ^ 416;
+}
+
+export fn generated_u32_12(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 12283; } else { x = 12283; }
+    return ((x + 85) * 14) ^ 453;
+}
+
+export fn generated_u32_13(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 13306; } else { x = 13306; }
+    return ((x + 92) * 2) ^ 490;
+}
+
+export fn generated_u32_14(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 14329; } else { x = 14329; }
+    return ((x + 2) * 3) ^ 527;
+}
+
+export fn generated_u32_15(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 15352; } else { x = 15353; }
+    return ((x + 9) * 4) ^ 564;
+}
+
+export fn generated_u32_16(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 16375; } else { x = 16375; }
+    return ((x + 16) * 5) ^ 601;
+}
+
+export fn generated_u32_17(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 17398; } else { x = 17398; }
+    return ((x + 23) * 6) ^ 638;
+}
+
+export fn generated_u32_18(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 18421; } else { x = 18421; }
+    return ((x + 30) * 7) ^ 675;
+}
+
+export fn generated_u32_19(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 19444; } else { x = 19444; }
+    return ((x + 37) * 8) ^ 712;
+}
+
+export fn generated_u32_20(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 20467; } else { x = 20468; }
+    return ((x + 44) * 9) ^ 749;
+}
+
+export fn generated_u32_21(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 21490; } else { x = 21490; }
+    return ((x + 51) * 10) ^ 786;
+}
+
+export fn generated_u32_22(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 22513; } else { x = 22513; }
+    return ((x + 58) * 11) ^ 823;
+}
+
+export fn generated_u32_23(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 23536; } else { x = 23536; }
+    return ((x + 65) * 12) ^ 860;
+}
+
+export fn generated_u32_24(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 24559; } else { x = 24559; }
+    return ((x + 72) * 13) ^ 897;
+}
+
+export fn generated_u32_25(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 25582; } else { x = 25583; }
+    return ((x + 79) * 14) ^ 934;
+}
+
+export fn generated_u32_26(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 26605; } else { x = 26605; }
+    return ((x + 86) * 2) ^ 971;
+}
+
+export fn generated_u32_27(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 27628; } else { x = 27628; }
+    return ((x + 93) * 3) ^ 1008;
+}
+
+export fn generated_u32_28(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 28651; } else { x = 28651; }
+    return ((x + 3) * 4) ^ 1045;
+}
+
+export fn generated_u32_29(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 29674; } else { x = 29674; }
+    return ((x + 10) * 5) ^ 1082;
+}
+
+export fn generated_u32_30(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 30697; } else { x = 30698; }
+    return ((x + 17) * 6) ^ 1119;
+}
+
+export fn generated_u32_31(flag: bool) -> u32 @abi(c) {
+    let x: u32 = 0;
+    if flag { x = 31720; } else { x = 31720; }
+    return ((x + 24) * 7) ^ 1156;
+}
+
+// WIP7 CFG branch rewrite deterministic stress: both edge directions and PHI.
+export fn cfg_const_u64_00(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 17; } else { result = 29; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_01(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 1020; } else { result = 2038; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_02(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 2023; } else { result = 4047; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_03(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 3026; } else { result = 6056; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_04(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 4029; } else { result = 8065; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_05(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 5032; } else { result = 10074; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_06(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 6035; } else { result = 12083; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_07(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 7038; } else { result = 14092; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_08(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 8041; } else { result = 16101; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_09(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 9044; } else { result = 18110; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_10(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 10047; } else { result = 20119; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_11(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 11050; } else { result = 22128; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_12(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 12053; } else { result = 24137; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_13(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 13056; } else { result = 26146; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_14(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 14059; } else { result = 28155; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_15(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 15062; } else { result = 30164; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_16(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 16065; } else { result = 32173; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_17(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 17068; } else { result = 34182; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_18(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 18071; } else { result = 36191; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_19(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 19074; } else { result = 38200; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_20(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 20077; } else { result = 40209; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_21(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 21080; } else { result = 42218; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_22(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 22083; } else { result = 44227; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_23(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 23086; } else { result = 46236; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_24(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 24089; } else { result = 48245; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_25(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 25092; } else { result = 50254; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_26(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 26095; } else { result = 52263; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_27(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 27098; } else { result = 54272; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_28(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 28101; } else { result = 56281; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_29(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 29104; } else { result = 58290; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_30(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 30107; } else { result = 60299; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_31(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 31110; } else { result = 62308; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_32(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 32113; } else { result = 64317; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_33(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 33116; } else { result = 66326; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_34(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 34119; } else { result = 68335; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_35(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 35122; } else { result = 70344; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_36(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 36125; } else { result = 72353; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_37(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 37128; } else { result = 74362; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_38(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 38131; } else { result = 76371; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_39(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 39134; } else { result = 78380; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_40(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 40137; } else { result = 80389; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_41(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 41140; } else { result = 82398; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_42(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 42143; } else { result = 84407; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_43(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 43146; } else { result = 86416; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_44(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 44149; } else { result = 88425; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_45(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 45152; } else { result = 90434; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_46(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true { result = 46155; } else { result = 92443; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u64_47(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if false { result = 47158; } else { result = 94452; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_00(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 17; } else { result = 29; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_01(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 1020; } else { result = 2038; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_02(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 2023; } else { result = 4047; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_03(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 3026; } else { result = 6056; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_04(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 4029; } else { result = 8065; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_05(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 5032; } else { result = 10074; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_06(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 6035; } else { result = 12083; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_07(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 7038; } else { result = 14092; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_08(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 8041; } else { result = 16101; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_09(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 9044; } else { result = 18110; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_10(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 10047; } else { result = 20119; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_11(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 11050; } else { result = 22128; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_12(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 12053; } else { result = 24137; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_13(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 13056; } else { result = 26146; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_14(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 14059; } else { result = 28155; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_15(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 15062; } else { result = 30164; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_16(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 16065; } else { result = 32173; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_17(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 17068; } else { result = 34182; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_18(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 18071; } else { result = 36191; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_19(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 19074; } else { result = 38200; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_20(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 20077; } else { result = 40209; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_21(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 21080; } else { result = 42218; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_22(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 22083; } else { result = 44227; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_23(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 23086; } else { result = 46236; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_24(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 24089; } else { result = 48245; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_25(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 25092; } else { result = 50254; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_26(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 26095; } else { result = 52263; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_27(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 27098; } else { result = 54272; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_28(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 28101; } else { result = 56281; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_29(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 29104; } else { result = 58290; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_30(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if true { result = 30107; } else { result = 60299; }
+    return (result * 3) ^ 7;
+}
+export fn cfg_const_u32_31(flag: bool) -> u32 @abi(c) {
+    let result: u32 = 0;
+    if false { result = 31110; } else { result = 62308; }
+    return (result * 3) ^ 7;
+}
+
+export fn cfg_nested(flag: bool) -> u64 @abi(c) {
+    let result: u64 = 0;
+    if true {
+        if false { result = 9; } else { result = 113; }
+    } else { result = 17; }
+    return result + 5;
+}

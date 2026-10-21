@@ -1,0 +1,5 @@
+module target.dup_prop;
+target "x86_64-unknown-linux-gnu" {
+    cpu = "baseline";
+    cpu = "native";
+}

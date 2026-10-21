@@ -1,0 +1,2 @@
+module regalloc.bind_a64;
+export fn bound(x: u64) -> u64 @abi(c) { bind x to aarch64.x19; return x + 1; }

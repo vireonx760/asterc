@@ -1,0 +1,2 @@
+module sema.signed_min_literal_overflow_bad;
+const too_small: i8 = -129;

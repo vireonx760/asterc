@@ -1,0 +1,3 @@
+module guide.macro_add_constant;
+macro add_constant($place:ident,$amount:expr) { $place=$place+$amount; }
+export fn add42(value:u32)->u32 @abi(c) { let result:u32=value; add_constant!(result,42); return result; }

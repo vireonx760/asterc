@@ -1,0 +1,4 @@
+module sema.intrinsic_checked_type_bad;
+fn f(a: f32, b: f32) -> (f32, bool) {
+    return add.checked(a, b);
+}

@@ -1,0 +1,2 @@
+module sema.void_deref_bad;
+fn f(p: ptr<void>) { let x = *p; }

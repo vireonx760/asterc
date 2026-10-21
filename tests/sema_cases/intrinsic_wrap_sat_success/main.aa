@@ -1,0 +1,6 @@
+module sema.intrinsic_wrap_sat_success;
+fn f(a: u8, b: u8) -> u8 {
+    let x: u8 = add.wrap(a, b);
+    let y: u8 = sub.sat(x, b);
+    return y;
+}

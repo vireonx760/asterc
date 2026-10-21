@@ -1,0 +1,6 @@
+module guide.comptime;
+export fn page_mask()->u32 @abi(c) {
+    comptime for bit in 0..8 { static_assert(bit < 8); }
+    comptime if sizeof(u32)==4 { return 0xffff_f000; }
+    else { return 0; }
+}

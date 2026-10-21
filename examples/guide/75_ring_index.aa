@@ -1,0 +1,11 @@
+module guide.ring_index;
+// Invalid capacities/indices return zero; avoid incrementing an unchecked index.
+export fn next(index: u32, capacity: u32) -> u32 @abi(c) {
+    if capacity == 0 || index >= capacity - 1 { return 0; }
+    return index + 1;
+}
+export fn distance(read: u32, write: u32, capacity: u32) -> u32 @abi(c) {
+    if capacity == 0 || read >= capacity || write >= capacity { return 0; }
+    if write >= read { return write - read; }
+    return capacity - read + write;
+}

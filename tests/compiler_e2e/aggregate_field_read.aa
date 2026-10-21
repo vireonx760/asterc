@@ -1,0 +1,23 @@
+module compiler.aggregate_field_read;
+type Item=struct @layout(c) {tag:u8;value:u64;weight:f32;};
+type Store=struct @layout(c) {count:u32;items:[Item;128];};
+section ".bss" @writable @align(16) {global data:Store;global calls:u32;}
+section ".rodata" @readonly {const numbers:[u32;4]={4,7,11,19};}
+fn get()->ptr<Store> @abi(c) {calls=calls+1;return &data;}
+export fn negate32(value:f32)->f32 @abi(c) {return -value;}
+export fn negate64(value:f64)->f64 @abi(c) {return -value;}
+export fn field_read_test()->i32 @abi(c) {
+    store.u32 [&data.count]=128;
+    store.u8 [&data.items[127].tag]=201;
+    store.u64 [&data.items[127].value]=1234567890123;
+    store.f32 [&data.items[127].weight]=1.25;
+    if data.count!=128 {return 1;}
+    if data.items[127].tag!=201 {return 2;}
+    if data.items[127].value!=1234567890123 {return 3;}
+    if data.items[127].weight!=1.25 {return 4;}
+    if get().items[127].value!=1234567890123 || calls!=1 {return 5;}
+    let index:usize=3;if numbers[index]!=19 {return 6;}
+    let p:ptr<Store> = &data;if p.count!=128 {return 7;}
+    store.u32 [&p.count]=64;if p.count!=64 {return 8;}
+    return 0;
+}

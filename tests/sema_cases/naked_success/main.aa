@@ -1,0 +1,7 @@
+module sema.naked_success;
+export fn f() -> u64 @naked {
+    exact x86_64 {
+        mov { dst: rax, src: 7 };
+        ret;
+    }
+}

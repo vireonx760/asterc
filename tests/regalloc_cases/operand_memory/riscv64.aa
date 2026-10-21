@@ -1,0 +1,31 @@
+module operand.memory;
+export fn managed(p:ptr<u8>,value:u64,seed:u64)->u64 {
+    let live:u64=seed*17+9; let out:u64;
+    native riscv64 inputs(p,value) outputs(out) {
+        lb {dst:out,base:p,offset:-8}; lbu {dst:out,base:p,offset:-7};
+        lh {dst:out,base:p,offset:-6}; lhu {dst:out,base:p,offset:-4};
+        lw {dst:out,base:p,offset:0}; lwu {dst:out,base:p,offset:4};
+        ld {dst:out,base:p,offset:8};
+        sb {src:value,base:p,offset:16}; sh {src:value,base:p,offset:18};
+        sw {src:value,base:p,offset:20}; sd {src:value,base:p,offset:24};
+    }
+    return out^live;
+}
+export fn stack() @frame(validate) {
+    exact riscv64 {
+        addi {dst:sp,lhs:sp,rhs:-16};
+        sb {src:s0,offset:0}; lb {dst:zero,base:x2,offset:0};
+        sh {src:a0,offset:2}; lhu {dst:a0,offset:2};
+        sw {src:a0,offset:4}; lwu {dst:a0,offset:4};
+        sd {src:ra,offset:8}; ld {dst:ra,offset:8};
+        addi {dst:sp,lhs:sp,rhs:16}; ret;
+    }
+}
+export fn indirect_call() @frame(validate) {
+    exact riscv64 {
+        addi {dst:sp,lhs:sp,rhs:-16}; sd {src:ra,offset:0};
+        jalr {dst:ra,base:s0,offset:17};
+        ld {dst:ra,offset:0}; addi {dst:sp,lhs:sp,rhs:16}; ret;
+    }
+}
+export fn indirect_tail() @naked { exact riscv64 { jalr {dst:zero,base:s0,offset:-17}; } }

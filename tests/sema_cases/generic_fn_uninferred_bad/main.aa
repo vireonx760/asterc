@@ -1,0 +1,11 @@
+module main;
+
+fn make<T: type>() -> T {
+    unsafe exact x86_64 {
+        ret;
+    }
+}
+
+fn run() {
+    make();
+}

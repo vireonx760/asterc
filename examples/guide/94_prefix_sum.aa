@@ -1,0 +1,14 @@
+module guide.prefix_sum;
+
+// Exclusive prefix sums over a fixed array.
+export fn run() -> u32 @abi(c) {
+    if scan(5) != 42 || load.u32 [&offsets[3]] != 12 { return 1; }
+    return 42;
+}
+section ".rodata" @readonly { const counts: [u32; 5] = {3,4,5,10,20}; }
+section ".bss" @writable { global offsets: [u32; 5]; }
+fn scan(count: usize) -> u32 {
+    let total: u32 = 0; let i: usize = 0;
+    while i < count { store.u32 [&offsets[i]] = total; total = total + load.u32 [&counts[i]]; i = i + 1; }
+    return total;
+}

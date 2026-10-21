@@ -1,0 +1,11 @@
+module vector.proof;
+export fn run() @naked {
+    exact aarch64 {
+        ldr {dst:q31,addr:x0,offset:16};
+        add {dst:v31,lhs:v16,rhs:v23,bits:16};
+        fadd {dst:v31,lhs:v16,rhs:v23,bits:64};
+        eor {dst:d31,lhs:d16,rhs:d23};
+        str {src:q31,addr:x1,offset:32};
+        ret;
+    }
+}

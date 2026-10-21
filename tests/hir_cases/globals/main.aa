@@ -1,0 +1,14 @@
+module hir.globals;
+export type Pair = struct { x: u32; y: u32; };
+section ".rodata" @readonly @align(16) {
+    export const magic: u32 = 42;
+    const pair: Pair = { 1, 2 };
+    const text: [u8; 4] = { 72, 73, 82, 33 };
+}
+section ".data" @writable @align(8) {
+    global counter: u64 = 0;
+    global pmagic: ptr<const u32> = &magic;
+}
+section ".bss" @writable {
+    global scratch: [u8; 64];
+}

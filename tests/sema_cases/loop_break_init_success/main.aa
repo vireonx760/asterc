@@ -1,0 +1,14 @@
+module sema.loop_break_init_success;
+export fn f(flag: bool) -> u64 {
+    let x: u64;
+    loop {
+        if flag {
+            x = 1;
+            break;
+        } else {
+            x = 2;
+            break;
+        }
+    }
+    return x;
+}

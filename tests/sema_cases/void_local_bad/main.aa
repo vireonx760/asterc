@@ -1,0 +1,2 @@
+module sema.void_local_bad;
+fn bad() { let x: void; }

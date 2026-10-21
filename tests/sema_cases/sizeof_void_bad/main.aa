@@ -1,0 +1,2 @@
+module sema.sizeof_void_bad;
+const x: usize = sizeof(void);

@@ -1,0 +1,4 @@
+module sema.float_div_zero_success;
+const inf: f32 = 1.0 / 0.0;
+const nan: f32 = 0.0 / 0.0;
+fn f(x: f32) -> f32 { return x / 0.0; }

@@ -1,0 +1,19 @@
+module sema.core_success;
+
+export type Header = struct @layout(c) {
+    magic: u32;
+    version: u16;
+    flags: u16;
+};
+
+const max_u64: u64 = 0xffff_ffff_ffff_ffff;
+const emoji: u32 = 'λ';
+static_assert(sizeof(Header) == 8);
+static_assert(offsetof(Header, flags) == 6);
+static_assert(max_u64 == 0xffff_ffff_ffff_ffff);
+static_assert(emoji == 955);
+
+export fn add(a: u64, b: u64) -> u64 @abi(c) {
+    let x: u64 = a + b;
+    return x;
+}

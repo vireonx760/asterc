@@ -1,0 +1,9 @@
+module sema.signed_shift_success;
+const a: i8 = -2;
+const b: i8 = a >> 1;
+const c: i8 = -128 >> 9;
+static_assert(b == -1);
+static_assert(c == -64);
+fn f(x: i8) -> i8 {
+    return x >> 9;
+}

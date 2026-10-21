@@ -1,0 +1,17 @@
+module guide.binary_search;
+
+// Lower-bound search with duplicates and an empty interval.
+export fn run() -> u32 @abi(c) {
+    if lower_bound(7, 6) != 3 || lower_bound(0, 0) != 0 { return 1; }
+    if lower_bound(100, 6) != 6 { return 2; }
+    return 42;
+}
+section ".rodata" @readonly { const values: [u32; 6] = {1, 3, 3, 7, 9, 12}; }
+fn lower_bound(needle: u32, count: usize) -> usize {
+    let lo: usize = 0; let hi: usize = count;
+    while lo < hi {
+        let mid: usize = lo + (hi - lo) / 2;
+        if load.u32 [&values[mid]] < needle { lo = mid + 1; } else { hi = mid; }
+    }
+    return lo;
+}

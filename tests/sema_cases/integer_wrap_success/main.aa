@@ -1,0 +1,8 @@
+module sema.integer_wrap_success;
+const max: u8 = 255;
+const wrapped: u8 = max + 1;
+static_assert(wrapped == 0);
+fn f() -> u8 {
+    let x: u8 = 255 + 1;
+    return x;
+}

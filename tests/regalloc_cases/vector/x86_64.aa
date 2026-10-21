@@ -1,0 +1,24 @@
+module vector.proof;
+export fn raw() @naked {
+    exact x86_64 {
+        paddd {dst:xmm0,src:xmm1};
+        vpaddd {dst:ymm2,lhs:ymm3,rhs:mem<vec<8,u32>>[r13+r10*4-129]};
+        vpaddd {dst:zmm31,lhs:zmm30,rhs:zmm29,mask:k7,zero:1};
+        vmovdqu64 {dst:mem<vec<8,u64>>[rax+64],src:zmm31,mask:k1};
+        ret;
+    }
+}
+export fn bridge(p:ptr<u32>,seed:u64,x:vec<4,u32>)->u64 @abi(c) {
+    let live:u64=seed*17+9;
+    let out:vec<4,u32>;
+    native x86_64 inputs(p,x) outputs(out) {
+        mov {dst:rax,src:p};
+        vmovdqu32 {dst:zmm31,src:mem<vec<16,u32>>[rax]};
+        vpaddd {dst:zmm31,lhs:zmm31,rhs:zmm31,mask:k1,zero:1};
+        vpaddd {dst:zmm0,lhs:zmm31,rhs:zmm31};
+        vpaddd {dst:zmm15,lhs:zmm31,rhs:zmm31};
+        vmovdqu32 {dst:mem<vec<16,u32>>[rax],src:zmm31};
+        mov {dst:out,src:x};
+    }
+    return live+zext<u64>(out[0]);
+}

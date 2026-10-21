@@ -1,0 +1,4 @@
+module sema.mask_index_success;
+fn lane(m: mask<8>) -> bool {
+    return m[7];
+}

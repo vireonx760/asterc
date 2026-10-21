@@ -1,0 +1,5 @@
+module guide.boolean_selection;
+export fn bounded(value:i32,low:i32,high:i32)->i32 @abi(c) {
+    let above:i32=select(value<low,low,value);
+    return select(above>high,high,above);
+}

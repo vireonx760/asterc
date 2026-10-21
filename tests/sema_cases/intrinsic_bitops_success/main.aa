@@ -1,0 +1,9 @@
+module sema.intrinsic_bitops_success;
+fn f(x: u32) -> u32 {
+    let a: u32 = clz(x);
+    let b: u32 = ctz(x);
+    let c: u32 = popcnt(x);
+    let d: u32 = bswap(x);
+    let e: u32 = bitrev(x);
+    return a + b + c + d + e;
+}

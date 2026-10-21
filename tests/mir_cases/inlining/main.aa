@@ -1,0 +1,45 @@
+module mir.inlining;
+
+export fn run(x:u64,y:u64)->u64 @abi(c) {
+    let a:u64=choose(x,y);
+    let b:u64=sum_loop(x&15);
+    return a+b+chain(x);
+}
+fn choose(x:u64,y:u64)->u64 {
+    if y==0 { return x+7; } else { return x+9; }
+}
+fn sum_loop(n:u64)->u64 {
+    let i:u64=0; let sum:u64=0;
+    while i<n { sum=sum+i; i=i+1; }
+    return sum;
+}
+fn chain(x:u64)->u64 { return leaf(x)+3; }
+fn leaf(x:u64)->u64 { return x^17; }
+
+export fn memory(x:u64,y:u64)->u64 @abi(c) {
+    let cell:u64=x; update(&cell,y); return load.u64 [&cell];
+}
+fn update(p:ptr<u64>,x:u64) { store.u64 [p]=x+7; }
+
+export fn local_memory(x:u64)->u64 @abi(c) { return cell_value(x); }
+fn cell_value(x:u64)->u64 {
+    let cell:u64=x; store.u64 [&cell]=x+1; return load.u64 [&cell];
+}
+
+export fn recursion(n:u64)->u64 @abi(c) { return recursive(n); }
+fn recursive(n:u64)->u64 {
+    if n==0 { return 1; } else { return n*recursive(n-1); }
+}
+
+export fn mutual(n:u64)->u64 @abi(c) { return even(n); }
+fn even(n:u64)->u64 { if n==0 { return 1; } return odd(n-1); }
+fn odd(n:u64)->u64 { if n==0 { return 0; } return even(n-1); }
+
+export fn address(x:u64)->usize @abi(c) { return escaped_address(x); }
+fn escaped_address(x:u64)->usize {
+    let cell:u64=x;
+    unsafe { return ptr_to_int(&cell); }
+}
+
+export fn public_user(x:u64)->u64 @abi(c) { return public_value(x); }
+export fn public_value(x:u64)->u64 @abi(c) { return x+41; }

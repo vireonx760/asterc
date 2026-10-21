@@ -1,0 +1,15 @@
+module kernel.keyboard;
+import kernel.io;
+
+
+export fn keyboard_poll() -> u8 @abi(c) {
+    let status: u8 = kernel.io.io_in8(0x64);
+    if (status & 1) == 0 {
+        return 0;
+    }
+    let code: u8 = kernel.io.io_in8(0x60);
+    if (code & 0x80) != 0 {
+        return 0;
+    }
+    return code;
+}

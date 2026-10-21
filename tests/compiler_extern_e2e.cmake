@@ -1,0 +1,26 @@
+if(NOT DEFINED ASTERC OR NOT DEFINED SOURCE_DIR OR NOT DEFINED BINARY_DIR)
+    message(FATAL_ERROR "ASTERC, SOURCE_DIR and BINARY_DIR are required")
+endif()
+set(out_dir "${BINARY_DIR}/compiler_e2e")
+file(MAKE_DIRECTORY "${out_dir}")
+set(output "${out_dir}/extern-unresolved.bin")
+file(REMOVE "${output}")
+execute_process(COMMAND "${ASTERC}" build --target x86_64 --emit bin -o "${output}"
+                "${SOURCE_DIR}/tests/compiler_e2e/extern.aa"
+                RESULT_VARIABLE rc OUTPUT_VARIABLE stdout ERROR_VARIABLE stderr)
+if(rc EQUAL 0)
+    message(FATAL_ERROR "raw binary unexpectedly accepted an unresolved extern")
+endif()
+if(EXISTS "${output}")
+    message(FATAL_ERROR "compiler left a partial output file after unresolved extern failure")
+endif()
+string(FIND "${stderr}" "unresolved" marker)
+if(marker LESS 0)
+    message(FATAL_ERROR "compiler rejected extern without an unresolved-symbol diagnostic: ${stderr}")
+endif()
+
+execute_process(COMMAND "${ASTERC}" check "${SOURCE_DIR}/tests/compiler_e2e/extern.aa"
+                RESULT_VARIABLE check_rc OUTPUT_VARIABLE check_out ERROR_VARIABLE check_err)
+if(NOT check_rc EQUAL 0)
+    message(FATAL_ERROR "extern source should pass frontend/sema check: ${check_err}")
+endif()

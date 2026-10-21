@@ -1,0 +1,2 @@
+module guide.float_select;
+export fn maximum(a:f32,b:f32)->f32 @abi(c) { return select(a>b,a,b); }

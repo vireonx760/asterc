@@ -1,0 +1,8 @@
+module sema.unreachable_init_bad;
+export fn f() -> u64 {
+    let x: u64;
+    br live;
+    x = 1;
+    block live:
+    return x;
+}

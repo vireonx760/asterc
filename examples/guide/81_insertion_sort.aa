@@ -1,0 +1,22 @@
+module guide.insertion_sort;
+
+// In-place insertion sort with duplicate values.
+export fn run() -> u32 @abi(c) {
+    sort(6);
+    let i: usize = 1;
+    while i < 6 { if load.u32 [&values[i-1]] > load.u32 [&values[i]] { return 1; } i = i + 1; }
+    return 42;
+}
+section ".data" @writable { global values: [u32; 6] = {9, 2, 9, 0, 5, 1}; }
+fn sort(count: usize) {
+    let i: usize = 1;
+    while i < count {
+        let value: u32 = load.u32 [&values[i]]; let j: usize = i;
+        while j > 0 {
+            let previous: u32 = load.u32 [&values[j-1]];
+            if previous <= value { break; }
+            store.u32 [&values[j]] = previous; j = j - 1;
+        }
+        store.u32 [&values[j]] = value; i = i + 1;
+    }
+}

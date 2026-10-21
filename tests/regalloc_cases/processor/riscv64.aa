@@ -1,0 +1,19 @@
+module processor.riscv64;
+export fn run() @naked {
+    unsafe exact riscv64 {
+        csrrs {dst:a0,csr:mscratch,src:zero};
+        csrrwi {dst:a1,csr:mscratch,imm:3};
+        fence.i;
+        sfence.vma {addr:zero,asid:zero};
+        hfence.vvma {addr:a0,asid:a1};
+        hfence.gvma {addr:t6,vmid:zero};
+        sinval.vma {addr:a0,asid:a1};
+        sfence.w.inval;
+        sfence.inval.ir;
+        hinval.vvma {addr:a0,asid:zero};
+        hinval.gvma {addr:zero,vmid:t6};
+        ret;
+    }
+}
+export fn resume_machine() @naked { native riscv64 { mret; } }
+export fn resume_supervisor() @naked { unsafe exact riscv64 { sret; } }

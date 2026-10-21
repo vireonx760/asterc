@@ -1,0 +1,10 @@
+module main;
+
+fn f() {
+    block live:
+    comptime if false {
+        block live:
+        br missing_dead;
+    }
+    br live;
+}

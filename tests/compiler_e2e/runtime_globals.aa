@@ -1,0 +1,30 @@
+module compiler.runtime_globals;
+
+type Pair = struct { a: u64; b: u64; };
+section ".rodata" @readonly {
+    const pair: Pair = {17, 25};
+    const short_array: [u8; 60] = {1, 2, 3};
+    const short_pair: Pair = {17};
+    const short_tuple: (u8, u64) = {9};
+}
+section ".data" @writable { global counter: u64 = 7; global pointer: ptr<u64> = &counter; }
+section ".bss" @writable { global cleared: u64; }
+
+export fn run(x: u64) -> u64 @abi(c) {
+    if counter != 7 { return 1; }
+    if cleared != 0 { return 2; }
+    counter = x;
+    cleared = counter + 42;
+    if load.u64 [pointer] != x { return 3; }
+    unsafe {
+        let tail: ptr<const u8> = int_to_ptr(ptr_to_int(&short_array) + 59);
+        let field: ptr<const u64> = int_to_ptr(ptr_to_int(&short_pair) + 8);
+        let item: ptr<const u64> = int_to_ptr(ptr_to_int(&short_tuple) + 8);
+        if load.u8 [tail] != 0 { return 4; }
+        if load.u64 [field] != 0 { return 5; }
+        if load.u64 [item] != 0 { return 6; }
+        let a: ptr<const u64> = int_to_ptr(ptr_to_int(&pair));
+        let b: ptr<const u64> = int_to_ptr(ptr_to_int(&pair) + 8);
+        return cleared + load.u64 [a] + load.u64 [b];
+    }
+}

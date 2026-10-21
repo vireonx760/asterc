@@ -1,0 +1,2 @@
+module regalloc.bind_rv;
+export fn bound(x: u64) -> u64 @abi(c) { bind x to riscv64.s1; return x + 1; }

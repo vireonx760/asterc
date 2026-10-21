@@ -1,0 +1,12 @@
+module sema.loop_break_uninit_bad;
+export fn f(flag: bool) -> u64 {
+    let x: u64;
+    loop {
+        if flag {
+            break;
+        }
+        x = 2;
+        break;
+    }
+    return x;
+}

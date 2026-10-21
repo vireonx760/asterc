@@ -1,0 +1,18 @@
+module boot.paging;
+
+// Compiled for x86_32, called with cdecl after the flat selectors are installed.
+// A 1 GiB identity map uses 512 writable 2 MiB pages; no heap is needed.
+export fn prepare_identity_map() @abi(c) {
+    unsafe {
+        let words: ptr<u32> = int_to_ptr(0x70000);
+        let i: usize = 0;
+        while i < 3072 { store.u32 [&words[i]] = 0; i = i + 1; }
+        store.u32 [&words[0]] = 0x71003;
+        store.u32 [&words[1024]] = 0x72003;
+        i = 0;
+        while i < 512 {
+            store.u32 [&words[2048+i*2]] = cast<u32>(i)*0x200000 + 0x83;
+            i = i + 1;
+        }
+    }
+}

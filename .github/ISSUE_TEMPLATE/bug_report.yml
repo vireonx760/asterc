@@ -1,0 +1,31 @@
+name: Compiler or tool defect
+description: Report a reproducible failure or incorrect result.
+body:
+  - type: input
+    id: version
+    attributes:
+      label: Version and host
+      description: asterc --version, OS, compiler build or release tag.
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command, target, ABI and features
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Minimal source
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Expected and actual result
+      description: Include diagnostics or sanitizer output. Remove private paths and data.
+    validations:
+      required: true

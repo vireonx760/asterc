@@ -1,0 +1,22 @@
+module guide.crc32;
+
+// Portable CRC-32 with the standard check vector.
+export fn run() -> u32 @abi(c) {
+    if crc32(c"123456789", 9) != 0xcbf43926 { return 1; }
+    if crc32(c"", 0) != 0 { return 2; }
+    return 42;
+}
+fn crc32(bytes: ptr<const u8>, count: usize) -> u32 {
+    let crc: u32 = 0xffffffff; let i: usize = 0;
+    while i < count {
+        crc = crc ^ zext<u32>(load.u8 [&bytes[i]]);
+        let bit: u32 = 0;
+        while bit < 8 {
+            let low: u32 = crc & 1; crc = crc >> 1;
+            if low != 0 { crc = crc ^ 0xedb88320; }
+            bit = bit + 1;
+        }
+        i = i + 1;
+    }
+    return crc ^ 0xffffffff;
+}

@@ -1,0 +1,16 @@
+module compiler.derived_addresses;
+type Cell=struct { tag:u8; value:u64; };
+section ".rodata" @readonly {
+    const cell:Cell={1,39};
+    const words:[u32;3]={7,3,11};
+}
+export fn run()->u64 @abi(c) {
+    let p:ptr<const Cell> = &cell;
+    unsafe {
+        let data:ptr<const u32> = int_to_ptr(ptr_to_int(&words));
+        return load.u64 [&p.value] + zext<u64>(element(data,1));
+    }
+}
+fn element(p:ptr<const u32>,index:usize)->u32 @abi(c) {
+    return load.u32 [&p[index]];
+}

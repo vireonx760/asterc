@@ -1,0 +1,2 @@
+module guide.arithmetic;
+export fn combine(a: u64, b: u64) -> u64 @abi(c) { return (a ^ b) + (a & b); }

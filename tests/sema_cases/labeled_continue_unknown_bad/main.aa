@@ -1,0 +1,2 @@
+module sema.labeled_continue_unknown_bad;
+fn f() { continue nowhere; }

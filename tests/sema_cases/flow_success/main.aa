@@ -1,0 +1,15 @@
+module sema.flow_success;
+export fn choose(flag: bool) -> u64 {
+    let out: u64;
+    if flag {
+        out = 10;
+    } else {
+        return 20;
+    }
+    return out;
+}
+export fn choose2(flag: bool) -> u64 {
+    let out: u64;
+    if flag { out = 1; } else { out = 2; }
+    return out;
+}

@@ -1,0 +1,10 @@
+module guide.partial_data;
+section ".rodata" @readonly {
+    const table:[u8;60]={1,2,3}; // Remaining 57 bytes are zero.
+}
+export fn last_byte()->u8 @abi(c) {
+    unsafe {
+        let address:ptr<const u8> = int_to_ptr(ptr_to_int(&table)+59);
+        return load.u8 [address];
+    }
+}

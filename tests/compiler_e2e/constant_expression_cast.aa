@@ -1,0 +1,2 @@
+module compiler.constant_expression_cast;
+export fn run() -> u16 @abi(c) { return cast<u16>(256 * 16 - 1); }

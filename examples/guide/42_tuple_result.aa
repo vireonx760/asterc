@@ -1,0 +1,4 @@
+module guide.tuple_result;
+export fn sum_and_overflow(a:u32,b:u32)->(u32,bool) @abi(c) {
+    return add.checked(a,b);
+}

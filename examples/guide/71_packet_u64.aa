@@ -1,0 +1,13 @@
+module guide.packet_u64;
+// The caller provides eight readable bytes; byte decoding is alignment independent.
+export fn read_le64(data:ptr<const u8>)->u64 @abi(c) {
+    let b0:u64=zext<u64>(load.u8 [&data[0]]);
+    let b1:u64=zext<u64>(load.u8 [&data[1]]);
+    let b2:u64=zext<u64>(load.u8 [&data[2]]);
+    let b3:u64=zext<u64>(load.u8 [&data[3]]);
+    let b4:u64=zext<u64>(load.u8 [&data[4]]);
+    let b5:u64=zext<u64>(load.u8 [&data[5]]);
+    let b6:u64=zext<u64>(load.u8 [&data[6]]);
+    let b7:u64=zext<u64>(load.u8 [&data[7]]);
+    return b0|(b1<<8)|(b2<<16)|(b3<<24)|(b4<<32)|(b5<<40)|(b6<<48)|(b7<<56);
+}

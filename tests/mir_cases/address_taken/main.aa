@@ -1,0 +1,25 @@
+module mir.address_taken;
+
+export fn roundtrip(value: u64) -> u64 {
+    let local: u64 = value;
+    let pointer: ptr<u64> = &local;
+    return load.u64 [pointer];
+}
+
+export fn branch_memory(flag: bool, value: u64) -> u64 {
+    let local: u64 = 0;
+    let pointer: ptr<u64> = &local;
+    if flag {
+        store.u64 [pointer] = value;
+    } else {
+        store.u64 [pointer] = 7;
+    }
+    return load.u64 [pointer];
+}
+
+export fn loop_memory(pointer: ptr<u64>, flag: bool) -> u64 {
+    while flag {
+        store.u64 [pointer] = 1;
+    }
+    return load.u64 [pointer];
+}

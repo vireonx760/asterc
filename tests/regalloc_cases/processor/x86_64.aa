@@ -1,0 +1,21 @@
+module processor.x86_64;
+export fn run() @naked {
+    unsafe exact x86_64 {
+        push {src:rbx};
+        cpuid;
+        mov {dst:r10,src:cr3};
+        mov {dst:cr3,src:r10};
+        xgetbv;
+        pop {dst:rbx};
+        ret;
+    }
+}
+export fn bridge(leaf:u32) -> u32 @abi(c) {
+    let result:u32;
+    native x86_64 inputs(leaf) outputs(result) {
+        mov {dst:eax,src:leaf};
+        cpuid;
+        mov {dst:result,src:eax};
+    }
+    return result+leaf;
+}

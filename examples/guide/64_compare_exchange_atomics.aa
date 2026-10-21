@@ -1,0 +1,4 @@
+module guide.compare_exchange_atomics;
+export fn replace(p:ptr<u32>,expected:u32,desired:u32)->bool @abi(c) {
+    return atomic.cas.u32 [p],expected,desired @success(acq_rel) @failure(acquire);
+}

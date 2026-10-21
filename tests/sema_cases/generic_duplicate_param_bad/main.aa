@@ -1,0 +1,5 @@
+module main;
+
+type Pair<T: type, T: type> = struct {
+    value: T;
+};

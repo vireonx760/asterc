@@ -1,0 +1,15 @@
+module bindings.riscv64;
+export fn run(a:u64,b:u64,c:u64)->u64 {
+    let live:u64=a*17+b+c;
+    let out:u64;
+    exact riscv64 inputs(a,b) outputs(out) {
+        mv {dst:s2,src:a};
+        add {dst:out,lhs:s2,rhs:b};
+    }
+    return live+out;
+}
+export fn narrow(a:u8,b:u8)->u8 {
+    let out:u8;
+    native riscv64 inputs(a,b) outputs(out) { add {dst:out,lhs:a,rhs:b}; }
+    return out;
+}

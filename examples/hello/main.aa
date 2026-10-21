@@ -1,0 +1,12 @@
+module hello.main;
+
+target "x86_64-unknown-linux-gnu" {
+    cpu = "baseline";
+    feature + "sse2";
+}
+
+extern fn puts(s: ptr<const u8>) -> i32 @abi(c);
+
+export fn main() -> i32 @abi(c) {
+    return puts(c"hello from AsterASM");
+}

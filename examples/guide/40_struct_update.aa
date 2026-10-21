@@ -1,0 +1,3 @@
+module guide.struct_update;
+type Pair=struct @layout(c) { left:u32; right:u32; };
+export fn set_right(pair:ptr<Pair>,value:u32) @abi(c) { store.u32 [&pair.right]=value; }

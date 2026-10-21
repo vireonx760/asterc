@@ -1,0 +1,9 @@
+module main;
+
+fn length<T: type, N: const usize>(x: [T; N]) -> usize {
+    return N;
+}
+
+fn run(x: [u8; 4]) -> usize {
+    return length(x);
+}

@@ -1,0 +1,11 @@
+module guide.structures;
+export type Header = struct @layout(c) { magic: u32; flags: u16; version: u16; };
+static_assert(sizeof(Header) == 8);
+static_assert(offsetof(Header, flags) == 4);
+section ".rodata" @readonly @align(8) { const header: Header = {0x41535452, 3, 1}; }
+export fn read_flags() -> u16 @abi(c) {
+    unsafe {
+        let p: ptr<const u16> = int_to_ptr(ptr_to_int(&header) + offsetof(Header, flags));
+        return load.u16 [p];
+    }
+}

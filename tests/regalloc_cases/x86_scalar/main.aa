@@ -1,0 +1,19 @@
+module regalloc.scalar;
+export fn logical_not(a: bool) -> bool @abi(c) { return !a; }
+export fn divide_i8(a: i8, b: i8) -> i8 @abi(c) { return a / b; }
+export fn divide_i16(a: i16, b: i16) -> i16 @abi(c) { return a / b; }
+export fn divide_u8(a: u8, b: u8) -> u8 @abi(c) { return a / b; }
+export fn remainder_u16(a: u16, b: u16) -> u16 @abi(c) { return a % b; }
+export fn remainder_i8(a: i8, b: i8) -> i8 @abi(c) { return a % b; }
+export fn extend_signed(a: i8) -> i64 @abi(c) { return sext<i64>(a); }
+export fn extend_unsigned(a: u32) -> u64 @abi(c) { return zext<u64>(a); }
+export fn truncate16(a: i64) -> i16 @abi(c) { return trunc<i16>(a); }
+export fn shift_signed32(a: i32, b: i32) -> i32 @abi(c) { return a >> b; }
+export fn compare_signed16(a: i16, b: i16) -> bool @abi(c) { return a < b; }
+export fn float32_add(a: f32, b: f32) -> f32 @abi(c) { return a + b; }
+export fn choose_false(flag: bool, a: u64, b: u64) -> u64 @abi(c) {
+    let result: u64;
+    if flag { result = a; } else { result = b; }
+    return result;
+}
+export fn min_constant() -> i64 @abi(c) { return -9223372036854775808; }

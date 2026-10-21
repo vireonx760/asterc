@@ -1,0 +1,18 @@
+module guide.format_hex;
+
+// Formatting a u32 into eight hexadecimal digits.
+export fn run() -> u32 @abi(c) {
+    format(0x12abcdef);
+    let expected: ptr<const u8> = c"12abcdef"; let i: usize = 0;
+    while i < 8 { if load.u8 [&output[i]] != load.u8 [&expected[i]] { return 1; } i = i + 1; }
+    return 42;
+}
+section ".bss" @writable { global output: [u8; 8]; }
+fn format(value: u32) {
+    let digits: ptr<const u8> = c"0123456789abcdef"; let i: usize = 0;
+    while i < 8 {
+        let shift: u32 = 28 - cast<u32>(i) * 4;
+        let nibble: usize = cast<usize>((value >> shift) & 15);
+        store.u8 [&output[i]] = load.u8 [&digits[nibble]]; i = i + 1;
+    }
+}

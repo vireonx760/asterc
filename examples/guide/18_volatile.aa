@@ -1,0 +1,4 @@
+module guide.volatile;
+// The caller supplies a mapped, aligned MMIO register address.
+export fn read_device(p:ptr<volatile u32>)->u32 @abi(c) { return load.u32 [p] @volatile; }
+export fn write_device(p:ptr<volatile u32>,value:u32) @abi(c) { store.u32 [p]=value @volatile; }

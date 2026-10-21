@@ -1,0 +1,7 @@
+module target.success;
+target "x86_64-unknown-linux-gnu" {
+    cpu = "baseline";
+    tune = 2 + 2;
+    feature + "avx2";
+}
+fn f() -> u64 { return 1; }

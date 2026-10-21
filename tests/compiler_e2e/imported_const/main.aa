@@ -1,0 +1,3 @@
+module regression.imported_const;
+import lib.flags;
+export fn get_flag() -> u16 @abi(c) { return lib.flags.FLAG; }

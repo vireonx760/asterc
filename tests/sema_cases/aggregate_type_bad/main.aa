@@ -1,0 +1,5 @@
+module sema.aggregate_type_bad;
+export type Pair = struct { x: u32; y: u32; };
+section ".data" @writable {
+    global p: Pair = { 1, c"bad" };
+}

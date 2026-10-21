@@ -1,0 +1,15 @@
+module sema.intrinsic_const_wrap_sat_success;
+const a: u8 = add.wrap(255, 2);
+const b: u8 = sub.wrap(0, 1);
+const c: u8 = mul.wrap(20, 20);
+const d: u8 = add.sat(250, 10);
+const e: u8 = sub.sat(3, 9);
+const f: i8 = add.sat(120, 20);
+const g: i8 = sub.sat(-120, 20);
+static_assert(a == 1);
+static_assert(b == 255);
+static_assert(c == 144);
+static_assert(d == 255);
+static_assert(e == 0);
+static_assert(f == 127);
+static_assert(g == -128);

@@ -1,0 +1,2 @@
+module guide.float_polynomial;
+export fn polynomial(x:f64)->f64 @abi(c) { return x*x + 2.0*x + 1.0; }

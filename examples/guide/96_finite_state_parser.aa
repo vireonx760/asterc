@@ -1,0 +1,19 @@
+module guide.finite_state_parser;
+
+// State-machine recognition of an unsigned decimal fraction.
+export fn run() -> u32 @abi(c) {
+    if !accept(c"12.50", 5) || !accept(c"0", 1) { return 1; }
+    if accept(c".5", 2) || accept(c"1.", 2) || accept(c"1..2", 4) { return 2; }
+    return 42;
+}
+// State 0 requires the first digit; state 2 requires a digit after the dot.
+fn accept(text: ptr<const u8>, length: usize) -> bool {
+    let state: u32 = 0; let i: usize = 0;
+    while i < length {
+        let ch: u8 = load.u8 [&text[i]];
+        if ch >= 48 && ch <= 57 { if state == 0 { state = 1; } if state == 2 { state = 3; } }
+        else { if ch == 46 && state == 1 { state = 2; } else { return false; } }
+        i = i + 1;
+    }
+    return state == 1 || state == 3;
+}

@@ -1,0 +1,9 @@
+module mir.known_failures.rv_u32;
+
+export fn rv_u32(a: u32) -> u32 @abi(c) {
+    let x: u32 = 2000000000;
+    let y: u32 = 2000000000;
+    let sum: u32 = x + y;
+    let diff: u32 = sum - 1234;
+    return diff ^ a;
+}

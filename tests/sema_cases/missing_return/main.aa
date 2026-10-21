@@ -1,0 +1,2 @@
+module sema.missing_return;
+fn f(flag: bool) -> u64 { if flag { return 1; } }

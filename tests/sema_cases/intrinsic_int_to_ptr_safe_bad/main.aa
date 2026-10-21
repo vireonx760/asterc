@@ -1,0 +1,4 @@
+module sema.intrinsic_int_to_ptr_safe_bad;
+fn f(x: usize) -> ptr<u8> {
+    return int_to_ptr(x);
+}

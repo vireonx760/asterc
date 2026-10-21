@@ -1,0 +1,63 @@
+module regalloc.core;
+export type Pair = struct @layout(c) { a: u64; b: u64; };
+export type Triple = struct @layout(c) { a: u64; b: u64; c: u64; };
+export type Mixed = struct @layout(c) { a: u64; b: f64; };
+export type HFA = struct @layout(c) { a: f64; b: f64; };
+
+export fn add(a: u64, b: u64) -> u64 @abi(c) { return a + b; }
+export fn subtract(a: u64, b: u64) -> u64 @abi(c) { return a - b; }
+export fn multiply(a: u64, b: u64) -> u64 @abi(c) { return a * b; }
+export fn bit_mix(a: u64, b: u64, c: u64) -> u64 @abi(c) { return (a ^ b) & c; }
+export fn divide(a: u64, b: u64) -> u64 @abi(c) { return a / b; }
+export fn remainder(a: u64, b: u64) -> u64 @abi(c) { return a % b; }
+export fn signed_divide(a: i64, b: i64) -> i64 @abi(c) { return a / b; }
+export fn shift_left(a: u64, b: u64) -> u64 @abi(c) { return a << b; }
+export fn shift_right(a: u64, b: u64) -> u64 @abi(c) { return a >> b; }
+export fn choose(flag: bool, a: u64, b: u64) -> u64 @abi(c) {
+    let result: u64;
+    if flag { result = a; } else { result = b; }
+    return result;
+}
+export fn loop_sum(n: u64) -> u64 @abi(c) {
+    let sum: u64 = 0; let i: u64 = 0;
+    while i < n { sum = sum + i; i = i + 1; }
+    return sum;
+}
+export fn sum3(a: u64, b: u64, c: u64) -> u64 @abi(c) { return a + b + c; }
+export fn call_live(a: u64, b: u64, c: u64) -> u64 @abi(c) { return sum3(b, c, a) + a; }
+export fn sum9(a: u64, b: u64, c: u64, d: u64, e: u64, f: u64, g: u64, h: u64, i: u64) -> u64 @abi(c) {
+    return a + b + c + d + e + f + g + h + i;
+}
+export fn call9(a: u64, b: u64) -> u64 @abi(c) { return sum9(a, b, a, b, a, b, a, b, a) + b; }
+export fn pair(value: Pair) -> Pair @abi(c) { return value; }
+export fn triple(value: Triple) -> Triple @abi(c) { return value; }
+export fn mixed(value: Mixed) -> Mixed @abi(c) { return value; }
+export fn hfa(value: HFA) -> HFA @abi(c) { return value; }
+export fn float_add(a: f64, b: f64) -> f64 @abi(c) { return a + b; }
+export fn float_const(a: f64) -> f64 @abi(c) { return a + 2.5; }
+export fn triple_call(value: Triple) -> Triple @abi(c) { return triple(value); }
+export fn pair_call(value: Pair) -> Pair @abi(c) { return pair(value); }
+export fn mixed_call(value: Mixed) -> Mixed @abi(c) { return mixed(value); }
+
+
+// Regression: concrete comparison operands must never leave untyped MIR values.
+export fn literal_equal(x: u64) -> u64 { if x == 0 { return 1; } return 0; }
+export fn literal_left(x: u64) -> u64 { if 42 < x { return 1; } return 0; }
+export fn literal_signed(x: i64) -> u64 { if x >= -17 { return 1; } return 0; }
+export fn literal_high(x: u64) -> u64 { if x != 0x8000000000000000 { return 1; } return 0; }
+export fn literal_min(x: i64) -> u64 { if -9223372036854775808 <= x { return 1; } return 0; }
+export fn literal_nested(x: u64) -> u64 { if x > (20 + 22) { return 1; } return 0; }
+export fn literal_float(x: f64) -> f64 { if x == 1.25 { return 7.0; } return 9.0; }
+
+export fn pointer_roundtrip(address: usize) -> usize {
+    unsafe { let p: ptr<u8> = int_to_ptr(address); return ptr_to_int(p); }
+}
+export fn pointer_load(value: u64) -> u64 {
+    let local: u64 = value;
+    unsafe {
+        let address: usize = ptr_to_int(&local);
+        let pointer: ptr<u64> = int_to_ptr(address);
+        store.u64 [pointer] = value + 1;
+        return load.u64 [pointer];
+    }
+}

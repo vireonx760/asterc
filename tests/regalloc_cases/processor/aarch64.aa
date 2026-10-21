@@ -1,0 +1,15 @@
+module processor.aarch64;
+export fn run() @naked {
+    unsafe exact aarch64 {
+        mrs {dst:x0,sys:sctlr_el1};
+        msr {sys:sctlr_el1,src:x0};
+        sys {src:xzr,op1:0,crn:8,crm:7,op2:0};
+        dsb {option:15};
+        isb {option:15};
+        msr {pstate:daifset,imm:15};
+        msr {pstate:daifclr,imm:2};
+        msr {pstate:spsel,imm:1};
+        ret;
+    }
+}
+export fn resume() @naked { exact aarch64 { eret; } }

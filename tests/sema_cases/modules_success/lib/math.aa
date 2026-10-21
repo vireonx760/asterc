@@ -1,0 +1,4 @@
+module lib.math;
+export type Pair = struct { x: u64; y: u64; };
+export const factor: u64 = 2;
+export fn twice(x: u64) -> u64 { return x * factor; }

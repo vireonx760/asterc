@@ -1,0 +1,44 @@
+module examples.minikernel.kernel;
+import kernel.console;
+import kernel.serial;
+import kernel.keyboard;
+import games.snake;
+import games.tetris;
+
+// The raw image starts here. The loader provides identity mapping and a stack.
+export fn _start() -> void @naked {
+    unsafe exact x86_64 {
+        mov {dst: ax, src: 0x10};
+        // Load flat data selectors: MOV DS/ES/SS, AX has no native form yet.
+        bytes {0x8e, 0xd8, 0x8e, 0xc0, 0x8e, 0xd0};
+        sub {dst: rsp, src: 8};
+        cld;
+        call {target: kernel_main};
+        add {dst: rsp, src: 8};
+        jmp {target: halt};
+    }
+}
+
+fn halt() -> void @naked {
+    unsafe exact x86_64 { cli; hlt; jmp {target: halt}; }
+}
+
+fn kernel_main() @abi(c) {
+    kernel.serial.serial_init();
+    kernel.serial.write(c"ASTER\n");
+    let running: bool = true;
+    while running {
+        kernel.console.clear(0x07);
+        kernel.console.text(4, 20, c"AsterASM 1.2.1 MiniKernel", 0x0f);
+        kernel.console.text(9, 24, c"1 - Snake (WASD)", 0x0a);
+        kernel.console.text(11, 24, c"2 - Tetris (WASD)", 0x0b);
+        kernel.console.text(16, 22, c"Q - back/quit    ESC - halt", 0x08);
+        kernel.serial.write(c"MENU\n");
+        let key: u8 = 0;
+        while key == 0 { key = kernel.keyboard.keyboard_poll(); }
+        if key == 0x02 { games.snake.snake_game(); }
+        if key == 0x03 { games.tetris.tetris_game(); }
+        if key == 0x10 || key == 0x01 { running = false; }
+    }
+    kernel.serial.write(c"HALT\n");
+}

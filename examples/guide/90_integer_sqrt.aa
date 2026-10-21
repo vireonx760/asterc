@@ -1,0 +1,15 @@
+module guide.integer_sqrt;
+
+// Overflow-safe binary search for floor(sqrt(n)).
+export fn run() -> u32 @abi(c) {
+    if sqrt(0) != 0 || sqrt(1764) != 42 || sqrt(0xffffffff) != 65535 { return 1; }
+    return 42;
+}
+fn sqrt(n: u32) -> u32 {
+    let lo: u32 = 0; let hi: u32 = 65536;
+    while lo + 1 < hi {
+        let mid: u32 = lo + (hi-lo)/2;
+        if mid <= n / mid { lo = mid; } else { hi = mid; }
+    }
+    return lo;
+}

@@ -1,0 +1,16 @@
+module guide.c_strings;
+
+// C strings: terminator, escaped characters and bounded scanning.
+export fn run() -> u32 @abi(c) {
+    if length(c"hello", 16) != 5 { return 1; }
+    if length(c"", 16) != 0 { return 2; }
+    let escaped: ptr<const u8> = c"A\nB";
+    if load.u8 [&escaped[1]] != 10 { return 3; }
+    return 42;
+}
+// Always bound a scan of external memory; the limit need not contain a NUL.
+fn length(text: ptr<const u8>, limit: usize) -> usize {
+    let n: usize = 0;
+    while n < limit { if load.u8 [&text[n]] == 0 { return n; } n = n + 1; }
+    return n;
+}

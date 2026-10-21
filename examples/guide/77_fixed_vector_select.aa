@@ -1,0 +1,5 @@
+module guide.fixed_vector_select;
+export fn lane0(m:mask<4>,a:vec<4,u32>,b:vec<4,u32>)->u32 @abi(c) {
+    let c:vec<4,u32> = select(m,a,b);
+    return c[0];
+}

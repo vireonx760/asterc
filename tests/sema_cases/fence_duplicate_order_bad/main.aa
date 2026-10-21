@@ -1,0 +1,4 @@
+module sema.fence_duplicate_order_bad;
+fn f() {
+    fence @acquire @release;
+}

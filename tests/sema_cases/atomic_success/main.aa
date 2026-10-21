@@ -1,0 +1,9 @@
+module sema.atomic_success;
+export fn atom(p: ptr<u64>, expected: u64, desired: u64) -> u64 {
+    let a: u64 = atomic.load.u64 [p] @acquire;
+    atomic.store.u64 [p] = a @release;
+    let old: u64 = atomic.rmw.add.u64 [p], 1 @acq_rel;
+    let ok: bool = atomic.cas.u64 [p], expected, desired @success(acq_rel) @failure(acquire);
+    if ok { return old; }
+    return a;
+}

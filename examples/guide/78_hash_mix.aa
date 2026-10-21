@@ -1,0 +1,6 @@
+module guide.hash_mix;
+export fn mix(value:u64)->u64 @abi(c) {
+    let x:u64=value ^ ror(value,25);
+    let y:u64=x * 0x9e3779b97f4a7c15;
+    return y ^ (y >> 29);
+}

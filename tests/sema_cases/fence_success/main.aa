@@ -1,0 +1,5 @@
+module sema.fence_success;
+fn f() {
+    fence @seq_cst;
+    fence @order(acquire);
+}

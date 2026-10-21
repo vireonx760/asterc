@@ -1,0 +1,2 @@
+module regalloc.native_callee_bad;
+export fn raw() -> u64 @naked { exact x86_64 { mov { dst: rbx, src: 7 }; ret; } }

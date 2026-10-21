@@ -1,0 +1,2 @@
+module main;
+fn f(x: usize) -> ptr<u8> { return ptrcast<ptr<u8>>(x); }

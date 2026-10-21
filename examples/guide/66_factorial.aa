@@ -1,0 +1,9 @@
+module guide.factorial;
+// 20! is the largest factorial representable in u64. Zero signals overflow.
+export fn factorial(n: u64) -> u64 @abi(c) {
+    if n > 20 { return 0; }
+    let result: u64 = 1;
+    let i: u64 = 2;
+    while i <= n { result = result * i; i = i + 1; }
+    return result;
+}

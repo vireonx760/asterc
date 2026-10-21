@@ -1,0 +1,2 @@
+module hidden.lib;
+const secret: u64 = 7;

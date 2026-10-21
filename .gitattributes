@@ -1,0 +1,25 @@
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf
+*.png -text
+*.jpg -text
+*.jpeg -text
+*.gif -text
+*.ico -text
+*.wasm -text
+*.bin -text
+*.zip -text
+*.gz -text
+*.pdf -text
+
+# Markdown hard line breaks are intentional.
+*.md whitespace=-blank-at-eol
+# Preserve upstream notice/catalog bytes and their recorded hashes verbatim.
+LICENSES/** -text
+LICENSES/third-party/** -text -whitespace
+tools/isa/** -text -whitespace
+
+# Generated ISA data should not dominate GitHub language/diff views.
+tools/isa/aarch64_scalable.json -diff linguist-generated=true
+src/isa/aarch64_scalable_tables.inc linguist-generated=true
+src/lexer/unicode_xid.h linguist-generated=true

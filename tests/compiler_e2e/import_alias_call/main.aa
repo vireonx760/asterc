@@ -1,0 +1,6 @@
+module regression.import_alias_call;
+import lib.hooks;
+export fn run() -> u32 @abi(c) {
+    hooks.touch();
+    return hooks.answer();
+}

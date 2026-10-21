@@ -1,0 +1,9 @@
+module guide.native_x86;
+export fn add_native(a: u64, b: u64) -> u64 @abi(c) {
+    let result: u64;
+    native x86_64 inputs(a, b) outputs(result) {
+        mov { dst: result, src: a };
+        add { dst: result, src: b };
+    }
+    return result;
+}

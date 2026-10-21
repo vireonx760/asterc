@@ -1,0 +1,9 @@
+module core.bits;
+
+export const word_bits: usize = 64;
+
+macro repeat_load($dst:ident, $ptr:expr, $count:const usize) {
+    comptime for i in 0..$count {
+        let $dst##i = load.u32 [$ptr + i * 4];
+    }
+}

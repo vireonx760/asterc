@@ -1,0 +1,4 @@
+module sema.intrinsic_mul_sat_bad;
+fn f(a: u32, b: u32) -> u32 {
+    return mul.sat(a, b);
+}

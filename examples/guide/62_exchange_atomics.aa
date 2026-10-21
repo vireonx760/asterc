@@ -1,0 +1,2 @@
+module guide.exchange_atomics;
+export fn exchange(p:ptr<u32>,value:u32)->u32 @abi(c) { return atomic.rmw.xchg.u32 [p],value @acq_rel; }

@@ -1,0 +1,6 @@
+module guide.const_generic_layout;
+type Bytes<N:const usize> = [u8;N];
+static_assert(sizeof(Bytes<16>)==16);
+export fn first(data:ptr<Bytes<16>>)->u8 @abi(c) {
+    unsafe { let p:ptr<u8> = int_to_ptr(ptr_to_int(data)); return load.u8 [p]; }
+}

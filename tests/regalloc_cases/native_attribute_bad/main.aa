@@ -1,0 +1,2 @@
+module regalloc.native_attribute_bad;
+export fn raw() -> void { exact x86_64 { mov { dst: rax, src: 7 } @encoding(legacy); } }

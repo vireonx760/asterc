@@ -1,0 +1,21 @@
+module guide.parse_decimal;
+
+// Decimal parsing with digit validation and overflow rejection.
+export fn run() -> u32 @abi(c) {
+    if parse(c"4294967295", 10) != 0xffffffff { return 1; }
+    if parse(c"4294967296", 10) != 0 || parse(c"12x", 3) != 0 { return 2; }
+    return 42;
+}
+// This small interface uses zero for invalid input; callers needing to distinguish
+// valid zero can add a separate status result.
+fn parse(text: ptr<const u8>, count: usize) -> u32 {
+    let result: u32 = 0; let i: usize = 0;
+    while i < count {
+        let ch: u8 = load.u8 [&text[i]];
+        if ch < 48 || ch > 57 { return 0; }
+        let digit: u32 = zext<u32>(ch - 48);
+        if result > 429496729 || (result == 429496729 && digit > 5) { return 0; }
+        result = result * 10 + digit; i = i + 1;
+    }
+    return result;
+}

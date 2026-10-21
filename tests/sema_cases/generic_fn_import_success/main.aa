@@ -1,0 +1,6 @@
+module main;
+import lib;
+
+fn run(x: u32) -> u32 {
+    return lib.identity(x);
+}

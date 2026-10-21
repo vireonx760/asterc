@@ -1,0 +1,32 @@
+module kernel.io;
+
+
+export fn io_in8(port: u16) -> u8 @abi(c) {
+    let result: u8;
+    native x86_64 inputs(port)outputs(result) {
+        mov {
+            dst: dx, src: port
+        };
+        in {
+            dst: al, port: dx
+        };
+        mov {
+            dst: result, src: al
+        };
+    }
+    return result;
+}
+
+export fn io_out8(port: u16, value: u8) @abi(c) {
+    native x86_64 inputs(port, value) {
+        mov {
+            dst: dx, src: port
+        };
+        mov {
+            dst: al, src: value
+        };
+        out {
+            src: al, port: dx
+        };
+    }
+}

@@ -1,0 +1,26 @@
+module guide.ring_buffer;
+
+// Bounded FIFO with full and empty states.
+export fn run() -> u32 @abi(c) {
+    if !push(11) || !push(31) { return 1; }
+    if pop() + pop() != 42 || pop() != 0 { return 2; }
+    let i: u32 = 0;
+    while i < 8 { if !push(i+1) { return 3; } i = i + 1; }
+    if push(99) { return 4; }
+    i = 0;
+    while i < 8 { if pop() != i+1 { return 5; } i = i + 1; }
+    return 42;
+}
+section ".bss" @writable {
+    global queue: [u32; 8]; global head: usize; global tail: usize; global used: usize;
+}
+fn push(value: u32) -> bool {
+    if used == 8 { return false; }
+    store.u32 [&queue[tail]] = value; tail = (tail + 1) & 7; used = used + 1; return true;
+}
+// Zero is the empty sentinel in this interface; the example enqueues nonzero values.
+fn pop() -> u32 {
+    if used == 0 { return 0; }
+    let value: u32 = load.u32 [&queue[head]];
+    head = (head + 1) & 7; used = used - 1; return value;
+}

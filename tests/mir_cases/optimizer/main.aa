@@ -1,0 +1,43 @@
+module mir.optimizer;
+
+export fn computed_branch(x:u64) -> u64 @abi(c) {
+    let c:u64=3;
+    let dead:u64=(x+7)*9;
+    if c+4==7 { return x+5; } else { return x+99; }
+}
+
+export fn dead_cycle(n:u64) -> u64 @abi(c) {
+    let i:u64=0;
+    let sum:u64=0;
+    let dead:u64=17;
+    while i<n { sum=sum+i; dead=dead+i; i=i+1; }
+    return sum;
+}
+
+export fn common_phi(x:u64,y:u64) -> u64 @abi(c) {
+    let answer:u64=x;
+    if y==0 { answer=x; } else { answer=x; }
+    return answer;
+}
+
+export fn conflict_phi(x:u64,y:u64) -> u64 @abi(c) {
+    let answer:u64=0;
+    if y==0 { answer=x+7; } else { answer=x+9; }
+    return answer;
+}
+
+export fn memory_effect(pointer:ptr<u64>,flag:bool) -> u64 @abi(c) {
+    if flag { store.u64 [pointer]=7; } else { store.u64 [pointer]=8; }
+    return load.u64 [pointer];
+}
+
+export fn unused_division(x:u64,y:u64) -> u64 @abi(c) {
+    let unused:u64=x/y;
+    return x+1;
+}
+
+export fn calls(x:u64,y:u64) -> u64 @abi(c) {
+    let unused:u64=helper(x,y);
+    return x+1;
+}
+fn helper(x:u64,y:u64) -> u64 { return x/y; }

@@ -1,0 +1,5 @@
+// Naturally aligned normal memory; RV64 requires --feature a.
+module guide.atomics;
+export fn fetch_increment(p:ptr<u32>)->u32 @abi(c) {
+    return atomic.rmw.add.u32 [p], 1 @acq_rel;
+}

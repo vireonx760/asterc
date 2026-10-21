@@ -1,0 +1,8 @@
+module dispatch.nonconst;
+fn runtime() -> bool { return true; }
+fn fast(x:u64) -> u64 { return x + 1; }
+fn slow(x:u64) -> u64 { return x; }
+dispatch fn choose(x:u64) -> u64 {
+    when runtime() => fast;
+    else => slow;
+}

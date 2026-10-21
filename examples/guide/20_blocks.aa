@@ -1,0 +1,7 @@
+module guide.blocks;
+export fn absolute(value:i32)->i32 @abi(c) {
+    if value < 0 { br negative; }
+    return value;
+    block negative:
+    return -value;
+}

@@ -1,0 +1,6 @@
+module regalloc.native_immediate_bad;
+export fn raw(x: u64) -> u64 {
+    let out: u64;
+    exact x86_64 inputs(x) outputs(out) { mov { dst: out, src: x }; add { dst: out, src: 0x100000000 }; }
+    return out;
+}

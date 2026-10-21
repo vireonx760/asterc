@@ -1,0 +1,12 @@
+module sema.intrinsic_const_bitops_success;
+const x: u16 = 0x1234;
+const pc: u16 = popcnt(x);
+const lz: u16 = clz(x);
+const tz: u16 = ctz(x);
+const sw: u16 = bswap(x);
+const reversed: u8 = bitrev(0b0000_0001);
+static_assert(pc == 5);
+static_assert(lz == 3);
+static_assert(tz == 2);
+static_assert(sw == 0x3412);
+static_assert(reversed == 0x80);

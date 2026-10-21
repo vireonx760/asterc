@@ -1,0 +1,2 @@
+module guide.early_return;
+export fn first_nonzero(a:u32,b:u32,c:u32)->u32 @abi(c) { if a!=0{return a;} if b!=0{return b;} return c; }

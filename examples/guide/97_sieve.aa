@@ -1,0 +1,21 @@
+module guide.sieve;
+
+// Sieve of Eratosthenes using zero-initialized storage.
+export fn run() -> u32 @abi(c) {
+    if primes(100) != 25 { return 1; }
+    return 42;
+}
+section ".bss" @writable { global composite: [u8; 101]; }
+fn primes(limit: usize) -> u32 {
+    let p: usize = 2;
+    while p <= limit / p {
+        if load.u8 [&composite[p]] == 0 {
+            let multiple: usize = p*p;
+            while multiple <= limit { store.u8 [&composite[multiple]] = 1; multiple = multiple + p; }
+        }
+        p = p + 1;
+    }
+    let result: u32 = 0; p = 2;
+    while p <= limit { if load.u8 [&composite[p]] == 0 { result = result + 1; } p = p + 1; }
+    return result;
+}

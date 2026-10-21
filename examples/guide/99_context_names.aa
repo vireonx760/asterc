@@ -1,0 +1,9 @@
+module guide.context_names;
+
+// Contextual names and separate field/local/function meanings.
+export fn run() -> u32 @abi(c) {
+    let bytes: u32 = 12; let inputs: u32 = 30;
+    return outputs(bytes, inputs);
+}
+// Native operand-role words remain ordinary names in typed source context.
+fn outputs(bytes: u32, inputs: u32) -> u32 { return bytes + inputs; }

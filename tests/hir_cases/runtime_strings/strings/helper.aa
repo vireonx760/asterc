@@ -1,0 +1,3 @@
+module strings.helper;
+section ".rodata" @readonly { const sentinel: u8 = 1; }
+export fn from_module() -> ptr<const u8> { return c"imported"; }

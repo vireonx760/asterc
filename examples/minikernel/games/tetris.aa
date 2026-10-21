@@ -1,0 +1,207 @@
+module games.tetris;
+import kernel.console;
+import kernel.keyboard;
+import kernel.clock;
+import kernel.random;
+import kernel.serial;
+
+section ".bss" @writable @align(16) { global t_board: [u8; 180]; }
+section ".rodata" @readonly @align(16) { const shapes: [u16; 28] = {
+0x0f00,0x2222,0x00f0,0x4444,0x6600,0x6600,0x6600,0x6600,
+0x0e40,0x4c40,0x4e00,0x4640,0x06c0,0x8c40,0x06c0,0x8c40,
+0x0c60,0x4c80,0x0c60,0x4c80,0x08e0,0x6440,0x0e20,0x44c0,
+0x02e0,0x4460,0x0e80,0xc440 }; }
+export fn board_index(x: u8, y: u8) -> usize @abi(c) {
+    return zext<usize>(y) * 10 + zext<usize>(x);
+}
+
+export fn board_get(x: u8, y: u8) -> u8 @abi(c) {
+    return load.u8 [&t_board[board_index(x, y)]];
+}
+
+export fn board_set(x: u8, y: u8, value: u8) @abi(c) {
+    store.u8 [&t_board[board_index(x, y)]] = value;
+}
+
+export fn shape_mask(piece: u8, rotation: u8) -> u16 @abi(c) {
+    let index: usize = zext<usize>(piece) * 4 + zext<usize>(rotation & 3);
+    return load.u16 [&shapes[index]];
+}
+
+export fn shape_has(mask_value: u16, x: u8, y: u8) -> bool @abi(c) {
+    let bit: u16 = zext<u16>(y) * 4 + zext<u16>(x);
+    return (mask_value & (cast<u16>(1) << bit)) != 0;
+}
+
+export fn piece_fits(piece: u8, rotation: u8, px: i32, py: i32) -> bool @abi(c) {
+    let mask_value: u16 = shape_mask(piece, rotation);
+    let sy: u8 = 0;
+    while sy < 4 {
+        let sx: u8 = 0;
+        while sx < 4 {
+            if shape_has(mask_value, sx, sy) {
+                let x: i32 = px + zext<i32>(sx);
+                let y: i32 = py + zext<i32>(sy);
+                if x < 0 || x >= 10 || y < 0 || y >= 18 {
+                    return false;
+                }
+                if board_get(cast<u8>(x), cast<u8>(y)) != 0 {
+                    return false;
+                }
+            }
+            sx = sx + 1;
+        }
+        sy = sy + 1;
+    }
+    return true;
+}
+
+export fn draw_tetris_board(piece: u8, rotation: u8, px: i32, py: i32) @abi(c) {
+    let y: u8 = 0;
+    while y < 18 {
+        let x: u8 = 0;
+        while x < 10 {
+            let ch: u8 = 32;
+            let attr: u8 = 0x07;
+            if board_get(x, y) != 0 {
+                ch = 219;
+                attr = 0x09 + (board_get(x, y) & 7);
+            }
+            kernel.console.vga_put(4 + zext<usize>(y), 31 + zext<usize>(x) * 2, ch, attr);
+            kernel.console.vga_put(4 + zext<usize>(y), 32 + zext<usize>(x) * 2, ch, attr);
+            x = x + 1;
+        }
+        y = y + 1;
+    }
+    let mask_value: u16 = shape_mask(piece, rotation);
+    let sy: u8 = 0;
+    while sy < 4 {
+        let sx: u8 = 0;
+        while sx < 4 {
+            if shape_has(mask_value, sx, sy) {
+                let xx: i32 = px + zext<i32>(sx);
+                let yy: i32 = py + zext<i32>(sy);
+                if xx >= 0 && xx < 10 && yy >= 0 && yy < 18 {
+                    kernel.console.vga_put(4 + zext<usize>(cast<u8>(yy)), 31 + zext<usize>(cast<u8>(xx)) * 2, 219, 0x0e);
+                    kernel.console.vga_put(4 + zext<usize>(cast<u8>(yy)), 32 + zext<usize>(cast<u8>(xx)) * 2, 219, 0x0e);
+                }
+            }
+            sx = sx + 1;
+        }
+        sy = sy + 1;
+    }
+}
+
+export fn lock_piece(piece: u8, rotation: u8, px: i32, py: i32) @abi(c) {
+    let mask_value: u16 = shape_mask(piece, rotation);
+    let sy: u8 = 0;
+    while sy < 4 {
+        let sx: u8 = 0;
+        while sx < 4 {
+            if shape_has(mask_value, sx, sy) {
+                let x: i32 = px + zext<i32>(sx);
+                let y: i32 = py + zext<i32>(sy);
+                if x >= 0 && x < 10 && y >= 0 && y < 18 {
+                    board_set(cast<u8>(x), cast<u8>(y), piece + 1);
+                }
+            }
+            sx = sx + 1;
+        }
+        sy = sy + 1;
+    }
+}
+
+export fn clear_lines() @abi(c) {
+    let y: i32 = 17;
+    while y >= 0 {
+        let full: bool = true;
+        let x: u8 = 0;
+        while x < 10 {
+            if board_get(x, cast<u8>(y)) == 0 {
+                full = false;
+            }
+            x = x + 1;
+        }
+        if full {
+            let yy: i32 = y;
+            while yy > 0 {
+                let xx: u8 = 0;
+                while xx < 10 {
+                    board_set(xx, cast<u8>(yy), board_get(xx, cast<u8>(yy - 1)));
+                    xx = xx + 1;
+                }
+                yy = yy - 1;
+            }
+            let zx: u8 = 0;
+            while zx < 10 {
+                board_set(zx, 0, 0);
+                zx = zx + 1;
+            }
+        } else {
+            y = y - 1;
+        }
+    }
+}
+
+export fn tetris_game() @abi(c) {
+    kernel.serial.write(c"TETRIS\n");
+    let bi: usize = 0;
+    while bi < 180 {
+        store.u8 [&t_board[bi]] = 0;
+        bi = bi + 1;
+    }
+    kernel.console.clear(0x07);
+    kernel.console.text(0, 2, c"TETRIS - WASD, Q=back", 0x0b);
+    kernel.console.draw_frame(29, 2, 24, 22, 0x08);
+    let piece: u8 = cast<u8>((kernel.random.rng_next() >> 16) & 7);
+    if piece >= 7 {
+        piece = 0;
+    }
+    let rotation: u8 = 0;
+    let px: i32 = 3;
+    let py: i32 = 0;
+    let running: bool = true;
+    while running {
+        let key: u8 = kernel.keyboard.keyboard_poll();
+        if key == 0x10 {
+            return;
+        }
+        if key == 0x1e && piece_fits(piece, rotation, px - 1, py) {
+            px = px - 1;
+        }
+        if key == 0x20 && piece_fits(piece, rotation, px + 1, py) {
+            px = px + 1;
+        }
+        if key == 0x11 {
+            let nr: u8 = (rotation + 1) & 3;
+            if piece_fits(piece, nr, px, py) {
+                rotation = nr;
+            }
+        }
+        let step: i32 = 1;
+        if key == 0x1f {
+            step = 2;
+        }
+        if !piece_fits(piece, rotation, px, py + step) { step = 1; }
+        if piece_fits(piece, rotation, px, py + step) {
+            py = py + step;
+        } else {
+            lock_piece(piece, rotation, px, py);
+            clear_lines();
+            piece = cast<u8>((kernel.random.rng_next() >> 16) & 7);
+            if piece >= 7 {
+                piece = 0;
+            }
+            rotation = 0;
+            px = 3;
+            py = 0;
+            if ! piece_fits(piece, rotation, px, py) {
+                running = false;
+            }
+        }
+        draw_tetris_board(piece, rotation, px, py);
+        kernel.clock.wait_ms(160);
+    }
+    kernel.console.text(24, 28, c"Q - back    ESC - halt", 0x0c);
+    kernel.clock.wait_ms(400);
+}

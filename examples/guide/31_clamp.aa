@@ -1,0 +1,5 @@
+module guide.clamp;
+export fn clamp(value:i32,low:i32,high:i32)->i32 @abi(c) {
+    let first:i32=select(value < low, low, value);
+    return select(first > high, high, first);
+}

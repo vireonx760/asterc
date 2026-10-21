@@ -1,0 +1,28 @@
+module boot.protected;
+
+// This unit executes in 32-bit protected mode. EAX/ESP arithmetic has the same
+// encoding in long mode; selectors and CR transfers use explicit 32-bit forms.
+export fn protected_entry() -> void @naked {
+    unsafe exact x86_64 {
+        mov {dst: ax, src: 0x10};
+        bytes {0x8e,0xd8,0x8e,0xc0,0x8e,0xd0}; // MOV DS/ES/SS,AX.
+        bytes {0xbc,0xf0,0xff,0x08,0x00}; // MOV ESP,0x8fff0 (32-bit stack).
+        mov {dst: eax, src: 0x10200};
+        bytes {0xff,0xd0}; // CALL EAX: 32-bit cdecl, not a 64-bit native call.
+        bytes {0x0f,0x20,0xe0}; // MOV EAX,CR4.
+        or {dst: eax, src: 0x20};
+        bytes {0x0f,0x22,0xe0}; // MOV CR4,EAX: PAE.
+        mov {dst: ecx, src: 0xc0000080};
+        rdmsr;
+        or {dst: eax, src: 0x100};
+        wrmsr; // EFER.LME.
+        mov {dst: eax, src: 0x70000};
+        bytes {0x0f,0x22,0xd8}; // MOV CR3,EAX.
+        bytes {0x0f,0x20,0xc0}; // MOV EAX,CR0.
+        or {dst: eax, src: 0x80000000};
+        bytes {0x0f,0x22,0xc0}; // MOV CR0,EAX: enable paging.
+        bytes {0xbc,0xf8,0xff,0x08,0x00}; // Entry stack matches the SysV function contract.
+        // Far JMP 0x18:0x11000 enters the 64-bit kernel's first function.
+        bytes {0xea,0x00,0x10,0x01,0x00,0x18,0x00};
+    }
+}

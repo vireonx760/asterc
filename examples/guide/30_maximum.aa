@@ -1,0 +1,2 @@
+module guide.maximum;
+export fn maximum(a:i64,b:i64)->i64 @abi(c) { return select(a > b, a, b); }

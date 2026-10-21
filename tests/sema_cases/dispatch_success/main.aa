@@ -1,0 +1,8 @@
+module dispatch.success;
+target "x86_64-unknown-linux-gnu" { feature + "avx2"; }
+fn fast(x:u64) -> u64 { return x + 1; }
+fn slow(x:u64) -> u64 { return x; }
+dispatch fn choose(x:u64) -> u64 {
+    when feature("avx2") => fast;
+    else => slow;
+}

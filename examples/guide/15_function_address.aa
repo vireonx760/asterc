@@ -1,0 +1,5 @@
+module guide.function_address;
+fn handler()->u32 @abi(c) { return 42; }
+export fn handler_address()->usize @abi(c) {
+    unsafe { return ptr_to_int(&handler); }
+}

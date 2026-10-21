@@ -1,0 +1,3 @@
+module sema.static_assert_message_success;
+static_assert(1 + 1 == 2, "math still works");
+fn f() { static_assert(true, "inside function"); }

@@ -1,0 +1,8 @@
+module main;
+fn f(x: u64, y: u8, z: i8) -> u32 {
+    let a: u32 = trunc<u32>(x);
+    let b: u64 = zext<u64>(y);
+    let c: i64 = sext<i64>(z);
+    let d: f32 = cast<f32>(a);
+    return a + trunc<u32>(b) + cast<u32>(d) + trunc<u32>(cast<u64>(c));
+}

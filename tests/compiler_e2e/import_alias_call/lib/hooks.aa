@@ -1,0 +1,3 @@
+module lib.hooks;
+export fn touch() -> void @abi(c) { }
+export fn answer() -> u32 @abi(c) { return 42; }

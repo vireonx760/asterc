@@ -1,0 +1,9 @@
+module sema.bits_shift_success;
+const a: bits<12> = 1;
+const b: bits<12> = a << 12;
+const c: bits<12> = a << 13;
+static_assert(b == 1);
+static_assert(c == 2);
+fn f(x: bits<12>) -> bits<12> {
+    return x >> 25;
+}

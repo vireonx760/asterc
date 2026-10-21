@@ -1,0 +1,5 @@
+module compiler.system_native;
+export fn enable() { native x86_64 { sti; } }
+export fn disable() { native x86_64 { cli; } }
+export fn wait_interrupt() { native x86_64 { hlt; } }
+export fn forward_strings() { native x86_64 { cld; } }

@@ -1,0 +1,2 @@
+module sema.division_overflow_bad;
+const x: i8 = cast<i8>(-128) / cast<i8>(-1);

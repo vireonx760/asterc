@@ -1,0 +1,7 @@
+module guide.named_block;
+export fn normalize(value:i32)->i32 @abi(c) {
+    if value < 0 { br negative; }
+    return value;
+    block negative:
+    return -value;
+}

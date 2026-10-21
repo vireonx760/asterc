@@ -1,0 +1,304 @@
+module scalar.riscv64;
+export fn managed(a:u64,b:u64,seed:u64)->u64 {
+    let live:u64=seed*17+9; let out:u64;
+    exact riscv64 inputs(a,b) outputs(out) {
+        add {dst:out,lhs:a,rhs:b};
+        sub {dst:out,lhs:a,rhs:b};
+        sll {dst:out,lhs:a,rhs:b};
+        slt {dst:out,lhs:a,rhs:b};
+        sltu {dst:out,lhs:a,rhs:b};
+        xor {dst:out,lhs:a,rhs:b};
+        srl {dst:out,lhs:a,rhs:b};
+        sra {dst:out,lhs:a,rhs:b};
+        or {dst:out,lhs:a,rhs:b};
+        and {dst:out,lhs:a,rhs:b};
+        addi {dst:out,lhs:a,rhs:1};
+        slti {dst:out,lhs:a,rhs:1};
+        sltiu {dst:out,lhs:a,rhs:1};
+        xori {dst:out,lhs:a,rhs:1};
+        ori {dst:out,lhs:a,rhs:1};
+        andi {dst:out,lhs:a,rhs:1};
+        slli {dst:out,lhs:a,rhs:1};
+        srli {dst:out,lhs:a,rhs:1};
+        srai {dst:out,lhs:a,rhs:1};
+        addw {dst:out,lhs:a,rhs:b};
+        subw {dst:out,lhs:a,rhs:b};
+        sllw {dst:out,lhs:a,rhs:b};
+        srlw {dst:out,lhs:a,rhs:b};
+        sraw {dst:out,lhs:a,rhs:b};
+        addiw {dst:out,lhs:a,rhs:1};
+        slliw {dst:out,lhs:a,rhs:1};
+        srliw {dst:out,lhs:a,rhs:1};
+        sraiw {dst:out,lhs:a,rhs:1};
+        lui {dst:out,imm:1};
+        auipc {dst:out,imm:1};
+        mul {dst:out,lhs:a,rhs:b};
+        mulh {dst:out,lhs:a,rhs:b};
+        mulhsu {dst:out,lhs:a,rhs:b};
+        mulhu {dst:out,lhs:a,rhs:b};
+        div {dst:out,lhs:a,rhs:b};
+        divu {dst:out,lhs:a,rhs:b};
+        rem {dst:out,lhs:a,rhs:b};
+        remu {dst:out,lhs:a,rhs:b};
+        mulw {dst:out,lhs:a,rhs:b};
+        divw {dst:out,lhs:a,rhs:b};
+        divuw {dst:out,lhs:a,rhs:b};
+        remw {dst:out,lhs:a,rhs:b};
+        remuw {dst:out,lhs:a,rhs:b};
+    }
+    return out^live;
+}
+export fn manual() @naked {
+    unsafe exact riscv64 {
+        add {dst:a0,lhs:a1,rhs:a2};
+        sub {dst:a0,lhs:a1,rhs:a2};
+        sll {dst:a0,lhs:a1,rhs:a2};
+        slt {dst:a0,lhs:a1,rhs:a2};
+        sltu {dst:a0,lhs:a1,rhs:a2};
+        xor {dst:a0,lhs:a1,rhs:a2};
+        srl {dst:a0,lhs:a1,rhs:a2};
+        sra {dst:a0,lhs:a1,rhs:a2};
+        or {dst:a0,lhs:a1,rhs:a2};
+        and {dst:a0,lhs:a1,rhs:a2};
+        addi {dst:a0,lhs:a1,rhs:1};
+        slti {dst:a0,lhs:a1,rhs:1};
+        sltiu {dst:a0,lhs:a1,rhs:1};
+        xori {dst:a0,lhs:a1,rhs:1};
+        ori {dst:a0,lhs:a1,rhs:1};
+        andi {dst:a0,lhs:a1,rhs:1};
+        slli {dst:a0,lhs:a1,rhs:1};
+        srli {dst:a0,lhs:a1,rhs:1};
+        srai {dst:a0,lhs:a1,rhs:1};
+        addw {dst:a0,lhs:a1,rhs:a2};
+        subw {dst:a0,lhs:a1,rhs:a2};
+        sllw {dst:a0,lhs:a1,rhs:a2};
+        srlw {dst:a0,lhs:a1,rhs:a2};
+        sraw {dst:a0,lhs:a1,rhs:a2};
+        addiw {dst:a0,lhs:a1,rhs:1};
+        slliw {dst:a0,lhs:a1,rhs:1};
+        srliw {dst:a0,lhs:a1,rhs:1};
+        sraiw {dst:a0,lhs:a1,rhs:1};
+        lui {dst:a0,imm:1};
+        auipc {dst:a0,imm:1};
+        mul {dst:a0,lhs:a1,rhs:a2};
+        mulh {dst:a0,lhs:a1,rhs:a2};
+        mulhsu {dst:a0,lhs:a1,rhs:a2};
+        mulhu {dst:a0,lhs:a1,rhs:a2};
+        div {dst:a0,lhs:a1,rhs:a2};
+        divu {dst:a0,lhs:a1,rhs:a2};
+        rem {dst:a0,lhs:a1,rhs:a2};
+        remu {dst:a0,lhs:a1,rhs:a2};
+        mulw {dst:a0,lhs:a1,rhs:a2};
+        divw {dst:a0,lhs:a1,rhs:a2};
+        divuw {dst:a0,lhs:a1,rhs:a2};
+        remw {dst:a0,lhs:a1,rhs:a2};
+        remuw {dst:a0,lhs:a1,rhs:a2};
+        ret;
+    }
+}
+export fn sink() @naked {
+    unsafe exact riscv64 {
+        add {dst:zero,lhs:a1,rhs:a2};
+        sub {dst:zero,lhs:a1,rhs:a2};
+        sll {dst:zero,lhs:a1,rhs:a2};
+        slt {dst:zero,lhs:a1,rhs:a2};
+        sltu {dst:zero,lhs:a1,rhs:a2};
+        xor {dst:zero,lhs:a1,rhs:a2};
+        srl {dst:zero,lhs:a1,rhs:a2};
+        sra {dst:zero,lhs:a1,rhs:a2};
+        or {dst:zero,lhs:a1,rhs:a2};
+        and {dst:zero,lhs:a1,rhs:a2};
+        addi {dst:zero,lhs:a1,rhs:1};
+        slti {dst:zero,lhs:a1,rhs:1};
+        sltiu {dst:zero,lhs:a1,rhs:1};
+        xori {dst:zero,lhs:a1,rhs:1};
+        ori {dst:zero,lhs:a1,rhs:1};
+        andi {dst:zero,lhs:a1,rhs:1};
+        slli {dst:zero,lhs:a1,rhs:1};
+        srli {dst:zero,lhs:a1,rhs:1};
+        srai {dst:zero,lhs:a1,rhs:1};
+        addw {dst:zero,lhs:a1,rhs:a2};
+        subw {dst:zero,lhs:a1,rhs:a2};
+        sllw {dst:zero,lhs:a1,rhs:a2};
+        srlw {dst:zero,lhs:a1,rhs:a2};
+        sraw {dst:zero,lhs:a1,rhs:a2};
+        addiw {dst:zero,lhs:a1,rhs:1};
+        slliw {dst:zero,lhs:a1,rhs:1};
+        srliw {dst:zero,lhs:a1,rhs:1};
+        sraiw {dst:zero,lhs:a1,rhs:1};
+        lui {dst:zero,imm:1};
+        auipc {dst:zero,imm:1};
+        mul {dst:zero,lhs:a1,rhs:a2};
+        mulh {dst:zero,lhs:a1,rhs:a2};
+        mulhsu {dst:zero,lhs:a1,rhs:a2};
+        mulhu {dst:zero,lhs:a1,rhs:a2};
+        div {dst:zero,lhs:a1,rhs:a2};
+        divu {dst:zero,lhs:a1,rhs:a2};
+        rem {dst:zero,lhs:a1,rhs:a2};
+        remu {dst:zero,lhs:a1,rhs:a2};
+        mulw {dst:zero,lhs:a1,rhs:a2};
+        divw {dst:zero,lhs:a1,rhs:a2};
+        divuw {dst:zero,lhs:a1,rhs:a2};
+        remw {dst:zero,lhs:a1,rhs:a2};
+        remuw {dst:zero,lhs:a1,rhs:a2};
+        ret;
+    }
+}
+export fn branch_beq() @naked {
+    exact riscv64 {
+        beq {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+export fn branch_bne() @naked {
+    exact riscv64 {
+        bne {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+export fn branch_blt() @naked {
+    exact riscv64 {
+        blt {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+export fn branch_bge() @naked {
+    exact riscv64 {
+        bge {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+export fn branch_bltu() @naked {
+    exact riscv64 {
+        bltu {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+export fn branch_bgeu() @naked {
+    exact riscv64 {
+        bgeu {lhs:a0,rhs:a1,target:taken};
+        addi {dst:a0,lhs:zero,rhs:11};
+        jal {dst:zero,target:done};
+        label {name:taken};
+        addi {dst:a0,lhs:zero,rhs:29};
+        label {name:done}; ret;
+    }
+}
+
+
+export fn bit_extension(a:u64,b:u64)->u64 {let out:u64; exact riscv64 inputs(a,b) outputs(out) {
+    andn {dst:out,lhs:a,rhs:b};
+    orn {dst:out,lhs:a,rhs:b};
+    xnor {dst:out,lhs:a,rhs:b};
+    min {dst:out,lhs:a,rhs:b};
+    minu {dst:out,lhs:a,rhs:b};
+    max {dst:out,lhs:a,rhs:b};
+    maxu {dst:out,lhs:a,rhs:b};
+    rol {dst:out,lhs:a,rhs:b};
+    ror {dst:out,lhs:a,rhs:b};
+    rolw {dst:out,lhs:a,rhs:b};
+    rorw {dst:out,lhs:a,rhs:b};
+    add.uw {dst:out,lhs:a,rhs:b};
+    sh1add {dst:out,lhs:a,rhs:b};
+    sh2add {dst:out,lhs:a,rhs:b};
+    sh3add {dst:out,lhs:a,rhs:b};
+    sh1add.uw {dst:out,lhs:a,rhs:b};
+    sh2add.uw {dst:out,lhs:a,rhs:b};
+    sh3add.uw {dst:out,lhs:a,rhs:b};
+    clmul {dst:out,lhs:a,rhs:b};
+    clmulr {dst:out,lhs:a,rhs:b};
+    clmulh {dst:out,lhs:a,rhs:b};
+    bset {dst:out,lhs:a,rhs:b};
+    bclr {dst:out,lhs:a,rhs:b};
+    binv {dst:out,lhs:a,rhs:b};
+    bext {dst:out,lhs:a,rhs:b};
+    clz {dst:out,src:a};
+    ctz {dst:out,src:a};
+    cpop {dst:out,src:a};
+    clzw {dst:out,src:a};
+    ctzw {dst:out,src:a};
+    cpopw {dst:out,src:a};
+    sext.b {dst:out,src:a};
+    sext.h {dst:out,src:a};
+    zext.h {dst:out,src:a};
+    orc.b {dst:out,src:a};
+    rev8 {dst:out,src:a};
+    rori {dst:out,lhs:a,rhs:31};
+    roriw {dst:out,lhs:a,rhs:31};
+    slli.uw {dst:out,lhs:a,rhs:31};
+    bseti {dst:out,lhs:a,rhs:31};
+    bclri {dst:out,lhs:a,rhs:31};
+    binvi {dst:out,lhs:a,rhs:31};
+    bexti {dst:out,lhs:a,rhs:31};
+}return out;}
+
+export fn bit_manual() @naked {unsafe exact riscv64 {
+    andn {dst:a0,lhs:a1,rhs:a2};
+    orn {dst:a0,lhs:a1,rhs:a2};
+    xnor {dst:a0,lhs:a1,rhs:a2};
+    min {dst:a0,lhs:a1,rhs:a2};
+    minu {dst:a0,lhs:a1,rhs:a2};
+    max {dst:a0,lhs:a1,rhs:a2};
+    maxu {dst:a0,lhs:a1,rhs:a2};
+    rol {dst:a0,lhs:a1,rhs:a2};
+    ror {dst:a0,lhs:a1,rhs:a2};
+    rolw {dst:a0,lhs:a1,rhs:a2};
+    rorw {dst:a0,lhs:a1,rhs:a2};
+    add.uw {dst:a0,lhs:a1,rhs:a2};
+    sh1add {dst:a0,lhs:a1,rhs:a2};
+    sh2add {dst:a0,lhs:a1,rhs:a2};
+    sh3add {dst:a0,lhs:a1,rhs:a2};
+    sh1add.uw {dst:a0,lhs:a1,rhs:a2};
+    sh2add.uw {dst:a0,lhs:a1,rhs:a2};
+    sh3add.uw {dst:a0,lhs:a1,rhs:a2};
+    clmul {dst:a0,lhs:a1,rhs:a2};
+    clmulr {dst:a0,lhs:a1,rhs:a2};
+    clmulh {dst:a0,lhs:a1,rhs:a2};
+    bset {dst:a0,lhs:a1,rhs:a2};
+    bclr {dst:a0,lhs:a1,rhs:a2};
+    binv {dst:a0,lhs:a1,rhs:a2};
+    bext {dst:a0,lhs:a1,rhs:a2};
+    clz {dst:a0,src:a1};
+    ctz {dst:a0,src:a1};
+    cpop {dst:a0,src:a1};
+    clzw {dst:a0,src:a1};
+    ctzw {dst:a0,src:a1};
+    cpopw {dst:a0,src:a1};
+    sext.b {dst:a0,src:a1};
+    sext.h {dst:a0,src:a1};
+    zext.h {dst:a0,src:a1};
+    orc.b {dst:a0,src:a1};
+    rev8 {dst:a0,src:a1};
+    rori {dst:a0,lhs:a1,rhs:31};
+    roriw {dst:a0,lhs:a1,rhs:31};
+    slli.uw {dst:a0,lhs:a1,rhs:31};
+    bseti {dst:a0,lhs:a1,rhs:31};
+    bclri {dst:a0,lhs:a1,rhs:31};
+    binvi {dst:a0,lhs:a1,rhs:31};
+    bexti {dst:a0,lhs:a1,rhs:31};
+ret;}}

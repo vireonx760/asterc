@@ -1,0 +1,5 @@
+module sema.string_mutable_bad;
+extern fn takes_mutable(p: ptr<u8>);
+export fn f() {
+    takes_mutable(c"hello");
+}

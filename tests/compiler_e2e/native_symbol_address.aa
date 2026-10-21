@@ -1,0 +1,13 @@
+module compiler.native_symbol_address;
+section ".data" @writable @align(8) { global global_data: u64 = 7; }
+fn helper() @abi(c) { }
+export fn global_address() -> usize @abi(c) {
+    let out: usize;
+    native x86_64 outputs(out) { lea { dst: out, src: global_data }; }
+    return out;
+}
+export fn function_address() -> usize @abi(c) {
+    let out: usize;
+    native x86_64 outputs(out) { lea { dst: out, src: helper }; }
+    return out;
+}

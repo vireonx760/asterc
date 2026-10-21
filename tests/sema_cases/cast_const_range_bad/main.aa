@@ -1,0 +1,2 @@
+module sema.cast_const_range_bad;
+const bad: u8 = cast<u8>(300);

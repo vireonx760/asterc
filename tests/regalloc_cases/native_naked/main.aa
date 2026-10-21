@@ -1,0 +1,4 @@
+module regalloc.native_naked;
+export fn raw() -> u64 @naked {
+    exact x86_64 { mov { dst: rax, src: 7 }; nop; ret; }
+}

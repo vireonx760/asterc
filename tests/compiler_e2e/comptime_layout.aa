@@ -1,0 +1,6 @@
+module compiler.comptime_layout;
+export fn run()->u32 @abi(c) {
+    comptime if sizeof(u32)==8 { return missing_dead_branch; }
+    else if sizeof(u32)==4 && 2<3 { return 42; }
+    else { return also_dead; }
+}

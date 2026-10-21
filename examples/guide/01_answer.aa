@@ -1,0 +1,2 @@
+module guide.answer;
+export fn answer() -> u64 @abi(c) { return 42; }

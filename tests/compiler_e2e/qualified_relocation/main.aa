@@ -1,0 +1,5 @@
+module compiler.qualified_relocation;
+import lib.wrapper;
+export fn run() -> u64 @abi(c) {
+    return lib.wrapper.init();
+}

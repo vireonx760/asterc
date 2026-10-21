@@ -1,0 +1,11 @@
+module guide.macros;
+macro add_to($destination:ident,$value:expr) {
+    let temporary:u32=$value;
+    $destination=$destination+temporary;
+}
+export fn answer()->u32 @abi(c) {
+    let temporary:u32=2;
+    let result:u32=0;
+    add_to!(result,40);
+    return result+temporary;
+}

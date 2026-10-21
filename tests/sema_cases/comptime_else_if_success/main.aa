@@ -1,0 +1,11 @@
+module main;
+
+fn f() -> u32 {
+    comptime if false {
+        return missing_a;
+    } else if true {
+        return 7;
+    } else {
+        return missing_b;
+    }
+}

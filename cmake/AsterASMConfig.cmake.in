@@ -1,0 +1,25 @@
+@PACKAGE_INIT@
+include(CMakeFindDependencyMacro)
+find_dependency(Threads)
+include("${CMAKE_CURRENT_LIST_DIR}/AsterASMTargets.cmake")
+if(@ASTERASM_BUILD_OBJECT_WRITER@ AND NOT TARGET AsterASM::object)
+    add_library(AsterASM::object SHARED IMPORTED)
+    add_library(AsterASM::object_static STATIC IMPORTED)
+    if(WIN32)
+        set_and_check(_aster_object_shared "@PACKAGE_CMAKE_INSTALL_BINDIR@/@ASTERASM_INSTALL_OBJECT_SHARED@")
+        set_and_check(_aster_object_implib "@PACKAGE_CMAKE_INSTALL_LIBDIR@/@ASTERASM_INSTALL_OBJECT_IMPLIB@")
+        set_target_properties(AsterASM::object PROPERTIES IMPORTED_IMPLIB "${_aster_object_implib}")
+    else()
+        set_and_check(_aster_object_shared "@PACKAGE_CMAKE_INSTALL_LIBDIR@/@ASTERASM_INSTALL_OBJECT_SHARED@")
+    endif()
+    set_and_check(_aster_object_static "@PACKAGE_CMAKE_INSTALL_LIBDIR@/@ASTERASM_INSTALL_OBJECT_STATIC@")
+    set_target_properties(AsterASM::object PROPERTIES IMPORTED_LOCATION "${_aster_object_shared}"
+        INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+    if(UNIX AND NOT APPLE)
+        set_target_properties(AsterASM::object PROPERTIES IMPORTED_NO_SONAME TRUE)
+    endif()
+    set_target_properties(AsterASM::object_static PROPERTIES IMPORTED_LOCATION "${_aster_object_static}"
+        INTERFACE_INCLUDE_DIRECTORIES "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@"
+        INTERFACE_LINK_LIBRARIES "@ASTERASM_INSTALL_OBJECT_NATIVE_LIBS@")
+endif()
+check_required_components(AsterASM)

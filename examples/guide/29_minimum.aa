@@ -1,0 +1,2 @@
+module guide.minimum;
+export fn minimum(a:u64,b:u64)->u64 @abi(c) { return select(a < b, a, b); }

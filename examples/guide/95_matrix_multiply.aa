@@ -1,0 +1,22 @@
+module guide.matrix_multiply;
+
+// Row-major 2x2 matrix multiplication.
+export fn run() -> u32 @abi(c) {
+    multiply();
+    if load.u32 [&product[0]] != 19 || load.u32 [&product[3]] != 50 { return 1; }
+    return 42;
+}
+section ".rodata" @readonly { const a: [u32; 4] = {1,2,3,4}; const b: [u32; 4] = {5,6,7,8}; }
+section ".bss" @writable { global product: [u32; 4]; }
+fn multiply() {
+    let row: usize = 0;
+    while row < 2 {
+        let col: usize = 0;
+        while col < 2 {
+            let sum: u32 = 0; let k: usize = 0;
+            while k < 2 { sum = sum + load.u32 [&a[row*2+k]] * load.u32 [&b[k*2+col]]; k = k + 1; }
+            store.u32 [&product[row*2+col]] = sum; col = col + 1;
+        }
+        row = row + 1;
+    }
+}

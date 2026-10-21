@@ -1,0 +1,15 @@
+module generic_local_pointer;
+
+type Holder<T: type> = struct {
+    tag: u32;
+    data: ptr<T>;
+};
+
+fn at_ptr<T: type>(value: ptr<Holder<T>>, index: usize) -> ptr<T> {
+    let base: ptr<T> = load.ptr<T> [&value.data];
+    return &base[index];
+}
+
+export fn u32_at(value: ptr<Holder<u32>>, index: usize) -> ptr<u32> @abi(c) {
+    return at_ptr(value, index);
+}

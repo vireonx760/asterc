@@ -1,0 +1,29 @@
+module operand.proof;
+export fn managed(a:u64,b:u64,c:u64)->u64 {
+    let live:u64=a*17+c; let out:u64;
+    exact x86_64 inputs(a,b) outputs(out) {
+        mov {dst:out,src:a}; add {dst:out,src:b};
+        sub {dst:out,src:3}; xor {dst:out,src:71};
+    }
+    return out+live;
+}
+export fn layout() @naked {
+    exact x86_64 {
+        mov {dst:rax,src:mem<u64>[rdi+rcx*4-16]};
+        mov {dst:mem<u64>[rsi+rdx*2+8],src:rax};
+        mov {dst:eax,src:0x12345678}; mov {dst:ah,src:cl};
+        mov {dst:rax,src:rdi}; and {dst:rax,src:rsi}; or {dst:rax,src:17};
+        imul {dst:rax,src:rdx}; shl {dst:rax,src:cl}; shr {dst:rax,src:cl}; sar {dst:rax,src:cl};
+        push {src:rax}; pop {dst:rcx}; lea {dst:rax,src:anchor}; ret;
+    }
+}
+export fn caller() @frame(validate) {
+    exact x86_64 {
+        sub {dst:rsp,src:40}; call {target:anchor}; add {dst:rsp,src:40}; ret;
+    }
+}
+export fn tail() @naked { exact x86_64 { jmp {target:anchor}; } }
+export fn io() @naked {
+    exact x86_64 { in {dst:al,port:128}; out {src:al,port:dx}; lgdt {addr:rax}; lidt {addr:rcx}; ret; }
+}
+export fn anchor() @naked { exact x86_64 { nop; ret; } }

@@ -1,0 +1,5 @@
+module main;
+
+fn pick<N: const usize>(N: usize) -> usize {
+    return N;
+}

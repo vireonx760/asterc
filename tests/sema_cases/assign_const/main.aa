@@ -1,0 +1,6 @@
+module sema.assign_const;
+fn f() -> u64 {
+    const x: u64 = 1;
+    x = 2;
+    return x;
+}

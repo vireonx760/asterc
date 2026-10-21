@@ -1,0 +1,7 @@
+module guide.packet_u16;
+// The caller provides two readable bytes; no aligned u16 load is assumed.
+export fn read_be16(data:ptr<const u8>)->u16 @abi(c) {
+    let high:u16=zext<u16>(load.u8 [&data[0]]);
+    let low:u16=zext<u16>(load.u8 [&data[1]]);
+    return (high<<8)|low;
+}

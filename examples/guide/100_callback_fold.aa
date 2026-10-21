@@ -1,0 +1,14 @@
+module guide.callback_fold;
+
+// Typed callback dispatch and reusable reduction.
+export fn run() -> u32 @abi(c) {
+    let operation = &sum;
+    let value: u32 = (*operation)(fold(6), 21);
+    return value;
+}
+fn sum(a: u32, b: u32) -> u32 { return a+b; }
+fn fold(count: u32) -> u32 {
+    let result: u32 = 0; let i: u32 = 1;
+    while i <= count { result = sum(result, i); i = i + 1; }
+    return result;
+}

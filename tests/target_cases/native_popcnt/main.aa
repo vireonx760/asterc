@@ -1,0 +1,11 @@
+module target.native_popcnt;
+export fn native_count(x: u64) -> u64 @abi(c) {
+    let count: u64;
+    native x86_64 inputs(x) outputs(count) { popcnt { dst: count, src: x }; }
+    return count;
+}
+export fn exact_count(x: u64) -> u64 @abi(c) {
+    let count: u64;
+    exact x86_64 inputs(x) outputs(count) { popcnt { dst: count, src: x }; }
+    return count;
+}

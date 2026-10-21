@@ -1,0 +1,3 @@
+module cycle.b;
+import cycle.a;
+export fn b() -> u64 { return 2; }

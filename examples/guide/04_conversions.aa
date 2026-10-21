@@ -1,0 +1,5 @@
+module guide.conversions;
+export fn widen_and_add(a: u8, b: u16) -> u64 @abi(c) {
+    return zext<u64>(a) + zext<u64>(b);
+}
+export fn low_byte(x: u64) -> u8 @abi(c) { return trunc<u8>(x); }

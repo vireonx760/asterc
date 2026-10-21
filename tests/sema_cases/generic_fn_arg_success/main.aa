@@ -1,0 +1,9 @@
+module main;
+
+fn identity<T: type>(x: T) -> T {
+    return x;
+}
+
+fn run(x: u64) -> u64 {
+    return identity(x);
+}

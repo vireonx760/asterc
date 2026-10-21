@@ -1,0 +1,9 @@
+module main;
+
+fn paired<T: type, N: const usize>(a: [T; N * 2], b: [T; N + 1]) -> T {
+    return a[0];
+}
+
+fn run(a: [u8; 8], b: [u8; 7]) -> u8 {
+    return paired(a, b);
+}

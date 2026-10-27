@@ -99,6 +99,19 @@ static void one(AstMachineOpcode op, unsigned defs, const char *assembly,
 #define ZERO(op, asmtext) one(AST_MACHINE_##op, 0u, asmtext, NULL, 0u)
 
 static void x86_cases(void) {
+  const char *const bswap32[] = {"eax",  "ecx",  "edx",  "ebx", "esp",  "ebp",
+                                 "esi",  "edi",  "r8d",  "r9d", "r10d", "r11d",
+                                 "r12d", "r13d", "r14d", "r15d"};
+  const char *const bswap64[] = {"rax", "rcx", "rdx", "rbx", "rsp", "rbp",
+                                 "rsi", "rdi", "r8",  "r9",  "r10", "r11",
+                                 "r12", "r13", "r14", "r15"};
+  for (unsigned bits = 32u; bits <= 64u; bits += 32u)
+    for (unsigned r = 0; r < 16u; ++r) {
+      const char *name = bits == 64u ? bswap64[r] : bswap32[r];
+      char assembly[32];
+      snprintf(assembly, sizeof(assembly), "bswap %s", name);
+      ONE(X86_BSWAP, 1, assembly, G(name, bits), G(name, bits));
+    }
   const uint64_t compact_values[] = {0u,
                                      UINT32_MAX,
                                      UINT64_C(0x100000000),

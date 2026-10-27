@@ -947,7 +947,8 @@ int encoder_x86_instruction(EncoderBuilder *b,
   case AST_MACHINE_X86_BSWAP:
     return encoder_shape(i, 1u, 2u) && encoder_same(&o[0], &o[1]) &&
            (bits == 32u || bits == 64u) && gpr(b, &o[0], &r) &&
-           prefix(b, bits, r, 0u, 0, 0u) && byte(b, 0x0fu) &&
+           /* BSWAP's register lives in opcode +rd, extended by REX.B. */
+           prefix(b, bits, 0u, r, 0, 0u) && byte(b, 0x0fu) &&
            byte(b, 0xc8u + (r & 7u));
   case AST_MACHINE_X86_ROL:
   case AST_MACHINE_X86_ROR:

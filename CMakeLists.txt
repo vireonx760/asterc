@@ -1506,6 +1506,18 @@ if(BUILD_TESTING)
                 --compiler $<TARGET_FILE:asterc> --python-path "${ASTERASM_UNICORN_PYTHON_PATH}"
                 ${_string_object_args})
             set_tests_properties(compiler_string_literals PROPERTIES TIMEOUT 180 LABELS "hir;strings;unicorn;cpu")
+            set(_entry_contract_args ${_string_object_args})
+            if(ASTERASM_BUILD_OBJECT_WRITER)
+                find_program(ASTERASM_ENTRY_TEST_CLANG clang)
+                if(ASTERASM_ENTRY_TEST_CLANG)
+                    list(APPEND _entry_contract_args --clang "${ASTERASM_ENTRY_TEST_CLANG}")
+                endif()
+            endif()
+            add_test(NAME compiler_entry_contracts COMMAND "${Python3_EXECUTABLE}"
+                "${CMAKE_CURRENT_SOURCE_DIR}/tests/compiler_entry_contracts.py"
+                --compiler $<TARGET_FILE:asterc> --python-path "${ASTERASM_UNICORN_PYTHON_PATH}"
+                ${_entry_contract_args})
+            set_tests_properties(compiler_entry_contracts PROPERTIES TIMEOUT 180 LABELS "source;abi;object;backend;cpu")
             add_test(NAME compiler_codegen_cleanup COMMAND "${Python3_EXECUTABLE}"
                 "${CMAKE_CURRENT_SOURCE_DIR}/tests/compiler_codegen_cleanup.py"
                 --compiler $<TARGET_FILE:asterc> --python-path "${ASTERASM_UNICORN_PYTHON_PATH}")
@@ -1543,9 +1555,16 @@ if(BUILD_TESTING)
     find_program(ASTERASM_LLVM_MC NAMES llvm-mc)
     find_program(ASTERASM_LLVM_OBJCOPY NAMES llvm-objcopy)
     if(Python3_Interpreter_FOUND AND ASTERASM_LLVM_MC AND ASTERASM_LLVM_OBJCOPY)
+        set(_encoder_dumper_args)
+        find_program(ASTERASM_ENCODER_OBJDUMP NAMES llvm-objdump)
+        if(TARGET asterdump AND ASTERASM_ENCODER_OBJDUMP)
+            list(APPEND _encoder_dumper_args --dumper $<TARGET_FILE:asterdump>
+                --objdump "${ASTERASM_ENCODER_OBJDUMP}")
+        endif()
         add_test(NAME encoder_llvm_oracle COMMAND "${Python3_EXECUTABLE}"
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/encoder_llvm_oracle.py"
-            --test $<TARGET_FILE:aster-encoder-tests> --mc "${ASTERASM_LLVM_MC}" --objcopy "${ASTERASM_LLVM_OBJCOPY}")
+            --test $<TARGET_FILE:aster-encoder-tests> --mc "${ASTERASM_LLVM_MC}" --objcopy "${ASTERASM_LLVM_OBJCOPY}"
+            ${_encoder_dumper_args})
         set_tests_properties(encoder_llvm_oracle PROPERTIES TIMEOUT 120)
     endif()
 

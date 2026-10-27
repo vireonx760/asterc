@@ -24,8 +24,14 @@ asterdump --target x86_64 --format json answer.bin
 ```
 
 A raw `.bin` image contains code and data at a chosen load address. Use a
-loader/emulator to invoke it. To link a function into a normal C application,
-produce an ELF/COFF object with the caller's target and ABI instead.
+loader/emulator to invoke it. Code begins with the first defined function in
+compiler emission order; in a single source file, this follows declaration
+order. `export` makes a symbol visible but does not select an entry point or
+move that function to the start. Declare the intended entry function first
+when a loader calls the image's load address. A raw image has no executable
+header, entry-point metadata or automatic startup stub. To link a function
+into a normal C application, produce an ELF/COFF object with the caller's
+target and ABI; the linker resolves the function by its symbol name.
 
 ## Language and compiler
 
@@ -64,6 +70,8 @@ The `examples/guide/` directory contains **100 numbered programs** with English
 comments: arithmetic, memory, layouts, generics, atomics, vectors, strings,
 binary search, sorting, CRC/FNV, parsers, UTF-8, ring buffers and other algorithms.
 Examples 79–100 export `run()` first and return 42 when their checks pass.
+Other examples may place a helper first: calling their raw image's load address
+invokes that helper, not necessarily the exported function.
 
 | Directory | Purpose |
 | --- | --- |
@@ -103,6 +111,11 @@ It has no heap, filesystem, scheduler or interrupt subsystem.
 `aster-hir`, `aster-mir` inspect compiler stages. `tools/aster.py` builds package
 manifests and `tools/asterfmt.py` formats AsterASM source. Run each with `--help`.
 LSP and Tree-sitter are maintained in their separate repositories.
+
+Raw BIN dumps scan the whole image, including any embedded data. ELF/COFF/PE
+dumps use executable-section metadata. Unsupported instruction forms remain
+explicit `.byte` (x86) or `.word` (AArch64/RISC-V) entries; `--strict` returns
+a nonzero status when they occur.
 
 `tests/` retains unit tests, regression fixtures, object/ABI checks, emulation
 and concurrency tests. Normal release builds leave tests disabled; enable them

@@ -154,10 +154,17 @@ def main():
                 checks += 1
         # Reject reserved RV M/W encodings and incorrectly formed shifts.
         invalid = [0xffffffff, 0x0200103b, 0x0200203b, 0x0405151b,
-                   0x4005159b, 0x00007007, 0x00004027]
+                   0x4005159b, 0x00007007, 0x00004027,
+                   0x00005053, 0x00006053, 0x1010202f, 0x0000102f, 0xf800202f]
         for word in invalid:
             result, payload = decoded(args.dumper, 'riscv64', word.to_bytes(4,'little'), temp)
             assert result.returncode == 3 and payload['unknown'] == 1, (hex(word),result.stdout)
+            checks += 1
+        # Reserved A64 FP type=2 must not be rendered as f32/f64. SIMD
+        # Q transfers also require the allocated size=0 encoding.
+        for word in [0x1ea02800, 0x1ea02000, 0xbd800000, 0x085e7c00]:
+            result, payload = decoded(args.dumper, 'aarch64', word.to_bytes(4,'little'), temp)
+            assert result.returncode == 3 and payload['unknown'] == 1, (hex(word), result.stdout)
             checks += 1
         # Fuzz mutated upper opcode/funct bits; unknowns are either decoded by
         # exactly matching a supported form or preserved as raw words.

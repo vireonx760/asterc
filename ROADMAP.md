@@ -12,6 +12,9 @@ commitments to a release date.
 * Profile and reduce `check` overhead, peak backend memory and Oz optimization
   cost. Compare one-worker and automatic-worker builds on the same workloads.
 * Improve diagnostics for unsupported target/operand/ABI combinations.
+* Extend typed native/exact ISA instruction coverage for x86-32 and x86-16,
+  including mode-specific forms needed by boot code, with encoder and execution
+  tests for each supported operand form.
 * Keep small regression cases for string literals, pointer qualification,
   parallel compilation, object linking and copy/spill cleanup.
 

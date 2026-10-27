@@ -1,6 +1,6 @@
 /* SPDX-License-Identifier: MPL-2.0 */
-/* AsterASM 1.2-dev: conservative raw 32-bit A64/RV64I disassembler.
-   Every unsupported/ambiguous word is printed verbatim, never guessed.
+/* Conservative x86-64/A64/RV64 disassembler.
+   Every unsupported/ambiguous encoding is printed verbatim, never guessed.
    No LLVM/Capstone runtime dependency; the oracle tests use Clang separately.
  */
 #include "../isa/aarch64_data_contract.h"
@@ -37,7 +37,8 @@ static void usage(FILE *out) {
       "Usage: asterdump --target x86_64|aarch64|riscv64 [--format text|json] "
       "[--base HEX] [--strict] file.bin|file.o\n"
       "Recognizes conservative subsets of x86-64, A64 and RV64I instructions.\n"
-      "Unknown words are always displayed as .word (strict: nonzero exit).\n"
+      "Unknown encodings are displayed as .byte (x86) or .word (A64/RV64); "
+      "strict mode returns nonzero.\n"
       "Supports ELF64 ET_REL/EXEC/DYN, x64/Arm64 COFF objects and PE32+ "
       "images.\n"
       "ET_REL addresses are synthetic; linked images use sh_addr/p_vaddr.\n",
@@ -214,12 +215,125 @@ static int decode_a64_scalar(uint32_t w, char *out, size_t n) {
     (void)snprintf(out, n, "%s %s, %s, %s", f->name, dst, lhs, rhs);
   return 1;
 }
+/* Scalar memory, floating transfers and atomics emitted by the backend.
+   Keep fixed bits in every mask so adjacent/reserved forms stay unknown. */
+static int decode_a64_backend(uint32_t w, char *out, size_t n) {
+  unsigned rd = w & 31u, rn = (w >> 5u) & 31u, rm = (w >> 16u) & 31u;
+  unsigned size = w >> 30u;
+  char dst[12], base[12], src[12];
+  uint32_t root = w & UINT32_C(0x3ffffc00);
+  const char *name = NULL;
+  if (root == UINT32_C(0x08dffc00) || root == UINT32_C(0x089ffc00))
+    name = root == UINT32_C(0x08dffc00) ? "ldar" : "stlr";
+  else if ((w & UINT32_C(0x3fff7c00)) == UINT32_C(0x085f7c00))
+    name = w & UINT32_C(0x8000) ? "ldaxr" : "ldxr";
+  else if ((w & UINT32_C(0x3fe07c00)) == UINT32_C(0x08007c00)) {
+    a64_reg(dst, sizeof(dst), rd, size == 3u ? 64 : 32, 0);
+    a64_reg(base, sizeof(base), rn, 64, 1);
+    a64_reg(src, sizeof(src), rm, 32, 0);
+    (void)snprintf(out, n, "%s%s %s, %s, [%s]",
+                   w & UINT32_C(0x8000) ? "stlxr" : "stxr",
+                   size == 0u   ? "b"
+                   : size == 1u ? "h"
+                                : "",
+                   src, dst, base);
+    return 1;
+  }
+  if (name) {
+    a64_reg(dst, sizeof(dst), rd, size == 3u ? 64 : 32, 0);
+    a64_reg(base, sizeof(base), rn, 64, 1);
+    (void)snprintf(out, n, "%s%s %s, [%s]", name,
+                   size == 0u   ? "b"
+                   : size == 1u ? "h"
+                                : "",
+                   dst, base);
+    return 1;
+  }
+  if (w == UINT32_C(0xd5033f5f)) {
+    (void)snprintf(out, n, "clrex");
+    return 1;
+  }
+  int scaled = (w & UINT32_C(0x3b000000)) == UINT32_C(0x39000000);
+  int unscaled = (w & UINT32_C(0x3b200c00)) == UINT32_C(0x38000000);
+  if (scaled || unscaled) {
+    int vector = (w & UINT32_C(0x04000000)) != 0;
+    unsigned opc = (w >> 22u) & 3u, shift = size;
+    int load = (opc & 1u) != 0;
+    if (!vector) {
+      if (opc > 1u)
+        return 0;
+      a64_reg(dst, sizeof(dst), rd, size == 3u ? 64 : 32, 0);
+    } else {
+      if (opc >= 2u && size != 0u)
+        return 0;
+      shift = opc >= 2u ? 4u : size;
+      (void)snprintf(dst, sizeof(dst), "%c%u", "bhsdq"[shift], rd);
+    }
+    a64_reg(base, sizeof(base), rn, 64, 1);
+    int64_t offset = scaled ? (int64_t)(((w >> 10u) & 4095u) << shift)
+                            : sign_extend((w >> 12u) & 511u, 9u);
+    (void)snprintf(out, n, "%s%s %s, [%s, #%" PRId64 "]",
+                   scaled ? (load ? "ldr" : "str") : (load ? "ldur" : "stur"),
+                   !vector && size < 2u ? (size ? "h" : "b") : "", dst, base,
+                   offset);
+    return 1;
+  }
+  if ((w & UINT32_C(0xfffffc1f)) == UINT32_C(0xd61f0000) ||
+      (w & UINT32_C(0xfffffc1f)) == UINT32_C(0xd63f0000)) {
+    if (rn == 31u)
+      return 0;
+    (void)snprintf(out, n, "%s x%u", w & UINT32_C(0x00200000) ? "blr" : "br",
+                   rn);
+    return 1;
+  }
+  char fp = w & UINT32_C(0x00400000) ? 'd' : 's';
+  if ((w & UINT32_C(0xffbffc00)) == UINT32_C(0x1e204000)) {
+    (void)snprintf(out, n, "fmov %c%u, %c%u", fp, rd, fp, rn);
+    return 1;
+  }
+  if ((w & UINT32_C(0xffa00c00)) == UINT32_C(0x1e200c00)) {
+    static const char *const conditions[] = {"eq", "ne", "cs", "cc", "mi", "pl",
+                                             "vs", "vc", "hi", "ls", "ge", "lt",
+                                             "gt", "le", "al", "nv"};
+    (void)snprintf(out, n, "fcsel %c%u, %c%u, %c%u, %s", fp, rd, fp, rn, fp, rm,
+                   conditions[(w >> 12u) & 15u]);
+    return 1;
+  }
+  root = w & UINT32_C(0x7fbffc00);
+  int to_fp = root == UINT32_C(0x1e270000) || root == UINT32_C(0x1e220000) ||
+              root == UINT32_C(0x1e230000);
+  int from_fp = root == UINT32_C(0x1e260000) || root == UINT32_C(0x1e380000) ||
+                root == UINT32_C(0x1e390000);
+  if (to_fp || from_fp) {
+    int bits = w >> 31u ? 64 : 32;
+    int move = root == UINT32_C(0x1e270000) || root == UINT32_C(0x1e260000);
+    if (move && bits != (fp == 'd' ? 64 : 32))
+      return 0;
+    a64_reg(dst, sizeof(dst), to_fp ? rn : rd, bits, 0);
+    if (to_fp)
+      (void)snprintf(out, n, "%s %c%u, %s",
+                     move                ? "fmov"
+                     : (root & 0x10000u) ? "ucvtf"
+                                         : "scvtf",
+                     fp, rd, dst);
+    else
+      (void)snprintf(out, n, "%s %s, %c%u",
+                     move                ? "fmov"
+                     : (root & 0x10000u) ? "fcvtzu"
+                                         : "fcvtzs",
+                     dst, fp, rn);
+    return 1;
+  }
+  return 0;
+}
 static int decode_a64(uint32_t w, uint64_t pc, char *out, size_t n) {
   if (dump_scalable_word(w, out, n))
     return 1;
   if (dump_vector_word(AST_TARGET_ARCH_AARCH64, w, out, n))
     return 1;
   if (dump_system_word(AST_TARGET_ARCH_AARCH64, w, out, n))
+    return 1;
+  if (decode_a64_backend(w, out, n))
     return 1;
   unsigned rd = w & 31u, rn = (w >> 5u) & 31u, rm = (w >> 16u) & 31u;
   char d[12], a[12], b[12];
@@ -275,11 +389,11 @@ static int decode_a64(uint32_t w, uint64_t pc, char *out, size_t n) {
   }
   /* Compiler-emitted scalar A64 FP arithmetic. Preserve precision and
      reject alternate/unknown opcode fields rather than guessing. */
-  if ((w & UINT32_C(0xff20fc00)) == UINT32_C(0x1e202800) ||
-      (w & UINT32_C(0xff20fc00)) == UINT32_C(0x1e203800) ||
-      (w & UINT32_C(0xff20fc00)) == UINT32_C(0x1e200800) ||
-      (w & UINT32_C(0xff20fc00)) == UINT32_C(0x1e201800)) {
-    uint32_t pattern = w & UINT32_C(0xff20fc00);
+  if ((w & UINT32_C(0xffa0fc00)) == UINT32_C(0x1e202800) ||
+      (w & UINT32_C(0xffa0fc00)) == UINT32_C(0x1e203800) ||
+      (w & UINT32_C(0xffa0fc00)) == UINT32_C(0x1e200800) ||
+      (w & UINT32_C(0xffa0fc00)) == UINT32_C(0x1e201800)) {
+    uint32_t pattern = w & UINT32_C(0xffa0fc00);
     const char *mnemonic = pattern == UINT32_C(0x1e202800)   ? "fadd"
                            : pattern == UINT32_C(0x1e203800) ? "fsub"
                            : pattern == UINT32_C(0x1e200800) ? "fmul"
@@ -294,7 +408,7 @@ static int decode_a64(uint32_t w, uint64_t pc, char *out, size_t n) {
     (void)snprintf(out, n, "fneg %c%u, %c%u", kind, rd, kind, rn);
     return 1;
   }
-  if ((w & UINT32_C(0xff20fc1f)) == UINT32_C(0x1e202000)) {
+  if ((w & UINT32_C(0xffa0fc1f)) == UINT32_C(0x1e202000)) {
     char kind = w & UINT32_C(0x00400000) ? 'd' : 's';
     (void)snprintf(out, n, "fcmp %c%u, %c%u", kind, rn, kind, rm);
     return 1;
@@ -440,10 +554,99 @@ static int decode_a64(uint32_t w, uint64_t pc, char *out, size_t n) {
   }
   return decode_a64_scalar(w, out, n) || decode_a64_data(w, out, n);
 }
+static int decode_rv64_backend(uint32_t w, char *out, size_t n) {
+  unsigned op = w & 127u, rd = (w >> 7u) & 31u;
+  unsigned rs1 = (w >> 15u) & 31u, rs2 = (w >> 20u) & 31u;
+  unsigned mode = (w >> 12u) & 7u, function = w >> 25u;
+  if (op == 0x2fu) {
+    if (mode != 2u && mode != 3u)
+      return 0;
+    static const struct { unsigned function; const char *name; } forms[] = {
+        {0u, "amoadd"}, {1u, "amoswap"}, {2u, "lr"}, {3u, "sc"},
+        {4u, "amoxor"}, {8u, "amoor"}, {12u, "amoand"},
+        {16u, "amomin"}, {20u, "amomax"}, {24u, "amominu"}, {28u, "amomaxu"}};
+    unsigned code = w >> 27u, ordering = (w >> 25u) & 3u;
+    const char *suffix = ordering == 3u ? ".aqrl" : ordering == 2u ? ".aq" : ordering == 1u ? ".rl" : "";
+    for (size_t i = 0; i < sizeof(forms)/sizeof(forms[0]); ++i) {
+      if (forms[i].function != code)
+        continue;
+      if (code == 2u) {
+        if (rs2)
+          return 0;
+        (void)snprintf(out, n, "lr.%c%s %s, (%s)", mode == 3u ? 'd' : 'w', suffix, rv_reg(rd), rv_reg(rs1));
+      } else
+        (void)snprintf(out, n, "%s.%c%s %s, %s, (%s)", forms[i].name, mode == 3u ? 'd' : 'w', suffix,
+                       rv_reg(rd), rv_reg(rs2), rv_reg(rs1));
+      return 1;
+    }
+    return 0;
+  }
+  if (op != 0x53u)
+    return 0;
+  char kind = function & 1u ? 'd' : 's';
+  unsigned family = function & ~1u;
+  static const char *const rounding[] = {"rne", "rtz", "rdn", "rup",
+                                         "rmm", NULL,  NULL,  "dyn"};
+  if (family == 0u || family == 4u || family == 8u || family == 12u) {
+    if (!rounding[mode])
+      return 0;
+    const char *name = family == 0u   ? "fadd"
+                       : family == 4u ? "fsub"
+                       : family == 8u ? "fmul"
+                                      : "fdiv";
+    (void)snprintf(out, n, "%s.%c f%u, f%u, f%u, %s", name, kind, rd, rs1, rs2,
+                   rounding[mode]);
+    return 1;
+  }
+  if (family == 0x10u) {
+    if (mode > 2u)
+      return 0;
+    const char *name = mode == 0u ? "fsgnj" : mode == 1u ? "fsgnjn" : "fsgnjx";
+    (void)snprintf(out, n, "%s.%c f%u, f%u, f%u", name, kind, rd, rs1, rs2);
+    return 1;
+  }
+  if (family == 0x50u) {
+    if (mode > 2u)
+      return 0;
+    const char *name = mode == 2u ? "feq" : mode == 1u ? "flt" : "fle";
+    (void)snprintf(out, n, "%s.%c %s, f%u, f%u", name, kind, rv_reg(rd), rs1,
+                   rs2);
+    return 1;
+  }
+  if (family == 0x60u || family == 0x68u) {
+    if (rs2 > 3u || !rounding[mode])
+      return 0;
+    static const char *const integer[] = {"w", "wu", "l", "lu"};
+    if (family == 0x60u)
+      (void)snprintf(out, n, "fcvt.%s.%c %s, f%u, %s", integer[rs2], kind,
+                     rv_reg(rd), rs1, rounding[mode]);
+    else
+      (void)snprintf(out, n, "fcvt.%c.%s f%u, %s, %s", kind, integer[rs2], rd,
+                     rv_reg(rs1), rounding[mode]);
+    return 1;
+  }
+  if ((family == 0x70u || family == 0x78u) && !mode && !rs2) {
+    if (family == 0x70u)
+      (void)snprintf(out, n, "fmv.x.%c %s, f%u", kind == 's' ? 'w' : 'd',
+                     rv_reg(rd), rs1);
+    else
+      (void)snprintf(out, n, "fmv.%c.x f%u, %s", kind == 's' ? 'w' : 'd', rd,
+                     rv_reg(rs1));
+    return 1;
+  }
+  if (family == 0x20u && rs2 == (kind == 's' ? 1u : 0u) && rounding[mode]) {
+    (void)snprintf(out, n, "fcvt.%c.%c f%u, f%u, %s", kind,
+                   kind == 's' ? 'd' : 's', rd, rs1, rounding[mode]);
+    return 1;
+  }
+  return 0;
+}
 static int decode_rv64(uint32_t w, uint64_t pc, char *out, size_t n) {
   if (dump_vector_word(AST_TARGET_ARCH_RISCV64, w, out, n))
     return 1;
   if (dump_system_word(AST_TARGET_ARCH_RISCV64, w, out, n))
+    return 1;
+  if (decode_rv64_backend(w, out, n))
     return 1;
   uint32_t op = w & 127u;
   uint32_t rd = (w >> 7u) & 31u, rs1 = (w >> 15u) & 31u, rs2 = (w >> 20u) & 31u;
